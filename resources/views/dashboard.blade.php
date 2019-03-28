@@ -31,7 +31,7 @@
 	<!-- Page Preloder -->
 	<div id="preloder">
 		<div class="loader">
-			<img src="img/logo.png" alt="">
+			<img src="img/logo.png" width="280px" height="90px" alt="">
 			<h2>Loading.....</h2>
 		</div>
 	</div>
@@ -39,8 +39,8 @@
 
 	<!-- Header section -->
 	<header class="header-section">
-		<div class="logo">
-			<img src="img/logo.png" width="130px" height="50px" alt=""><!-- Logo -->
+		<div class="logo" >
+			<img src="img/logo.png" width="110px" height="40px" alt="" style="margin-bottom: 20px"><!-- Logo -->
 		</div>
 		<!-- Navigation -->
 		<div class="responsive"><i class="fa fa-bars"></i></div>
@@ -60,7 +60,8 @@
 	<div class="hero-section">
 		<div class="hero-content">
 			<div class="hero-center">
-				<img src="img/big-logo.png" width="250px" height="250px" alt="">
+				<img src="img/logo.png" alt=""><br>
+				<font size="4px" color="#ffffff" face="impact"><i>Sistem Pembayaran Pondok Pesantren Cerdas</i> </font>
 			</div>
 		</div>
 		<!-- slider -->
@@ -73,9 +74,9 @@
 
 
 	<!-- About section -->
-	<div class="about-section">
-		<div class="overlay"></div>
-		<!-- card section -->
+	<div class="about-section" style="background-color:#85c226 ">
+<!-- 		<div class="overlay"></div>
+ -->		<!-- card section -->
 		<div class="card-section">
 			<div class="container">
 				<div class="row">
@@ -346,7 +347,7 @@
 
 	<!-- Footer section -->
 	<footer class="footer-section">
-		<h2>2017 All rights reserved. Designed by <a href="https://colorlib.com" target="_blank">Colorlib</a></h2>
+		<h2 style="color: white">2017 All rights reserved. Designed by <a href="https://colorlib.com" target="_blank">Colorlib</a></h2>
 	</footer>
 	<!-- Footer section end -->
 

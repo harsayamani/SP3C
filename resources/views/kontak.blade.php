@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Kontak</title>
+	<title>Detail Pembayaran</title>
 	<meta charset="UTF-8">
 	<meta name="description" content="Labs - Design Studio">
 	<meta name="keywords" content="lab, onepage, creative, html">
@@ -30,7 +30,7 @@
 	<!-- Page Preloder -->
 	<div id="preloder">
 		<div class="loader">
-			<img src="img/logo.png" alt="">
+			<img src="img/logo.png" width="280px" height="90px" alt="">
 			<h2>Loading.....</h2>
 		</div>
 	</div>
@@ -38,8 +38,8 @@
 
 	<!-- Header section -->
 	<header class="header-section">
-		<div class="logo">
-			<img src="img/logo.png" width="130px" height="50px" alt=""><!-- Logo -->
+		<div class="logo" >
+			<img src="img/logo.png" width="110px" height="40px" alt="" style="margin-bottom: 20px"><!-- Logo -->
 		</div>
 		<!-- Navigation -->
 		<div class="responsive"><i class="fa fa-bars"></i></div>
@@ -167,13 +167,13 @@
 					<!-- Single widget -->
 					<br>
 					<br>
-					<!-- <div class="widget-item">
+					<div class="widget-item">
 						<h2 class="widget-title">Categories</h2>
 						<ul>
 							<li><a href="#">Pembayaran Siswa Baru</a></li>
 							<li><a href="#">Pembayaran SPP</a></li>
 						</ul>
-					</div> -->
+					</div>
 					<!-- Single widget -->
 					<!-- <div class="widget-item">
 						<h2 class="widget-title">Instagram</h2>

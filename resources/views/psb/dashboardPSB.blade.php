@@ -5,5 +5,6 @@
 </head>
 <body>
 	Ini dashboard PSB
+	<a href="/logout">Logout</a>
 </body>
 </html>

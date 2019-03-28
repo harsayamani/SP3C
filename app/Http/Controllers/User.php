@@ -32,7 +32,7 @@ class User extends Controller
 	                Session::put('name',$data->name);
 	                Session::put('username',$data->username);
 	                Session::put('loginAdmin',TRUE);
-	                return redirect('admin/dashboard');
+	                return redirect('/admin/dashboard');
 	            }
 	            else{
 	                return redirect('login')->with('alert','Password, Salah !');
@@ -73,18 +73,12 @@ class User extends Controller
 	        }
         }else{
         	return redirect('login')->with('alert','Username atau Password, Salah!');
-        }
-
-        
+        }  
     }
 
     public function logout(){
         Session::flush();
         return redirect('login')->with('alert','Anda sudah logout');
-    }
-
-    public function register(Request $request){
-        return view('register');
     }
 
 

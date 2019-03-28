@@ -27,11 +27,11 @@ Route::get('/tentang', function(){
 
 Route::get('/login', function(){
 	if(Session::get('loginSPP')){
-		return view('/spp/dashboardSPP');
+		return redirect('/spp/dashboard');
 	}elseif (Session::get('loginPSB')) {
-		return view('/psb/dashboardPSB');
+		return redirect('/psb/dashboard');
 	}elseif (Session::get('loginAdmin')) {
-		return view('/adm/dashboardAdm');
+		return redirect('/admin/dashboard');
 	}else{
 		return view('login');
 	}
@@ -65,3 +65,23 @@ Route::post('/loginPost', 'User@loginPost');
 
 Route::get('/logout', 'User@logout');
 
+// ---Route Kelas---
+
+Route::get('/admin/datasiswa/kelas', 'KelasController@index');
+
+route::post('/admin/datasiswa/kelas/tambahKelas', 'KelasController@tambahKelas');
+
+route::get('/admin/datasiswa/kelas/{id_kelas}/hapusKelas', 'KelasController@hapusKelas');
+
+route::post('/admin/datasiswa/kelas/ubahKelas', 'KelasController@ubahKelas');
+
+
+// ---Route Jenjang---
+
+route::get('/admin/datasiswa/jenjang', 'JenjangController@index');
+
+route::post('/admin/datasiswa/jenjang/tambahJenjang', 'JenjangController@tambahJenjang');
+
+route::get('/admin/datasiswa/jenjang/{id_jenjang}/hapusJenjang', 'JenjangController@hapusJenjang');
+
+route::post('/admin/datasiswa/jenjang/ubahJenjang', 'JenjangController@ubahJenjang');

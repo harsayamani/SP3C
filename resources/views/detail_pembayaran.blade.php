@@ -30,7 +30,7 @@
 	<!-- Page Preloder -->
 	<div id="preloder">
 		<div class="loader">
-			<img src="img/logo.png" alt="">
+			<img src="img/logo.png" width="280px" height="90px" alt="">
 			<h2>Loading.....</h2>
 		</div>
 	</div>
@@ -38,8 +38,8 @@
 
 	<!-- Header section -->
 	<header class="header-section">
-		<div class="logo">
-			<img src="img/logo.png" width="130px" height="50px" alt=""><!-- Logo -->
+		<div class="logo" >
+			<img src="img/logo.png" width="110px" height="40px" alt="" style="margin-bottom: 20px"><!-- Logo -->
 		</div>
 		<!-- Navigation -->
 		<div class="responsive"><i class="fa fa-bars"></i></div>

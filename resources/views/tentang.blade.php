@@ -30,7 +30,7 @@
 	<!-- Page Preloder -->
 	<div id="preloder">
 		<div class="loader">
-			<img src="img/logo.png" alt="">
+			<img src="img/logo.png" width="280px" height="90px" alt="">
 			<h2>Loading.....</h2>
 		</div>
 	</div>
@@ -38,8 +38,8 @@
 
 	<!-- Header section -->
 	<header class="header-section">
-		<div class="logo">
-			<img src="img/logo.png" width="130px" height="50px" alt=""><!-- Logo -->
+		<div class="logo" >
+			<img src="img/logo.png" width="110px" height="40px" alt="" style="margin-bottom: 20px"><!-- Logo -->
 		</div>
 		<!-- Navigation -->
 		<div class="responsive"><i class="fa fa-bars"></i></div>
@@ -88,7 +88,7 @@
 						<div class="post-content">
 							<br>
 							<br>
-							<h2 class="post-title">Just a simple blog post</h2>
+							<h2 class="post-title">Tentang Aplikasi</h2>
 							<!-- <div class="post-meta">
 								<a href="">Loredana Papp</a>
 								<a href="">Design, Inspiration</a>
@@ -99,7 +99,7 @@
 							<p>Fusce vel tempus nunc. Phasellus et risus eget sapien suscipit efficitur. Suspendisse iaculis purus ornare urna egestas imperdiet. Nulla congue consectetur placerat. Integer sit amet auctor justo. Pellentesque vel congue velit. Sed ullamcorper lacus scelerisque condimentum convallis. Sed ac mollis sem. </p>
 						</div>
 						<!-- Post Author -->
-						<div class="author">
+						<!-- <div class="author">
 							<div class="avatar">
 								<img src="img/avatar/03.jpg" alt="">
 							</div>
@@ -107,7 +107,7 @@
 								<h2>Lore Williams, <span>Author</span></h2>
 								<p>Vivamus in urna eu enim porttitor consequat. Proin vitae pulvinar libero. Proin ut hendrerit metus. Aliquam erat volutpat. Donec fermen tum convallis ante eget tristique. </p>
 							</div>
-						</div>
+						</div> -->
 						<!-- Post Comments -->
 						<!-- <div class="comments">
 							<h2>Comments (2)</h2>
@@ -167,13 +167,13 @@
 					<!-- Single widget -->
 					<br>
 					<br>
-					<div class="widget-item">
+					<!-- <div class="widget-item">
 						<h2 class="widget-title">Categories</h2>
 						<ul>
 							<li><a href="#">Pembayaran Siswa Baru</a></li>
 							<li><a href="#">Pembayaran SPP</a></li>
 						</ul>
-					</div>
+					</div> -->
 					<!-- Single widget -->
 					<!-- <div class="widget-item">
 						<h2 class="widget-title">Instagram</h2>
