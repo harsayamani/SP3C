@@ -1,4 +1,4 @@
-<?php
+<?php(
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -14,8 +14,12 @@ class CreateBulanSppTable extends Migration
     public function up()
     {
         Schema::create('bulan_spp', function (Blueprint $table) {
-            $table->increments('id_bulan');
+            $table->integer('id_bulan');
             $table->string('nama_bulan');
+            $table->string('thn_ajaran');
+            $table->double('sppSMA');
+            $table->double('sppSMP');
+            $table->double('sppIDADY');
         });
     }
 

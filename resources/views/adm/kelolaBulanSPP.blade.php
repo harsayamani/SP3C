@@ -44,13 +44,13 @@
                         <a href="/admin/datasiswa/kelas"><i class="menu-icon fa fa-table"></i>Kelola Data Kelas </a>
                     </li>
 
-                    <li class="active">
+                    <li>
                         <a href="/admin/datasiswa/jenjang"><i class="menu-icon fa fa-table"></i>Kelola Data Jenjang </a>
                     </li>
 
                     <li class="menu-title">Data Pembayaran Siswa</li><!-- /.menu-title -->
 
-                    <li class="menu-item-has-children dropdown">
+                    <li class= "menu-item-has-children active dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Pembayaran SPP</a>
                         <ul class="sub-menu children dropdown-menu">                           
                             <li><i class="fa fa-puzzle-piece"></i><a href="/admin/datapembayaran/spp">Kelola Data</a></li>
@@ -164,7 +164,7 @@
                     <div class="col-sm-4">
                         <div class="page-header float-left">
                             <div class="page-title">
-                                <h1>Jenjang</h1>
+                                <h1>Bulan SPP</h1>
                             </div>
                         </div>
                     </div>
@@ -173,8 +173,8 @@
                             <div class="page-title">
                                 <ol class="breadcrumb text-right">
                                     <li><a href="#">Dashboard</a></li>
-                                    <li><a href="#">Data Siswa</a></li>
-                                    <li class="active">Jenjang</li>
+                                    <li><a href="#">Data Pembayaran SPP</a></li>
+                                    <li class="active">Bulan SPP</li>
                                 </ol>
                             </div>
                         </div>
@@ -191,14 +191,14 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">Kelola Jenjang</strong>
+                                <strong class="card-title">Kelola Bulan SPP</strong>
                             </div>
                         
                             <div class="card-body">
 
                                 <div class="col-lg-3 col-md-6">
                                     <button type="button" class="btn btn-info mb-1" data-toggle="modal" data-target="#tambahJenjang">
-                                      Tambah Jenjang
+                                      Tambah Bulan
                                     </button>
                                 </div>
 
@@ -208,21 +208,36 @@
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="mediumModalLabel">Tambah Jenjang</h5>
+                                                <h5 class="modal-title" id="mediumModalLabel">Tambah Bulan</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>      
                                             <div class="modal-body">
-                                                <form action="{{ url('/admin/datasiswa/jenjang/tambahJenjang') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
-                                                                    {{ csrf_field()}}
+                                                <form action="{{ url('/admin/datapembayaran/spp/bulanSPP/tambahBulan') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
+                                                                    {{ csrf_field() }}
                                                     <div class="row form-group">
                                                         <div class="col col-md-3"><label for="email-input" class=" form-control-label">ID</label></div>
-                                                        <div class="col-12 col-md-9"><input type="number" id="id_jenjang" name="id_jenjang" placeholder="Masukkan ID Jenjang " class="form-control" required></div>
+                                                        <div class="col-12 col-md-9"><input type="number" id="id_bulan" name="id_bulan" placeholder="Masukkan ID Bulan SPP" class="form-control" required></div>
                                                     </div>
                                                     <div class="row form-group">
-                                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">Nama Jenjang</label></div>
-                                                        <div class="col-12 col-md-9"><input type="text" id="nama_jenjang" name="nama_jenjang" placeholder="Masukkan Nama Jenjang " class="form-control" required><small class="form-text text-muted">Tuliskan nama jenjang disini</small></div>
+                                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">Nama Bulan</label></div>
+                                                        <div class="col-12 col-md-9"><input type="text" id="nama_bulan" name="nama_bulan" placeholder="Masukkan Nama Jenjang " class="form-control" required><small class="form-text text-muted">Tuliskan nama bulan disini</small></div>
+                                                    </div>
+                                                    <div class="row form-group">
+                                                        <div class="col col-md-3"><label for="id_jenjang" class=" form-control-label">Jenjang</label></div>
+                                                        <div class="col-12 col-md-9">
+                                                            <select name="id_jenjang" id="id_jenjang" class="form-control">
+                                                                <option value="0">---Pilih Jenjang---</option>
+                                                                @foreach($data_jenjang as $jenjang)
+                                                                <option value="{{$jenjang->id_jenjang}}">{{$jenjang->nama_jenjang}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row form-group">
+                                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">Biaya SPP</label></div>
+                                                        <div class="col-12 col-md-9"><input type="number" id="jumlah_spp" name="jumlah_spp" placeholder="Masukkan Biaya SPP " class="form-control" required><small class="form-text text-muted">Tuliskan biaya spp disini</small></div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="submit" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -236,38 +251,60 @@
 
                                 <!-- Modal Ubah Data-->
 
-                                <div class="modal fade" id="updateJenjang" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="updateBulanSPP" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
 
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="mediumModalLabel">Ubah Jenjang</h5>
+                                                <h5 class="modal-title" id="mediumModalLabel">Ubah Bulan SPP</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                             </div>
                                                     
-                                            <form action="{{ url('/admin/datasiswa/jenjang/ubahJenjang') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
+                                            <form action="{{ url('/admin/datapembayaran/spp/bulanSPP/ubahBulan') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
                                                                 {{ csrf_field() }}
                                                 <div class="modal-body">
 
                                                     <div class="row form-group">
                                                         <div class="col col-md-3">
-                                                            <label class=" form-control-label">ID_Jenjang</label>
+                                                            <label class=" form-control-label">ID</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input type="text" id="id_jenjang" name="id_jenjang" class="form-control" readonly>
+                                                            <input type="text" id="id_bulan" name="id_bulan" class="form-control" readonly>
                                                         </div>
                                                     </div>
 
                                                     <div class="row form-group">
                                                         <div class="col col-md-3">
-                                                            <label for="text-input" class=" form-control-label">Nama Jenjang</label>
+                                                            <label for="text-input" class=" form-control-label">Nama Bulan</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input type="text" id="nama_jenjang" name="nama_jenjang" class="form-control" required>
+                                                            <input type="text" id="nama_bulan" name="nama_bulan" class="form-control" required>
                                                         </div>
                                                     </div>
+
+                                                    <div class="row form-group">
+                                                        <div class="col col-md-3"><label for="id_jenjang" class=" form-control-label">Jenjang</label></div>
+                                                        <div class="col-12 col-md-9">
+                                                            <select name="id_jenjang" id="id_jenjang" class="form-control">
+                                                                <option value="0">---Pilih Jenjang---</option>
+                                                                @foreach($data_jenjang as $jenjang)
+                                                                <option value="{{$jenjang->id_jenjang}}">{{$jenjang->nama_jenjang}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row form-group">
+                                                        <div class="col col-md-3">
+                                                            <label for="text-input" class=" form-control-label">Biaya SPP</label>
+                                                        </div>
+                                                        <div class="col-12 col-md-9">
+                                                            <input type="number" id="jumlah_spp" name="jumlah_spp" class="form-control" required>
+                                                        </div>
+                                                    </div>
+
                                                 </div>                 
 
                                                 <div class="modal-footer">
@@ -285,26 +322,32 @@
                                     <thead>
                                         <tr>
                                             <th scope="row">Id</th>
+                                            <th scope="col">Bulan SPP</th>
                                             <th scope="col">Jenjang</th>
+                                            <th scope="col">Biaya SPP</th>
                                             <th scope="col">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($data_jenjang as $jenjang)
+                                    @foreach($data_bulan_spp as $bulan_spp)
                                         <tr>
-                                            <td scope="row">{{$jenjang->id_jenjang}}</td>
-                                            <td>{{$jenjang->nama_jenjang}}</td>
+                                            <td scope="row">{{$bulan_spp->id_bulan}}</td>
+                                            <td>{{$bulan_spp->nama_bulan}}</td>
+                                            <td>{{App\Jenjang::where('id_jenjang', $bulan_spp->id_jenjang)->first()->nama_jenjang}}</td>
+                                            <td>{{$bulan_spp->jumlah_spp}}</td>
                                             <td>
                                                 <button type="button" class="btn btn-outline-success btn-sm" 
-                                                data-target="#updateJenjang" 
+                                                data-target="#updateBulanSPP" 
                                                 data-toggle="modal" 
-                                                data-id_jenjang="{{$jenjang->id_jenjang}}"
-                                                data-nama_jenjang="{{$jenjang->nama_jenjang}}">
+                                                data-id_bulan="{{$bulan_spp->id_bulan}}"
+                                                data-nama_bulan="{{$bulan_spp->nama_bulan}}"
+                                                data-id_jenjang="{{$bulan_spp->id_jenjang}}"
+                                                data-biaya_spp="{{$bulan_spp->jumlah_spp}}">
                                                 <i class="fa fa-edit"></i>
                                                 &nbsp; Ubah Data
                                                 </button>
                     
-                                                <a href="/admin/datasiswa/jenjang/{{$jenjang->id_jenjang}}/hapusJenjang" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i>&nbsp;Hapus</a>
+                                                <a href="/admin/datapembayaran/spp/bulanSPP/{{$bulan_spp->id_bulan}}/hapusBulan" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i>&nbsp;Hapus</a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -349,15 +392,19 @@
     <!--Local Stuff-->
     <script type="text/javascript">
         $(document).ready(function(){
-              $('#updateJenjang').on('show.bs.modal', function (event) {
+              $('#updateBulanSPP').on('show.bs.modal', function (event) {
               var button = $(event.relatedTarget); // Button that triggered the modal
-              var idJenjang = button.data('id_jenjang'); // Extract info from data-* attributes
-              var namaJenjang = button.data('nama_jenjang');
+              var idBulan = button.data('id_bulan'); // Extract info from data-* attributes
+              var namaBulan = button.data('nama_bulan');
+              var idJenjang = button.data('id_jenjang');
+              var biayaSPP = button.data('biaya_spp')
               // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
               // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
               var modal = $(this);
+              modal.find('.modal-body #id_bulan').val(idBulan);
+              modal.find('.modal-body #nama_bulan').val(namaBulan);
               modal.find('.modal-body #id_jenjang').val(idJenjang);
-              modal.find('.modal-body #nama_jenjang').val(namaJenjang);
+              modal.find('.modal-body #jumlah_spp').val(biayaSPP);
             });
         }); 
     </script> 

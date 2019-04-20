@@ -74,21 +74,17 @@
                 <ul class="nav navbar-nav">
 
                     <li class="active">
-                        <a href="index.html"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
+                        <a href="/admin/dashboard"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
 
                     <li class="menu-title">Data Siswa</li><!-- /.menu-title -->
 
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Kelola Data Siswa</a>
-                        <ul class="sub-menu children dropdown-menu">                           
-                        	<li><i class="fa fa-id-badge"></i><a href="ui-buttons.html">Tambah Data Siswa</a></li>
-                            <li><i class="fa fa-puzzle-piece"></i><a href="ui-badges.html">Edit Data Siswa</a></li>
-                        </ul>
+                    <li >
+                        <a href="/admin/datasiswa/kelolaSiswa"><i class="menu-icon fa fa-table"></i>Kelola Data Siswa </a>
                     </li>
 
                     <li >
-                        <a href="index.html"><i class="menu-icon fa fa-table"></i>Kelola Data Kelas </a>
+                        <a href="/admin/datasiswa/kelas"><i class="menu-icon fa fa-table"></i>Kelola Data Kelas </a>
                     </li>
 
                     <li >
@@ -100,20 +96,18 @@
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Pembayaran SPP</a>
                         <ul class="sub-menu children dropdown-menu">                           
-                        	<li><i class="fa fa-puzzle-piece"></i><a href="#">Kelola Data</a></li>
+                            <li><i class="fa fa-puzzle-piece"></i><a href="/admin/datapembayaran/spp">Kelola Data</a></li>
+                            <li><i class="fa fa-puzzle-piece"></i><a href="/admin/datapembayaran/spp/bulanSPP">Kelola Bulan SPP</a></li>
                         </ul>
                     </li>
 
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Pembayaran Siswa Baru</a>
                         <ul class="sub-menu children dropdown-menu">                           
-                        	<li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">Kelola Data</a></li>
-                            <li><i class="fa fa-puzzle-piece"></i><a href="ui-badges.html">Kelola Rincian</a></li>
+                            <li><i class="fa fa-puzzle-piece"></i><a href="/admin/datapembayaran/psb">Kelola Data</a></li>
+                            <li><i class="fa fa-puzzle-piece"></i><a href="/admin/datapembayaran/psb/rincian">Kelola Rincian</a></li>
                         </ul>
                     </li>
-
-                    
-         
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
@@ -141,46 +135,24 @@
                             </form>
                         </div>
 
-                        
-
-                        <div class="dropdown for-message">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-envelope"></i>
-                                <span class="count bg-primary">4</span>
+                        <div class="dropdown for-notification">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-bell"></i>
+                                <span class="count bg-danger">3</span>
                             </button>
-                            <div class="dropdown-menu" aria-labelledby="message">
-                                <p class="red">You have 4 Mails</p>
+                            <div class="dropdown-menu" aria-labelledby="notification">
+                                <p class="red">You have 3 Notification</p>
                                 <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="/images/avatar/1.jpg"></span>
-                                    <div class="message media-body">
-                                        <span class="name float-left">Jonathan Smith</span>
-                                        <span class="time float-right">Just now</span>
-                                        <p>Hello, this is an example msg</p>
-                                    </div>
+                                    <i class="fa fa-check"></i>
+                                    <p>Server #1 overloaded.</p>
                                 </a>
                                 <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="/images/avatar/2.jpg"></span>
-                                    <div class="message media-body">
-                                        <span class="name float-left">Jack Sanders</span>
-                                        <span class="time float-right">5 minutes ago</span>
-                                        <p>Lorem ipsum dolor sit amet, consectetur</p>
-                                    </div>
+                                    <i class="fa fa-info"></i>
+                                    <p>Server #2 overloaded.</p>
                                 </a>
                                 <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="/images/avatar/3.jpg"></span>
-                                    <div class="message media-body">
-                                        <span class="name float-left">Cheryl Wheeler</span>
-                                        <span class="time float-right">10 minutes ago</span>
-                                        <p>Hello, this is an example msg</p>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="/images/avatar/4.jpg"></span>
-                                    <div class="message media-body">
-                                        <span class="name float-left">Rachel Santos</span>
-                                        <span class="time float-right">15 minutes ago</span>
-                                        <p>Lorem ipsum dolor sit amet, consectetur</p>
-                                    </div>
+                                    <i class="fa fa-warning"></i>
+                                    <p>Server #3 overloaded.</p>
                                 </a>
                             </div>
                         </div>
@@ -188,7 +160,7 @@
 
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="/images/admin.jpg" alt="User Avatar">
+                            <img class="user-avatar rounded-circle" src="/images/boss.png" alt="User Avatar">
                         </a>
 
                         <div class="user-menu dropdown-menu">
@@ -229,12 +201,12 @@
                             <div class="card-body">
                                 <div class="stat-widget-five">
                                     <div class="stat-icon dib flat-color-2">
-                                        <i class="pe-7s-cart"></i>
+                                        <i class="pe-7s-browser"></i>
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text"><span class="count">3435</span></div>
-                                            <div class="stat-heading">Sales</div>
+                                            <div class="stat-text"><span class="count">{{$jenjang}}</span></div>
+                                            <div class="stat-heading">Jenjang</div>
                                         </div>
                                     </div>
                                 </div>
@@ -251,8 +223,8 @@
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text"><span class="count">349</span></div>
-                                            <div class="stat-heading">Templates</div>
+                                            <div class="stat-text"><span class="count">{{$kelas}}</span></div>
+                                            <div class="stat-heading">Kelas</div>
                                         </div>
                                     </div>
                                 </div>
@@ -269,8 +241,8 @@
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text"><span class="count">2986</span></div>
-                                            <div class="stat-heading">Clients</div>
+                                            <div class="stat-text"><span class="count">{{$siswa}}</span></div>
+                                            <div class="stat-heading">Siswa</div>
                                         </div>
                                     </div>
                                 </div>
@@ -279,11 +251,6 @@
                     </div>
                 </div>
                 <!-- /Widgets -->
-                <!--  Traffic  -->
-                <!-- Orders -->
-                <!-- /.orders -->
-                <!-- To Do and Live Chat -->
-                <!-- /To Do and Live Chat -->
                 <!-- Calender Chart Weather  -->
                 <div class="row">
                     <div class="col-md-12">

@@ -10,12 +10,15 @@ use Illuminate\Support\Facades\Session;
 class User extends Controller
 {
     public function index(){
-        if(!Session::get('login')){
-            return redirect('login')->with('alert','Anda harus login terlebih dulu');
-        }
-        else{
-            return view('user');
-        }
+        if(Session::get('loginSPP')){
+			return redirect('/spp/dashboard');
+		}elseif (Session::get('loginPSB')) {
+			return redirect('/psb/dashboard');
+		}elseif (Session::get('loginAdmin')) {
+			return redirect('/admin/dashboard');
+		}else{
+			return view('login');
+		}
     }
 
 

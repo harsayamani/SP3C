@@ -19,9 +19,9 @@ class CreateSiswaTable extends Migration
             $table->integer('id_kelas');
             $table->string('jenis_kelamin');
             $table->text('alamat');
-            $table->integer('no_hp');
+            $table->string('no_hp');
             $table->string('nama_ortu');
-            $table->integer('no_hp_ortu');
+            $table->string('no_hp_ortu');
             $table->integer('angkatan');
         });
     }

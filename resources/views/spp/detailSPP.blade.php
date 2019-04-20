@@ -31,40 +31,17 @@
                 <ul class="nav navbar-nav">
 
                     <li>
-                        <a href="/admin/dashboard"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
-                    </li>
-
-                    <li class="menu-title">Data Siswa</li><!-- /.menu-title -->
-
-                    <li >
-                        <a href="/admin/datasiswa/kelolaSiswa"><i class="menu-icon fa fa-table"></i>Kelola Data Siswa </a>
-                    </li>
-
-                    <li>
-                        <a href="/admin/datasiswa/kelas"><i class="menu-icon fa fa-table"></i>Kelola Data Kelas </a>
+                        <a href="/spp/dashboard"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
                     </li>
 
                     <li class="active">
-                        <a href="/admin/datasiswa/jenjang"><i class="menu-icon fa fa-table"></i>Kelola Data Jenjang </a>
+                        <a href="/spp/pembayaranSPP"><i class="menu-icon fa fa-table"></i>Pembayaran SPP </a>
                     </li>
 
-                    <li class="menu-title">Data Pembayaran Siswa</li><!-- /.menu-title -->
-
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Pembayaran SPP</a>
-                        <ul class="sub-menu children dropdown-menu">                           
-                            <li><i class="fa fa-puzzle-piece"></i><a href="/admin/datapembayaran/spp">Kelola Data</a></li>
-                            <li><i class="fa fa-puzzle-piece"></i><a href="/admin/datapembayaran/spp/bulanSPP">Kelola Bulan SPP</a></li>
-                        </ul>
+                    <li >
+                        <a href="/spp/notifikasiPembayaran"><i class="menu-icon fa fa-table"></i>Notifikasi Pembayaran</a>
                     </li>
-
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Pembayaran Siswa Baru</a>
-                        <ul class="sub-menu children dropdown-menu">                           
-                            <li><i class="fa fa-puzzle-piece"></i><a href="/admin/datapembayaran/psb">Kelola Data</a></li>
-                            <li><i class="fa fa-puzzle-piece"></i><a href="/admin/datapembayaran/psb/rincian">Kelola Rincian</a></li>
-                        </ul>
-                    </li>
+                    
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>

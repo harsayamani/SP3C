@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="/assets/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="/assets/css/style.css">
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
-    
+
 </head>
 
 <body> 
@@ -36,15 +36,15 @@
 
                     <li class="menu-title">Data Siswa</li><!-- /.menu-title -->
 
-                    <li >
-                        <a href="/admin/datasiswa/kelolaSiswa"><i class="menu-icon fa fa-table"></i>Kelola Data Siswa </a>
+                    <li class="active">
+                        <a href="/admin/datasiswa/kelolaSiswa"><i class="menu-icon fa fa-table"></i>Kelola Data Siswa</a>
                     </li>
 
                     <li>
                         <a href="/admin/datasiswa/kelas"><i class="menu-icon fa fa-table"></i>Kelola Data Kelas </a>
                     </li>
 
-                    <li class="active">
+                    <li>
                         <a href="/admin/datasiswa/jenjang"><i class="menu-icon fa fa-table"></i>Kelola Data Jenjang </a>
                     </li>
 
@@ -146,25 +146,13 @@
             </div>
         @endif
 
-        @if (session()->has('alert danger'))
-            <div class="alert alert-danger" role="alert">
-                Data berhasil dihapus
-            </div>
-        @endif
-
-        @if (session()->has('alert warning'))
-            <div class="alert alert-success" role="alert">
-                Data berhasil diubah
-            </div>
-        @endif
-
         <div class="breadcrumbs">
             <div class="breadcrumbs-inner">
                 <div class="row m-0">
                     <div class="col-sm-4">
                         <div class="page-header float-left">
                             <div class="page-title">
-                                <h1>Jenjang</h1>
+                                <h1>Siswa</h1>
                             </div>
                         </div>
                     </div>
@@ -174,7 +162,7 @@
                                 <ol class="breadcrumb text-right">
                                     <li><a href="#">Dashboard</a></li>
                                     <li><a href="#">Data Siswa</a></li>
-                                    <li class="active">Jenjang</li>
+                                    <li class="active">Tambah Siswa</li>
                                 </ol>
                             </div>
                         </div>
@@ -190,127 +178,45 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="card-header">
-                                <strong class="card-title">Kelola Jenjang</strong>
-                            </div>
-                        
-                            <div class="card-body">
+                            <form method="post" action="{{ url('/admin/datasiswa/tambahSiswa') }}">
+                            <div class="card-header"><strong>Form</strong> <strong>Siswa</strong></div>
+                            <div class="card-body card-block">
+                                                        {{ csrf_field() }}
 
-                                <div class="col-lg-3 col-md-6">
-                                    <button type="button" class="btn btn-info mb-1" data-toggle="modal" data-target="#tambahJenjang">
-                                      Tambah Jenjang
-                                    </button>
-                                </div>
+                                <div class="form-group"><label for="NIS" class=" form-control-label">NIS</label><input type="text" id="NIS" name="NIS" value="1905" placeholder="Masukkan NIS Siswa" class="form-control" required></div>
+                                <div class="form-group"><label for="nama_siswa" class=" form-control-label">Nama Siswa</label><input type="text" id="nama_siswa" name="nama_siswa" placeholder="Masukkan nama siswa" class="form-control" required></div>
+                                <div class="form-group"><label for="id_kelas" class=" form-control-label">Kelas</label>
+                                    <select name="id_kelas" id="id_kelas" class="form-control">
+                                        <option value="0">---Pilih kelas---</option>
+                                        @foreach($data_kelas as $kelas)
+                                        <option value="{{$kelas->id_kelas}}">{{$kelas->nama_kelas}}</option>
+                                        @endforeach
 
-                                <!-- Modal Tambah Data-->
-
-                                <div class="modal fade" id="tambahJenjang" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="mediumModalLabel">Tambah Jenjang</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>      
-                                            <div class="modal-body">
-                                                <form action="{{ url('/admin/datasiswa/jenjang/tambahJenjang') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
-                                                                    {{ csrf_field()}}
-                                                    <div class="row form-group">
-                                                        <div class="col col-md-3"><label for="email-input" class=" form-control-label">ID</label></div>
-                                                        <div class="col-12 col-md-9"><input type="number" id="id_jenjang" name="id_jenjang" placeholder="Masukkan ID Jenjang " class="form-control" required></div>
-                                                    </div>
-                                                    <div class="row form-group">
-                                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">Nama Jenjang</label></div>
-                                                        <div class="col-12 col-md-9"><input type="text" id="nama_jenjang" name="nama_jenjang" placeholder="Masukkan Nama Jenjang " class="form-control" required><small class="form-text text-muted">Tuliskan nama jenjang disini</small></div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                        <button type="submit" class="btn btn-primary">Tambah</button>
-                                                    </div>
-                                                </form>
-                                            </div>    
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Modal Ubah Data-->
-
-                                <div class="modal fade" id="updateJenjang" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg" role="document">
-                                        <div class="modal-content">
-
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="mediumModalLabel">Ubah Jenjang</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                            </div>
-                                                    
-                                            <form action="{{ url('/admin/datasiswa/jenjang/ubahJenjang') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
-                                                                {{ csrf_field() }}
-                                                <div class="modal-body">
-
-                                                    <div class="row form-group">
-                                                        <div class="col col-md-3">
-                                                            <label class=" form-control-label">ID_Jenjang</label>
-                                                        </div>
-                                                        <div class="col-12 col-md-9">
-                                                            <input type="text" id="id_jenjang" name="id_jenjang" class="form-control" readonly>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row form-group">
-                                                        <div class="col col-md-3">
-                                                            <label for="text-input" class=" form-control-label">Nama Jenjang</label>
-                                                        </div>
-                                                        <div class="col-12 col-md-9">
-                                                            <input type="text" id="nama_jenjang" name="nama_jenjang" class="form-control" required>
-                                                        </div>
-                                                    </div>
-                                                </div>                 
-
-                                                <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                    <button type="submit" class="btn btn-primary">Ubah Data</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
+                                    </select>
+                                </div>  
+                                <div class="form-group"><label for="jenis_kelamin" class=" form-control-label">Kelas</label>
+                                    <select name="jenis_kelamin" id="jenis_kelamin" class="form-control">
+                                        <option value="0">---Pilih jenis kelamin---</option>
+                                        <option value="L">Laki-Laki</option>
+                                        <option value="P">Perempuan</option>
+                                    </select>
                                 </div> 
-
-                                <br>
-
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th scope="row">Id</th>
-                                            <th scope="col">Jenjang</th>
-                                            <th scope="col">Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($data_jenjang as $jenjang)
-                                        <tr>
-                                            <td scope="row">{{$jenjang->id_jenjang}}</td>
-                                            <td>{{$jenjang->nama_jenjang}}</td>
-                                            <td>
-                                                <button type="button" class="btn btn-outline-success btn-sm" 
-                                                data-target="#updateJenjang" 
-                                                data-toggle="modal" 
-                                                data-id_jenjang="{{$jenjang->id_jenjang}}"
-                                                data-nama_jenjang="{{$jenjang->nama_jenjang}}">
-                                                <i class="fa fa-edit"></i>
-                                                &nbsp; Ubah Data
-                                                </button>
-                    
-                                                <a href="/admin/datasiswa/jenjang/{{$jenjang->id_jenjang}}/hapusJenjang" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i>&nbsp;Hapus</a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>   
+                                <div class="form-group"><label for="street" class=" form-control-label">Alamat</label><textarea type="text" id="alamat" name="alamat" placeholder="Masukkan alamat siswa" class="form-control" required></textarea></div>
+                                <div class="form-group"><label for="no_hp" class=" form-control-label">Nomor HP Siswa</label><input type="text" id="no_hp" name="no_hp" placeholder="mis.0894648273xxx" class="form-control" required></div>
+                                <div class="form-group"><label for="nama_ortu" class=" form-control-label">Nama Orang Tua Siswa</label><input type="text" id="nama_ortu" name="nama_ortu" placeholder="Masukkan nama orang tua siswa" class="form-control" required></div>
+                                <div class="form-group"><label for="no_hp_ortu" class=" form-control-label">Nomor HP Orang Tua Siswa</label><input type="text" id="no_hp_ortu" name="no_hp_ortu" placeholder="mis.0894648273xxx" class="form-control" required></div>
+                                <div class="form-group"><label for="no_hp_ortu" class=" form-control-label">Angkatan</label><input type="text" id="angkatan" name="angkatan" placeholder="mis.2017" class="form-control" required></div>
                             </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary btn-sm">
+                                    <i class="fa fa-dot-circle-o"></i> Submit
+                                </button>
+                                <button type="reset" class="btn btn-danger btn-sm">
+                                    <i class="fa fa-ban"></i> Reset
+                                </button>
+                            </div>
+                            </form>
+                            
                         </div>
                     </div>
                 </div>
@@ -345,22 +251,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-    <!--Local Stuff-->
-    <script type="text/javascript">
-        $(document).ready(function(){
-              $('#updateJenjang').on('show.bs.modal', function (event) {
-              var button = $(event.relatedTarget); // Button that triggered the modal
-              var idJenjang = button.data('id_jenjang'); // Extract info from data-* attributes
-              var namaJenjang = button.data('nama_jenjang');
-              // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-              // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-              var modal = $(this);
-              modal.find('.modal-body #id_jenjang').val(idJenjang);
-              modal.find('.modal-body #nama_jenjang').val(namaJenjang);
-            });
-        }); 
-    </script> 
-
+    
 </body>
 </html>

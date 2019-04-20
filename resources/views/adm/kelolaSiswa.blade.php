@@ -18,9 +18,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
     <link rel="stylesheet" href="/assets/css/cs-skin-elastic.css">
+    <link rel="stylesheet" href="/assets/css/lib/datatable/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/style.css">
-    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
-    
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+
 </head>
 
 <body> 
@@ -36,15 +37,15 @@
 
                     <li class="menu-title">Data Siswa</li><!-- /.menu-title -->
 
-                    <li >
-                        <a href="/admin/datasiswa/kelolaSiswa"><i class="menu-icon fa fa-table"></i>Kelola Data Siswa </a>
+                    <li class="active">
+                        <a href="/admin/datasiswa/kelolaSiswa"><i class="menu-icon fa fa-table"></i>Kelola Data Siswa</a>
                     </li>
 
                     <li>
                         <a href="/admin/datasiswa/kelas"><i class="menu-icon fa fa-table"></i>Kelola Data Kelas </a>
                     </li>
 
-                    <li class="active">
+                    <li >
                         <a href="/admin/datasiswa/jenjang"><i class="menu-icon fa fa-table"></i>Kelola Data Jenjang </a>
                     </li>
 
@@ -164,7 +165,7 @@
                     <div class="col-sm-4">
                         <div class="page-header float-left">
                             <div class="page-title">
-                                <h1>Jenjang</h1>
+                                <h1>Siswa</h1>
                             </div>
                         </div>
                     </div>
@@ -174,7 +175,7 @@
                                 <ol class="breadcrumb text-right">
                                     <li><a href="#">Dashboard</a></li>
                                     <li><a href="#">Data Siswa</a></li>
-                                    <li class="active">Jenjang</li>
+                                    <li class="active">Siswa</li>
                                 </ol>
                             </div>
                         </div>
@@ -191,125 +192,46 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">Kelola Jenjang</strong>
+                                <strong class="card-title">Kelola Siswa</strong>
                             </div>
                         
                             <div class="card-body">
 
                                 <div class="col-lg-3 col-md-6">
-                                    <button type="button" class="btn btn-info mb-1" data-toggle="modal" data-target="#tambahJenjang">
-                                      Tambah Jenjang
-                                    </button>
+                                    <a href="/admin/datasiswa/formSiswa" class="btn btn-info mb-1">
+                                      Tambah Siswa
+                                    </a>
                                 </div>
-
-                                <!-- Modal Tambah Data-->
-
-                                <div class="modal fade" id="tambahJenjang" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="mediumModalLabel">Tambah Jenjang</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>      
-                                            <div class="modal-body">
-                                                <form action="{{ url('/admin/datasiswa/jenjang/tambahJenjang') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
-                                                                    {{ csrf_field()}}
-                                                    <div class="row form-group">
-                                                        <div class="col col-md-3"><label for="email-input" class=" form-control-label">ID</label></div>
-                                                        <div class="col-12 col-md-9"><input type="number" id="id_jenjang" name="id_jenjang" placeholder="Masukkan ID Jenjang " class="form-control" required></div>
-                                                    </div>
-                                                    <div class="row form-group">
-                                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">Nama Jenjang</label></div>
-                                                        <div class="col-12 col-md-9"><input type="text" id="nama_jenjang" name="nama_jenjang" placeholder="Masukkan Nama Jenjang " class="form-control" required><small class="form-text text-muted">Tuliskan nama jenjang disini</small></div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                        <button type="submit" class="btn btn-primary">Tambah</button>
-                                                    </div>
-                                                </form>
-                                            </div>    
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Modal Ubah Data-->
-
-                                <div class="modal fade" id="updateJenjang" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg" role="document">
-                                        <div class="modal-content">
-
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="mediumModalLabel">Ubah Jenjang</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                            </div>
-                                                    
-                                            <form action="{{ url('/admin/datasiswa/jenjang/ubahJenjang') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
-                                                                {{ csrf_field() }}
-                                                <div class="modal-body">
-
-                                                    <div class="row form-group">
-                                                        <div class="col col-md-3">
-                                                            <label class=" form-control-label">ID_Jenjang</label>
-                                                        </div>
-                                                        <div class="col-12 col-md-9">
-                                                            <input type="text" id="id_jenjang" name="id_jenjang" class="form-control" readonly>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row form-group">
-                                                        <div class="col col-md-3">
-                                                            <label for="text-input" class=" form-control-label">Nama Jenjang</label>
-                                                        </div>
-                                                        <div class="col-12 col-md-9">
-                                                            <input type="text" id="nama_jenjang" name="nama_jenjang" class="form-control" required>
-                                                        </div>
-                                                    </div>
-                                                </div>                 
-
-                                                <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                    <button type="submit" class="btn btn-primary">Ubah Data</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div> 
 
                                 <br>
 
-                                <table class="table table-striped">
+                                <table id="bootstrap-data-table" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th scope="row">Id</th>
-                                            <th scope="col">Jenjang</th>
-                                            <th scope="col">Aksi</th>
+                                            <th>NIS</th>
+                                            <th>Nama</th>
+                                            <th>Kelas</th>
+                                            <th>Jenjang</th>
+                                            <th>Angkatan</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($data_jenjang as $jenjang)
+                                    @foreach($data_siswa as $siswa)
                                         <tr>
-                                            <td scope="row">{{$jenjang->id_jenjang}}</td>
-                                            <td>{{$jenjang->nama_jenjang}}</td>
+                                            <td>{{$siswa->NIS}}</td>
+                                            <td>{{$siswa->nama_siswa}}</td>
+                                            <td>{{App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->nama_kelas}}</td>
+                                            <td>{{App\Jenjang::where('id_jenjang', App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->id_jenjang)->first()->nama_jenjang}}</td>
+                                            <td>{{$siswa->angkatan}}</td>
                                             <td>
-                                                <button type="button" class="btn btn-outline-success btn-sm" 
-                                                data-target="#updateJenjang" 
-                                                data-toggle="modal" 
-                                                data-id_jenjang="{{$jenjang->id_jenjang}}"
-                                                data-nama_jenjang="{{$jenjang->nama_jenjang}}">
-                                                <i class="fa fa-edit"></i>
-                                                &nbsp; Ubah Data
-                                                </button>
-                    
-                                                <a href="/admin/datasiswa/jenjang/{{$jenjang->id_jenjang}}/hapusJenjang" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i>&nbsp;Hapus</a>
+                                            <a href="/admin/datasiswa/{{$siswa->NIS}}/hapusSiswa" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i>&nbsp;Hapus</a>
+                                            <a href="/admin/datasiswa/{{$siswa->NIS}}/updateSiswa" class="btn btn-outline-success btn-sm"><i class="fa fa-edit"></i>&nbsp;Ubah</a>
                                             </td>
                                         </tr>
                                     @endforeach
                                     </tbody>
-                                </table>   
+                                </table>    
                             </div>
                         </div>
                     </div>
@@ -335,32 +257,22 @@
     </div>
 
     <!-- /#right-panel -->
-
     <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
     <script src="/assets/js/main.js"></script>
+    <script src="/assets/js/lib/data-table/datatables.min.js"></script>
+    <script src="/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+    <script src="/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
+    <script src="/assets/js/lib/data-table/jszip.min.js"></script>
+    <script src="/assets/js/lib/data-table/vfs_fonts.js"></script>
+    <script src="/assets/js/lib/data-table/buttons.html5.min.js"></script>
+    <script src="/assets/js/lib/data-table/buttons.print.min.js"></script>
+    <script src="/assets/js/lib/data-table/buttons.colVis.min.js"></script>
+    <script src="/assets/js/init/datatables-init.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-    <!--Local Stuff-->
-    <script type="text/javascript">
-        $(document).ready(function(){
-              $('#updateJenjang').on('show.bs.modal', function (event) {
-              var button = $(event.relatedTarget); // Button that triggered the modal
-              var idJenjang = button.data('id_jenjang'); // Extract info from data-* attributes
-              var namaJenjang = button.data('nama_jenjang');
-              // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-              // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-              var modal = $(this);
-              modal.find('.modal-body #id_jenjang').val(idJenjang);
-              modal.find('.modal-body #nama_jenjang').val(namaJenjang);
-            });
-        }); 
-    </script> 
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>   
 
 </body>
 </html>

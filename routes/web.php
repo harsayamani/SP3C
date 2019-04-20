@@ -25,45 +25,32 @@ Route::get('/tentang', function(){
 	return view('tentang');
 });
 
-Route::get('/login', function(){
-	if(Session::get('loginSPP')){
-		return redirect('/spp/dashboard');
-	}elseif (Session::get('loginPSB')) {
-		return redirect('/psb/dashboard');
-	}elseif (Session::get('loginAdmin')) {
-		return redirect('/admin/dashboard');
-	}else{
-		return view('login');
-	}
-});
+Route::get('/login', 'User@index');
 
-Route::get('/spp/dashboard', function(){
-	if(!Session::get('loginSPP')){
-    	return redirect('login')->with('alert','Anda harus login terlebih dulu');
-    }else{
- 	    return view('/spp/dashboardSPP');
-    }
-})->name('spp');
+Route::get('/spp/dashboard', 'SPPController@index');
 
-Route::get('/psb/dashboard', function(){
-	if(!Session::get('loginPSB')){
-    	return redirect('login')->with('alert','Anda harus login terlebih dulu');
-    }else{
- 	    return view('/psb/dashboardPSB');
-    }
-})->name('psb');
+Route::get('/psb/dashboard', 'PSBController@index');
 
-Route::get('/admin/dashboard', function(){
-	if(!Session::get('loginAdmin')){
-    	return redirect('login')->with('alert','Anda harus login terlebih dulu');
-    }else{
- 	    return view('/adm/dashboardAdm');
-    }
-})->name('admin');
+Route::get('/admin/dashboard', 'AdminController@index');
 
 Route::post('/loginPost', 'User@loginPost');
 
 Route::get('/logout', 'User@logout');
+
+
+// ---Route Siswa---
+
+Route::get('/admin/datasiswa/formSiswa', 'SiswaController@formSiswa');
+
+Route::post('/admin/datasiswa/tambahSiswa', 'SiswaController@tambahSiswa');
+
+Route::get('/admin/datasiswa/kelolaSiswa', 'SiswaController@kelolaSiswa');
+
+Route::get('/admin/datasiswa/{NIS}/hapusSiswa', 'SiswaController@hapusSiswa');
+
+Route::get('/admin/datasiswa/{NIS}/updateSiswa', 'SiswaController@updateSiswa');
+
+Route::post('/admin/datasiswa/ubahSiswa', 'SiswaController@ubahSiswa');
 
 // ---Route Kelas---
 
@@ -71,7 +58,7 @@ Route::get('/admin/datasiswa/kelas', 'KelasController@index');
 
 route::post('/admin/datasiswa/kelas/tambahKelas', 'KelasController@tambahKelas');
 
-route::get('/admin/datasiswa/kelas/{id_kelas}/hapusKelas', 'KelasController@hapusKelas');
+route::get('/admin/datasiswa/kelas/{NIS}/hapusKelas', 'KelasController@hapusKelas');
 
 route::post('/admin/datasiswa/kelas/ubahKelas', 'KelasController@ubahKelas');
 
@@ -85,3 +72,40 @@ route::post('/admin/datasiswa/jenjang/tambahJenjang', 'JenjangController@tambahJ
 route::get('/admin/datasiswa/jenjang/{id_jenjang}/hapusJenjang', 'JenjangController@hapusJenjang');
 
 route::post('/admin/datasiswa/jenjang/ubahJenjang', 'JenjangController@ubahJenjang');
+
+//---Route Rincian PSB---
+
+route::get('/admin/datapembayaran/psb/rincian', 'AdminPSBController@rincian');
+
+route::post('/admin/datapembayaran/psb/rincian/tambahRincian', 'AdminPSBController@tambahRincian');
+
+route::get('/admin/datapembayaran/psb/rincian/{id_rincian}/hapusRincian', 'AdminPSBController@hapusRincian');
+
+route::post('/admin/datapembayaran/psb/rincian/ubahRincian', 'AdminPSBController@ubahRincian');
+
+//---Route Bulan SPP
+
+route::get('/admin/datapembayaran/spp/bulanSPP', 'AdminSPPController@bulanSPP');
+
+route::post('/admin/datapembayaran/spp/bulanSPP/tambahBulan', 'AdminSPPController@tambahBulan');
+
+route::get('/admin/datapembayaran/spp/bulanSPP/{id_bulan}/hapusBulan', 'AdminSPPController@hapusBulan');
+
+route::post('/admin/datapembayaran/spp/bulanSPP/ubahBulan', 'AdminSPPController@ubahBulan');
+
+//---Route Kelola Pembayaran
+
+route::get('/admin/datapembayaran/spp', 'AdminSPPController@kelolaSPP');
+
+route::get('/admin/datapembayaran/psb', 'AdminPSBController@kelolaPSB');
+
+//---Route SPP
+route::get('/spp/dashboard', 'SPPController@index');
+
+route::get('/spp/pembayaranSPP', 'SPPController@pembayaran');
+
+route::get('/spp/detail/spp/{NIS}', 'SPPController@detailPembayaran');
+
+
+
+
