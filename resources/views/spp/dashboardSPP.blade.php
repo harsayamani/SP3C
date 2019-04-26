@@ -112,8 +112,6 @@
                             </form>
                         </div>
 
-                        
-
                         <div class="dropdown for-message">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-envelope"></i>
@@ -184,10 +182,11 @@
                                     <div class="stat-icon dib flat-color-1">
                                         <i class="pe-7s-cash"></i>
                                     </div>
+
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text">$<span class="count">23569</span></div>
-                                            <div class="stat-heading">Revenue</div>
+                                            <div class="stat-text">Rp<span class="count">{{$spp+=$spp}}</span></div>
+                                            <div class="stat-heading">Jumlah SPP Masuk</div>
                                         </div>
                                     </div>
                                 </div>

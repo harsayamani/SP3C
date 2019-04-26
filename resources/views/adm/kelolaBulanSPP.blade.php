@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Dashboard-Admin</title>
+    <title>Kelola Bulan SPP | Admin</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
@@ -218,26 +218,37 @@
                                                                     {{ csrf_field() }}
                                                     <div class="row form-group">
                                                         <div class="col col-md-3"><label for="email-input" class=" form-control-label">ID</label></div>
-                                                        <div class="col-12 col-md-9"><input type="number" id="id_bulan" name="id_bulan" placeholder="Masukkan ID Bulan SPP" class="form-control" required></div>
+                                                        <div class="col-12 col-md-9"><input type="text" id="id_bulan" name="id_bulan" placeholder="Masukkan ID Bulan SPP" class="form-control" required></div>
                                                     </div>
                                                     <div class="row form-group">
                                                         <div class="col col-md-3"><label for="text-input" class=" form-control-label">Nama Bulan</label></div>
                                                         <div class="col-12 col-md-9"><input type="text" id="nama_bulan" name="nama_bulan" placeholder="Masukkan Nama Jenjang " class="form-control" required><small class="form-text text-muted">Tuliskan nama bulan disini</small></div>
                                                     </div>
                                                     <div class="row form-group">
-                                                        <div class="col col-md-3"><label for="id_jenjang" class=" form-control-label">Jenjang</label></div>
+                                                        <div class="col col-md-3"><label for="thn_ajaran" class=" form-control-label">Tahun Ajaran</label></div>
                                                         <div class="col-12 col-md-9">
-                                                            <select name="id_jenjang" id="id_jenjang" class="form-control">
-                                                                <option value="0">---Pilih Jenjang---</option>
-                                                                @foreach($data_jenjang as $jenjang)
-                                                                <option value="{{$jenjang->id_jenjang}}">{{$jenjang->nama_jenjang}}</option>
-                                                                @endforeach
+                                                            <select name="thn_ajaran" id="thn_ajaran" class="form-control">
+                                                                <option value="">---Pilih Tahun Ajaran---</option>
+                                                                <option value="2019/2020">2019/2020</option>
+                                                                <option value="2020/2021">2020/2021</option>
+                                                                <option value="2021/2022">2021/2022</option>
+                                                                <option value="2022/2023">2022/2023</option>
+                                                                <option value="2023/2024">2023/2024</option>
+                                                                <option value="2024/2025">2024/2025</option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="row form-group">
-                                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">Biaya SPP</label></div>
-                                                        <div class="col-12 col-md-9"><input type="number" id="jumlah_spp" name="jumlah_spp" placeholder="Masukkan Biaya SPP " class="form-control" required><small class="form-text text-muted">Tuliskan biaya spp disini</small></div>
+                                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">Biaya SPP SMP</label></div>
+                                                        <div class="col-12 col-md-9"><input type="number" id="spp_smp" name="spp_smp" placeholder="Masukkan Biaya SPP " class="form-control" required><small class="form-text text-muted">Tuliskan biaya spp disini</small></div>
+                                                    </div>
+                                                    <div class="row form-group">
+                                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">Biaya SPP Idady</label></div>
+                                                        <div class="col-12 col-md-9"><input type="number" id="spp_idady" name="spp_idady" placeholder="Masukkan Biaya SPP " class="form-control" required><small class="form-text text-muted">Tuliskan biaya spp disini</small></div>
+                                                    </div>
+                                                    <div class="row form-group">
+                                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">Biaya SPP SMA</label></div>
+                                                        <div class="col-12 col-md-9"><input type="number" id="spp_sma" name="spp_sma" placeholder="Masukkan Biaya SPP " class="form-control" required><small class="form-text text-muted">Tuliskan biaya spp disini</small></div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="submit" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -285,28 +296,32 @@
                                                     </div>
 
                                                     <div class="row form-group">
-                                                        <div class="col col-md-3"><label for="id_jenjang" class=" form-control-label">Jenjang</label></div>
+                                                        <div class="col col-md-3"><label for="thn_ajaran" class=" form-control-label">Tahun Ajaran</label></div>
                                                         <div class="col-12 col-md-9">
-                                                            <select name="id_jenjang" id="id_jenjang" class="form-control">
-                                                                <option value="0">---Pilih Jenjang---</option>
-                                                                @foreach($data_jenjang as $jenjang)
-                                                                <option value="{{$jenjang->id_jenjang}}">{{$jenjang->nama_jenjang}}</option>
-                                                                @endforeach
+                                                            <select name="thn_ajaran" id="thn_ajaran" class="form-control">
+                                                                <option value="">---Pilih Tahun Ajaran---</option>
+                                                                <option value="2019/2020">2019/2020</option>
+                                                                <option value="2020/2021">2020/2021</option>
+                                                                <option value="2021/2022">2021/2022</option>
+                                                                <option value="2022/2023">2022/2023</option>
+                                                                <option value="2023/2024">2023/2024</option>
+                                                                <option value="2024/2025">2024/2025</option>
                                                             </select>
                                                         </div>
                                                     </div>
-
                                                     <div class="row form-group">
-                                                        <div class="col col-md-3">
-                                                            <label for="text-input" class=" form-control-label">Biaya SPP</label>
-                                                        </div>
-                                                        <div class="col-12 col-md-9">
-                                                            <input type="number" id="jumlah_spp" name="jumlah_spp" class="form-control" required>
-                                                        </div>
+                                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">Biaya SPP SMP</label></div>
+                                                        <div class="col-12 col-md-9"><input type="number" id="spp_smp" name="spp_smp" placeholder="Masukkan Biaya SPP " class="form-control" required><small class="form-text text-muted">Tuliskan biaya spp disini</small></div>
                                                     </div>
-
+                                                    <div class="row form-group">
+                                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">Biaya SPP Idady</label></div>
+                                                        <div class="col-12 col-md-9"><input type="number" id="spp_idady" name="spp_idady" placeholder="Masukkan Biaya SPP " class="form-control" required><small class="form-text text-muted">Tuliskan biaya spp disini</small></div>
+                                                    </div>
+                                                    <div class="row form-group">
+                                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">Biaya SPP SMA</label></div>
+                                                        <div class="col-12 col-md-9"><input type="number" id="spp_sma" name="spp_sma" placeholder="Masukkan Biaya SPP " class="form-control" required><small class="form-text text-muted">Tuliskan biaya spp disini</small></div>
+                                                    </div>
                                                 </div>                 
-
                                                 <div class="modal-footer">
                                                     <button type="submit" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                                                     <button type="submit" class="btn btn-primary">Ubah Data</button>
@@ -322,9 +337,11 @@
                                     <thead>
                                         <tr>
                                             <th scope="row">Id</th>
-                                            <th scope="col">Bulan SPP</th>
-                                            <th scope="col">Jenjang</th>
-                                            <th scope="col">Biaya SPP</th>
+                                            <th scope="col">Bulan</th>
+                                            <th scope="col">Tahun Ajaran</th>
+                                            <th scope="col">Biaya SPP SMP</th>
+                                            <th scope="col">Biaya SPP I'dady</th>
+                                            <th scope="col">Biaya SPP SMA</th>
                                             <th scope="col">Aksi</th>
                                         </tr>
                                     </thead>
@@ -333,16 +350,20 @@
                                         <tr>
                                             <td scope="row">{{$bulan_spp->id_bulan}}</td>
                                             <td>{{$bulan_spp->nama_bulan}}</td>
-                                            <td>{{App\Jenjang::where('id_jenjang', $bulan_spp->id_jenjang)->first()->nama_jenjang}}</td>
-                                            <td>{{$bulan_spp->jumlah_spp}}</td>
+                                            <td>{{$bulan_spp->thn_ajaran}}</td>
+                                            <td>Rp{{$bulan_spp->spp_smp}}</td>
+                                            <td>Rp{{$bulan_spp->spp_idady}}</td>
+                                            <td>Rp{{$bulan_spp->spp_sma}}</td>
                                             <td>
                                                 <button type="button" class="btn btn-outline-success btn-sm" 
                                                 data-target="#updateBulanSPP" 
                                                 data-toggle="modal" 
                                                 data-id_bulan="{{$bulan_spp->id_bulan}}"
                                                 data-nama_bulan="{{$bulan_spp->nama_bulan}}"
-                                                data-id_jenjang="{{$bulan_spp->id_jenjang}}"
-                                                data-biaya_spp="{{$bulan_spp->jumlah_spp}}">
+                                                data-thn_ajaran="{{$bulan_spp->thn_ajaran}}"
+                                                data-spp_smp="{{$bulan_spp->spp_smp}}"
+                                                data-spp_idady="{{$bulan_spp->spp_idady}}"
+                                                data-spp_sma="{{$bulan_spp->spp_sma}}"
                                                 <i class="fa fa-edit"></i>
                                                 &nbsp; Ubah Data
                                                 </button>
@@ -396,15 +417,19 @@
               var button = $(event.relatedTarget); // Button that triggered the modal
               var idBulan = button.data('id_bulan'); // Extract info from data-* attributes
               var namaBulan = button.data('nama_bulan');
-              var idJenjang = button.data('id_jenjang');
-              var biayaSPP = button.data('biaya_spp')
+              var thnAjaran = button.data('thn_ajaran');
+              var sppSMP = button.data('spp_smp');
+              var sppSMA = button.data('spp_sma');
+              var sppIdady = button.data('spp_idady');
               // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
               // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
               var modal = $(this);
               modal.find('.modal-body #id_bulan').val(idBulan);
               modal.find('.modal-body #nama_bulan').val(namaBulan);
-              modal.find('.modal-body #id_jenjang').val(idJenjang);
-              modal.find('.modal-body #jumlah_spp').val(biayaSPP);
+              modal.find('.modal-body #thn_ajaran').val(thnAjaran);
+              modal.find('.modal-body #spp_smp').val(sppSMP);
+              modal.find('.modal-body #spp_idady').val(sppIdady);
+              modal.find('.modal-body #spp_sma').val(sppSMA);
             });
         }); 
     </script> 

@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Dashboard-Admin</title>
+    <title>Kelola PSB | Admin</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
@@ -60,7 +60,7 @@
                         </ul>
                     </li>
 
-                    <li class="menu-item-has-children dropdown">
+                    <li class="menu-item-has-children active dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Pembayaran Siswa Baru</a>
                         <ul class="sub-menu children dropdown-menu">                           
                             <li><i class="fa fa-puzzle-piece"></i><a href="/admin/datapembayaran/psb">Kelola Data</a></li>

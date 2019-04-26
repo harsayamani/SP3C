@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Dashboard-Admin</title>
+    <title>Detail SPP {{$siswa->NIS}} | PEmbayara</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
     <link rel="stylesheet" href="/assets/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="/assets/css/style.css">
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />    
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
     
 </head>
@@ -69,24 +70,44 @@
                                 <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
                             </form>
                         </div>
-                        <div class="dropdown for-notification">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-bell"></i>
-                                <span class="count bg-danger">3</span>
+                        <div class="dropdown for-message">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-envelope"></i>
+                                <span class="count bg-primary">4</span>
                             </button>
-                            <div class="dropdown-menu" aria-labelledby="notification">
-                                <p class="red">You have 3 Notification</p>
+                            <div class="dropdown-menu" aria-labelledby="message">
+                                <p class="red">You have 4 Mails</p>
                                 <a class="dropdown-item media" href="#">
-                                    <i class="fa fa-check"></i>
-                                    <p>Server #1 overloaded.</p>
+                                    <span class="photo media-left"><img alt="avatar" src="/images/avatar/1.jpg"></span>
+                                    <div class="message media-body">
+                                        <span class="name float-left">Jonathan Smith</span>
+                                        <span class="time float-right">Just now</span>
+                                        <p>Hello, this is an example msg</p>
+                                    </div>
                                 </a>
                                 <a class="dropdown-item media" href="#">
-                                    <i class="fa fa-info"></i>
-                                    <p>Server #2 overloaded.</p>
+                                    <span class="photo media-left"><img alt="avatar" src="/images/avatar/2.jpg"></span>
+                                    <div class="message media-body">
+                                        <span class="name float-left">Jack Sanders</span>
+                                        <span class="time float-right">5 minutes ago</span>
+                                        <p>Lorem ipsum dolor sit amet, consectetur</p>
+                                    </div>
                                 </a>
                                 <a class="dropdown-item media" href="#">
-                                    <i class="fa fa-warning"></i>
-                                    <p>Server #3 overloaded.</p>
+                                    <span class="photo media-left"><img alt="avatar" src="/images/avatar/3.jpg"></span>
+                                    <div class="message media-body">
+                                        <span class="name float-left">Cheryl Wheeler</span>
+                                        <span class="time float-right">10 minutes ago</span>
+                                        <p>Hello, this is an example msg</p>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item media" href="#">
+                                    <span class="photo media-left"><img alt="avatar" src="/images/avatar/4.jpg"></span>
+                                    <div class="message media-body">
+                                        <span class="name float-left">Rachel Santos</span>
+                                        <span class="time float-right">15 minutes ago</span>
+                                        <p>Lorem ipsum dolor sit amet, consectetur</p>
+                                    </div>
                                 </a>
                             </div>
                         </div>
@@ -134,31 +155,6 @@
                 Data berhasil diubah
             </div>
         @endif
-
-        <div class="breadcrumbs">
-            <div class="breadcrumbs-inner">
-                <div class="row m-0">
-                    <div class="col-sm-4">
-                        <div class="page-header float-left">
-                            <div class="page-title">
-                                <h1>Jenjang</h1>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-8">
-                        <div class="page-header float-right">
-                            <div class="page-title">
-                                <ol class="breadcrumb text-right">
-                                    <li><a href="#">Dashboard</a></li>
-                                    <li><a href="#">Data Siswa</a></li>
-                                    <li class="active">Jenjang</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
                                
         <div class="content">
             <!-- Animated -->
@@ -166,40 +162,64 @@
                 <!-- Widgets  -->
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <strong class="card-title">Kelola Jenjang</strong>
-                            </div>
-                        
+                        <div class="card">   
                             <div class="card-body">
-
+                                
                                 <div class="col-lg-3 col-md-6">
-                                    <button type="button" class="btn btn-info mb-1" data-toggle="modal" data-target="#tambahJenjang">
-                                      Tambah Jenjang
-                                    </button>
-                                </div>
+                                    <table cellpadding="5">
+                                        <tr>
+                                            <td><h5><b>NIS</b></h5></td>
+                                            <td>: {{$siswa->NIS}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><h5><b>NAMA</b></h5></td>
+                                            <td>: {{$siswa->nama_siswa}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><h5><b>KELAS</b></h5></td>
+                                            <td>: {{App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->nama_kelas}}</td>
+                                        </tr>
+                                    </table>
+                                </div>                                
 
                                 <!-- Modal Tambah Data-->
 
-                                <div class="modal fade" id="tambahJenjang" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="tambah" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="mediumModalLabel">Tambah Jenjang</h5>
+                                                <h5 class="modal-title" id="mediumModalLabel">Pembayaran</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>      
                                             <div class="modal-body">
-                                                <form action="{{ url('/admin/datasiswa/jenjang/tambahJenjang') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
+                                                <form action="{{ url('/spp/bayarSPP') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
                                                                     {{ csrf_field()}}
                                                     <div class="row form-group">
-                                                        <div class="col col-md-3"><label for="email-input" class=" form-control-label">ID</label></div>
-                                                        <div class="col-12 col-md-9"><input type="number" id="id_jenjang" name="id_jenjang" placeholder="Masukkan ID Jenjang " class="form-control" required></div>
+                                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">NIS</label></div>
+                                                        <div class="col-12 col-md-9"><input type="text" id="NIS" name="NIS" placeholder="Masukkan Nama Jenjang " class="form-control" value="{{$siswa->NIS}}" readonly></div>
                                                     </div>
                                                     <div class="row form-group">
-                                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">Nama Jenjang</label></div>
-                                                        <div class="col-12 col-md-9"><input type="text" id="nama_jenjang" name="nama_jenjang" placeholder="Masukkan Nama Jenjang " class="form-control" required><small class="form-text text-muted">Tuliskan nama jenjang disini</small></div>
+                                                        <div class="col col-md-3"><label for="id_jenjang" class=" form-control-label">Bulan</label></div>
+                                                        <div class="col-12 col-md-9">
+                                                            <select name="id_bulan" id="id_bulan" class="form-control">
+                                                                <option value="0">---Pilih Bulan---</option>
+                                                                @foreach($bulan as $bln)
+                                                                <option value="{{$bln->id_bulan}}">{{$bln->nama_bulan}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row form-group">
+                                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">Tanggal Pembayaran</label></div>
+                                                        <div class="col-12 col-md-9" >
+                                                        <input type="text" id="tgl_pembayaran" name="tgl_pembayaran" placeholder="Masukkan Tanggal Pembayaran" class="form-control" required="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row form-group">
+                                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">Nominal</label></div>
+                                                        <div class="col-12 col-md-9"><input type="text" id="nominal" name="nominal" placeholder="Masukkan Nominal " class="form-control" required><small class="form-text text-muted">Tuliskan nominal disini</small></div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="submit" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -213,36 +233,40 @@
 
                                 <!-- Modal Ubah Data-->
 
-                                <div class="modal fade" id="updateJenjang" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
 
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="mediumModalLabel">Ubah Jenjang</h5>
+                                                <h5 class="modal-title" id="mediumModalLabel">Pelunasan Pembayaran</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                             </div>
                                                     
-                                            <form action="{{ url('/admin/datasiswa/jenjang/ubahJenjang') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
+                                            <form action="/spp/lunasiSPP" method="post" enctype="multipart/form-data" class="form-horizontal">
                                                                 {{ csrf_field() }}
                                                 <div class="modal-body">
-
                                                     <div class="row form-group">
                                                         <div class="col col-md-3">
-                                                            <label class=" form-control-label">ID_Jenjang</label>
+                                                            <label for="text-input" class=" form-control-label">ID</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input type="text" id="id_jenjang" name="id_jenjang" class="form-control" readonly>
+                                                            <input type="text" id="id_spp" name="id_spp" class="form-control" readonly>
                                                         </div>
                                                     </div>
-
+                                                    <div class="row form-group">
+                                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">Tanggal Pelunasan</label></div>
+                                                        <div class="col-12 col-md-9">
+                                                        <input type="text" id="tgl" name="tgl" placeholder="Masukkan Tanggal Pelunasan" class="form-control" required="">
+                                                        </div>
+                                                    </div>
                                                     <div class="row form-group">
                                                         <div class="col col-md-3">
-                                                            <label for="text-input" class=" form-control-label">Nama Jenjang</label>
+                                                            <label for="text-input" class=" form-control-label">Nominal Pelunasan</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input type="text" id="nama_jenjang" name="nama_jenjang" class="form-control" required>
+                                                            <input type="text" id="nominal" name="nominal" class="form-control" required>
                                                         </div>
                                                     </div>
                                                 </div>                 
@@ -255,38 +279,129 @@
                                         </div>
                                     </div>
                                 </div> 
+ 
+                            </div>
+                        </div>
+                    </div>
 
-                                <br>
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-info mb-1" data-toggle="modal" data-target="#tambah"><i class="fa fa-money"></i>
+                            Bayar SPP
+                         </button>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
 
-                                <table class="table table-striped">
+                    @if(!empty(App\SPP::where('NIS', $siswa->NIS)->first()))
+
+
+                    @foreach($spp as $sppsiswa)
+                    @if($sppsiswa->NIS == $siswa->NIS && $sppsiswa->status_pembayaran == 1)
+                    <div class="col-lg-3 col-md-6">
+                    <a href="/spp/cetak/{{$sppsiswa->id_spp}}" target="_blank">
+                        <div class="card text-white bg-success mb-3">
+                          <div class="card-header">{{App\BulanSPP::where('id_bulan', $sppsiswa->id_bulan)->first()->nama_bulan}}</div>
+                          <div class="card-body">
+                            <img src="/images/lunas.png">
+                          </div>
+                        </div>
+                    </a>
+                    </div>
+
+                    @else
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card bg-light mb-3">
+                          <div class="card-header">{{App\BulanSPP::where('id_bulan', $sppsiswa->id_bulan)->first()->nama_bulan}}</div>
+                          <div class="card-body">
+                            <p class="card-text">BELUM LUNAS</p>
+                          </div>
+                        </div>
+                    </div>
+                    @endif
+                    @endforeach
+
+                    @endif
+
+
+
+
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">Pelunasan SPP</strong>
+                            </div>
+                        
+                            <div class="card-body">
+
+                                <table id="bootstrap-data-table" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th scope="row">Id</th>
-                                            <th scope="col">Jenjang</th>
-                                            <th scope="col">Aksi</th>
+                                            <th>ID SPP</th>
+                                            <th>Bulan</th>
+                                            <th>Tgl</th>
+                                            <th>Nominal Pelunasan</th>
+                                            <th>Status</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($data_jenjang as $jenjang)
+                                    @foreach($spp as $spp)
+                                    @if($spp->status_pembayaran == 0 && $spp->NIS == $siswa->NIS)
                                         <tr>
-                                            <td scope="row">{{$jenjang->id_jenjang}}</td>
-                                            <td>{{$jenjang->nama_jenjang}}</td>
+                                            <td>{{$spp->id_spp}}</td>
+                                            <td>{{App\BulanSPP::where('id_bulan', $spp->id_bulan)->first()->nama_bulan}}</td>
+                                            <td>{{$spp->tgl_pembayaran}}</td>
                                             <td>
-                                                <button type="button" class="btn btn-outline-success btn-sm" 
-                                                data-target="#updateJenjang" 
+                                            @if(App\Jenjang::where('id_jenjang', App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->id_jenjang)->first()->nama_jenjang == "SMP")
+
+                                            Rp{{App\BulanSPP::where('id_bulan', $spp->id_bulan)->first()->spp_smp-$spp->nominal_spp}}
+
+                                            @endif
+
+                                            @if(App\Jenjang::where('id_jenjang', App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->id_jenjang)->first()->nama_jenjang == "SMA")
+
+                                            Rp{{App\BulanSPP::where('id_bulan', $spp->id_bulan)->first()->spp_sma-$spp->nominal_spp}}
+
+                                            @endif
+
+                                            @if(App\Jenjang::where('id_jenjang', App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->id_jenjang)->first()->nama_jenjang == "I'dady")
+
+                                            Rp{{App\BulanSPP::where('id_bulan', $spp->id_bulan)->first()->spp_idady-$spp->nominal_spp}}
+
+                                            @endif
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-danger">Belum Lunas</button>
+                                            </td>
+                                            <td>
+                                            
+                                            <button type="button" class="btn btn-outline-success btn-sm" 
+                                                data-target="#update" 
                                                 data-toggle="modal" 
-                                                data-id_jenjang="{{$jenjang->id_jenjang}}"
-                                                data-nama_jenjang="{{$jenjang->nama_jenjang}}">
+                                                data-id_spp="{{$spp->id_spp}}"
+
+                                                <?php if (App\Jenjang::where('id_jenjang', App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->id_jenjang)->first()->nama_jenjang == "SMP"): ?>
+                                                    data-nominal="{{App\BulanSPP::where('id_bulan', $spp->id_bulan)->first()->spp_smp-$spp->nominal_spp}}"
+                                                <?php endif ?>
+
+                                                <?php if (App\Jenjang::where('id_jenjang', App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->id_jenjang)->first()->nama_jenjang == "SMA"): ?>
+                                                    data-nominal="{{App\BulanSPP::where('id_bulan', $spp->id_bulan)->first()->spp_sma-$spp->nominal_spp}}"
+                                                <?php endif ?>
+                                                <?php if (App\Jenjang::where('id_jenjang', App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->id_jenjang)->first()->nama_jenjang == "SMA"): ?>
+                                                    data-nominal="{{App\BulanSPP::where('id_bulan', $spp->id_bulan)->first()->spp_idady-$spp->nominal_spp}}"
+                                                <?php endif ?>
+
+                                                >
                                                 <i class="fa fa-edit"></i>
-                                                &nbsp; Ubah Data
+                                                &nbsp; Lunasi
                                                 </button>
-                    
-                                                <a href="/admin/datasiswa/jenjang/{{$jenjang->id_jenjang}}/hapusJenjang" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i>&nbsp;Hapus</a>
                                             </td>
                                         </tr>
+                                    @endif
                                     @endforeach
                                     </tbody>
-                                </table>   
+                                </table>    
                             </div>
                         </div>
                     </div>
@@ -322,22 +437,29 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
     <!--Local Stuff-->
     <script type="text/javascript">
         $(document).ready(function(){
-              $('#updateJenjang').on('show.bs.modal', function (event) {
+              $('#update').on('show.bs.modal', function (event) {
               var button = $(event.relatedTarget); // Button that triggered the modal
-              var idJenjang = button.data('id_jenjang'); // Extract info from data-* attributes
-              var namaJenjang = button.data('nama_jenjang');
+              // Extract info from data-* attributes
+              var nominal = button.data('nominal');
+              var idSPP = button.data('id_spp');
               // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
               // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
               var modal = $(this);
-              modal.find('.modal-body #id_jenjang').val(idJenjang);
-              modal.find('.modal-body #nama_jenjang').val(namaJenjang);
+              modal.find('.modal-body #nominal').val(nominal);
+              modal.find('.modal-body #id_spp').val(idSPP);
             });
         }); 
-    </script> 
-
+    </script>
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script> 
+    <script>
+        $('#tgl_pembayaran').datepicker();
+    </script>
+    <script>
+        $('#tgl').datepicker();
+    </script>
+    
 </body>
 </html>

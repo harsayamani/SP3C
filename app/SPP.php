@@ -10,4 +10,5 @@ class SPP extends Model
     public $timestamps = false;
     protected $primaryKey = 'id_spp';
     protected $guarded = array();
+    public $incrementing = false;
 }

@@ -100,12 +100,24 @@ route::get('/admin/datapembayaran/spp', 'AdminSPPController@kelolaSPP');
 route::get('/admin/datapembayaran/psb', 'AdminPSBController@kelolaPSB');
 
 //---Route SPP
+
 route::get('/spp/dashboard', 'SPPController@index');
 
 route::get('/spp/pembayaranSPP', 'SPPController@pembayaran');
 
-route::get('/spp/detail/spp/{NIS}', 'SPPController@detailPembayaran');
+route::get('/spp/detailSPP/{NIS}', 'SPPController@detailPembayaran');
 
+route::post('/spp/bayarSPP', 'SPPController@bayarSPP');
+
+route::post('/spp/lunasiSPP', 'SPPController@lunasiSPP');
+
+route::get('/spp/cetak/{id_spp}', 'SPPController@cetakKwitansi');
+
+route::get('/spp/kembali', function(){
+	return redirect('/spp/pembayaranSPP');
+});
+
+Route::post('/admin/datapembayaran/spp/filter', 'AdminSPPController@filter');
 
 
 

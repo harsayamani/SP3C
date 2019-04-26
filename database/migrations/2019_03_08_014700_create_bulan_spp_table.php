@@ -17,9 +17,9 @@ class CreateBulanSppTable extends Migration
             $table->integer('id_bulan');
             $table->string('nama_bulan');
             $table->string('thn_ajaran');
-            $table->double('sppSMA');
-            $table->double('sppSMP');
-            $table->double('sppIDADY');
+            $table->double('spp_sma');
+            $table->double('spp_smp');
+            $table->double('spp_idady');
         });
     }
 
