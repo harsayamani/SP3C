@@ -6,13 +6,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Detail SPP {{$siswa->NIS}} | PembayaranSPP</title>
+    <title>Detail PSB {{$siswa->NIS}} | Pembayaran PSB</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
     <link rel="shortcut icon" href="https://i.imgur.com/QRAUqs9.png">
-    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />    
-
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />  
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
@@ -21,6 +20,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
     <link rel="stylesheet" href="/assets/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="/assets/css/style.css">
+      
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
     
 </head>
@@ -31,21 +31,14 @@
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-
                     <li>
-                        <a href="/spp/dashboard"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
+                        <a href="/psb/dashboard"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
                     </li>
-
-                    <li class="menu-title">Fitur Utama</li>
-
+                    <li class="menu-title">Fitur Utama</li><!-- /.menu-title -->
                     <li class="active">
-                        <a href="/spp/pembayaranSPP"><i class="menu-icon fa fa-table"></i>Pembayaran SPP </a>
+                        <a href="/psb/pembayaranPSB"><i class="menu-icon fa fa-table"></i>Pembayaran PSB </a>
                     </li>
 
-                    <li >
-                        <a href="/spp/notifikasiPembayaran"><i class="menu-icon fa fa-table"></i>Notifikasi Pembayaran</a>
-                    </li>
-                    
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
@@ -72,47 +65,6 @@
                                 <input class="form-control mr-sm-2" type="text" placeholder="Search ..." aria-label="Search">
                                 <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
                             </form>
-                        </div>
-                        <div class="dropdown for-message">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-envelope"></i>
-                                <span class="count bg-primary">4</span>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="message">
-                                <p class="red">You have 4 Mails</p>
-                                <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="/images/avatar/1.jpg"></span>
-                                    <div class="message media-body">
-                                        <span class="name float-left">Jonathan Smith</span>
-                                        <span class="time float-right">Just now</span>
-                                        <p>Hello, this is an example msg</p>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="/images/avatar/2.jpg"></span>
-                                    <div class="message media-body">
-                                        <span class="name float-left">Jack Sanders</span>
-                                        <span class="time float-right">5 minutes ago</span>
-                                        <p>Lorem ipsum dolor sit amet, consectetur</p>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="/images/avatar/3.jpg"></span>
-                                    <div class="message media-body">
-                                        <span class="name float-left">Cheryl Wheeler</span>
-                                        <span class="time float-right">10 minutes ago</span>
-                                        <p>Hello, this is an example msg</p>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="/images/avatar/4.jpg"></span>
-                                    <div class="message media-body">
-                                        <span class="name float-left">Rachel Santos</span>
-                                        <span class="time float-right">15 minutes ago</span>
-                                        <p>Lorem ipsum dolor sit amet, consectetur</p>
-                                    </div>
-                                </a>
-                            </div>
                         </div>
                     </div>
                     <div class="user-area dropdown float-right">
@@ -143,19 +95,19 @@
 
         @if (session()->has('alert success'))
             <div class="alert alert-success" role="alert">
-                Data berhasil ditambahkan
+                {{session()->get('alert success')}}
             </div>
         @endif
 
         @if (session()->has('alert danger'))
             <div class="alert alert-danger" role="alert">
-                Data berhasil dihapus
+                {{session()->get('alert danger')}}
             </div>
         @endif
 
         @if (session()->has('alert warning'))
-            <div class="alert alert-success" role="alert">
-                Data berhasil diubah
+            <div class="alert alert-warning" role="alert">
+                {{session()->get('alert warning')}}
             </div>
         @endif
                                
@@ -186,10 +138,41 @@
                                     </table>
                             </div>
                             <div class="card-text text-sm-center">
-                                
                             </div>
-
                         </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-warning mb-1" data-toggle="modal" data-target="#tambah"><i class="fa fa-money"></i>
+                            Bayar Pendaftar Siswa Baru
+                         </button>
+                    </div>
+
+                    <br>
+                    <br>
+                    <br>
+
+                    <div class="col-lg-4">
+                        <aside class="profile-nav alt">
+                            <section class="card">
+                                <div class="card-header">
+                                    <strong class="card-title">Rincian</strong>
+                                </div>
+                                
+                                <ul class="list-group list-group-flush">
+
+                                @if(!empty(App\PSB::where('NIS', $siswa->NIS)->first()))
+                                @foreach($psb as $psbsiswa)
+                                @if($psbsiswa->NIS == $siswa->NIS && $psbsiswa->status_pembayaran == 1)
+                                    <li class="list-group-item">
+                                        <a href="#"> <i class="fa fa-check-square"></i> {{App\Rincian::where('id_rincian', $psbsiswa->id_rincian)->first()->detail_rincian}} <span class="badge badge-success pull-right">Lunas</span></a>
+                                    </li>
+                                @endif
+                                @endforeach
+                                @endif
+                                </ul>
+                            </section>
+                        </aside>
                     </div>
 
                     <!-- Modal Tambah Data-->
@@ -198,14 +181,14 @@
                         <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="mediumModalLabel">Pembayaran</h5>
+                                    <h4 class="modal-title" id="mediumModalLabel"><b>PEMBAYARAN</b></h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>      
                                 <div class="modal-body">
-                                    <form action="{{ url('/spp/bayarSPP') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
-                                                                    {{ csrf_field()}}
+                                    <form action="{{ url('/psb/bayarPSB') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
+                                        {{ csrf_field()}}
                                         <div class="row form-group">
                                             <div class="col col-md-3">
                                                 <label for="text-input" class=" form-control-label">NIS</label>
@@ -216,17 +199,14 @@
                                         </div>
                                         <div class="row form-group">
                                             <div class="col col-md-3">
-                                                <label for="id_jenjang" class=" form-control-label">Bulan</label>
+                                                <label for="id_rincian" class=" form-control-label">Rincian</label>
                                             </div>
                                             <div class="col-12 col-md-9">
-                                                <select name="id_bulan" id="id_bulan" class="form-control">
-                                                    <option value="">---Pilih Bulan---</option>
-                                                    
-                                                    
-                                                    @foreach($bulan as $bulan)
-                                                         <option value="{{$bulan->id_bulan}}">{{$bulan->nama_bulan}}</option>
+                                                <select name="id_rincian" id="id_rincian" class="form-control">
+                                                    <option value="">---Pilih Rincian---</option>
+                                                    @foreach($rincian as $rinc)
+                                                    <option value="{{$rinc->id_rincian}}">{{$rinc->detail_rincian}}</option>
                                                     @endforeach
-                                                    
                                                 </select>
                                             </div>
                                         </div>
@@ -243,24 +223,11 @@
                                                 <label for="text-input" class=" form-control-label">Nominal</label>
                                             </div>
                                             <div class="col-12 col-md-9">
-                                                <input type="text" id="nominal" name="nominal" placeholder="Masukkan Nominal " class="form-control" required 
-                                                <?php if (App\Jenjang::where('id_jenjang', App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->id_jenjang)->first()->nama_jenjang == "I'dady"): ?>
-                                                
-                                                    value="{{App\BulanSPP::value('spp_idady')}}"
-                                                <?php endif ?>
-                                                <?php if (App\Jenjang::where('id_jenjang', App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->id_jenjang)->first()->nama_jenjang == "SMA"): ?>
-                                                
-                                                    value="{{App\BulanSPP::value('spp_sma')}}"
-                                                <?php endif ?>
-                                                <?php if (App\Jenjang::where('id_jenjang', App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->id_jenjang)->first()->nama_jenjang == "SMP"): ?>
-                                                
-                                                    value="{{App\BulanSPP::value('spp_smp')}}"
-                                                <?php endif ?>
-                                                ><small class="form-text text-muted">Tuliskan nominal disini</small>
+                                                <input type="text" id="nominal" name="nominal" placeholder="Masukkan Nominal " class="form-control" required><small class="form-text text-muted">Tuliskan nominal disini</small>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="submit" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                                             <button type="submit" class="btn btn-primary">Tambah</button>
                                         </div>
                                     </form>
@@ -276,21 +243,21 @@
                                 <div class="modal-content">
 
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="mediumModalLabel">Pelunasan Pembayaran</h5>
+                                        <h4 class="modal-title" id="mediumModalLabel"><b>PELUNASAN</b></h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                                     
-                                    <form action="/spp/lunasiSPP" method="post" enctype="multipart/form-data" class="form-horizontal">
-                                                                {{ csrf_field() }}
+                                    <form action="/psb/lunasiPSB" method="post" enctype="multipart/form-data" class="form-horizontal">
+                                        {{ csrf_field() }}
                                         <div class="modal-body">
                                             <div class="row form-group">
                                                 <div class="col col-md-3">
                                                     <label for="text-input" class=" form-control-label">ID</label>
                                                 </div>
                                                 <div class="col-12 col-md-9">
-                                                    <input type="text" id="id_spp" name="id_spp" class="form-control" readonly>
+                                                    <input type="text" id="id_psb" name="id_psb" class="form-control" readonly>
                                                 </div>
                                             </div>
                                             <div class="row form-group">
@@ -305,12 +272,12 @@
                                                 </div>
                                                 <div class="col-12 col-md-9">
                                                     <input type="text" id="nominal" name="nominal" class="form-control" required>
-                                                        </div>
                                                 </div>
+                                            </div>
                                         </div>                 
 
                                         <div class="modal-footer">
-                                            <button type="submit" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                                             <button type="submit" class="btn btn-primary">Ubah Data</button>
                                         </div>
                                     </form>
@@ -318,53 +285,10 @@
                             </div>
                         </div> 
 
-                    <div class="col-md-12">
-                        <button type="button" class="btn btn-warning mb-1" data-toggle="modal" data-target="#tambah"><i class="fa fa-money"></i>
-                            Bayar SPP
-                         </button>
-                    </div>
-
-                    <br>
-                    <br>
-                    <br>
-
-                    @if(!empty(App\SPP::where('NIS', $siswa->NIS)->first()))
-
-
-                    @foreach($spp as $sppsiswa)
-                    @if($sppsiswa->NIS == $siswa->NIS && $sppsiswa->status_pembayaran == 1)
-                    <div class="col-lg-3 col-md-6">
-                    <a href="/spp/cetak/{{$sppsiswa->id_spp}}" target="_blank">
-                        <div class="card text-white bg-success mb-3">
-                          <div class="card-header">{{App\BulanSPP::where('id_bulan', $sppsiswa->id_bulan)->first()->nama_bulan}}</div>
-                          <div class="card-body">
-                            <img src="/images/lunas.png">
-                          </div>
-                        </div>
-                    </a>
-                    </div>
-                    @endif
-                    @if($sppsiswa->NIS == $siswa->NIS && $sppsiswa->status_pembayaran != 1)
-                    <div class="col-lg-3 col-md-6">
-                        <div class="card bg-light mb-3">
-                          <div class="card-header">{{App\BulanSPP::where('id_bulan', $sppsiswa->id_bulan)->first()->nama_bulan}}</div>
-                          <div class="card-body">
-                            <p class="card-text">BELUM LUNAS</p>
-                          </div>
-                        </div>
-                    </div>
-                    @endif
-                    @endforeach
-
-                    @endif
-
-
-
-
-                    <div class="col-md-12">
+                    <div class="col-lg-8">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">Pelunasan SPP</strong>
+                                <strong class="card-title">Pelunasan Pembayaran</strong>
                             </div>
                         
                             <div class="card-body">
@@ -372,8 +296,7 @@
                                 <table id="bootstrap-data-table" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>ID SPP</th>
-                                            <th>Bulan</th>
+                                            <th>Rincian</th>
                                             <th>Tgl</th>
                                             <th>Nominal Pelunasan</th>
                                             <th>Status</th>
@@ -381,52 +304,26 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($spp as $spp)
-                                    @if($spp->status_pembayaran == 0 && $spp->NIS == $siswa->NIS)
+                                    @foreach($psb as $psb)
+                                    @if($psb->status_pembayaran == 0 && $psb->NIS == $siswa->NIS)
                                         <tr>
-                                            <td>{{$spp->id_spp}}</td>
-                                            <td>{{App\BulanSPP::where('id_bulan', $spp->id_bulan)->first()->nama_bulan}}</td>
-                                            <td>{{$spp->tgl_pembayaran}}</td>
+                                            <td>{{App\Rincian::where('id_rincian', $psb->id_rincian)->first()->detail_rincian}}</td>
+                                            <td>{{$psb->tgl_pembayaran}}</td>
                                             <td>
-                                            @if(App\Jenjang::where('id_jenjang', App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->id_jenjang)->first()->nama_jenjang == "SMP")
 
-                                            Rp{{App\BulanSPP::where('id_bulan', $spp->id_bulan)->first()->spp_smp-$spp->nominal_spp}}
+                                            Rp{{App\Rincian::where('id_rincian', $psb->id_rincian)->first()->biaya-$psb->nominal}}
 
-                                            @endif
-
-                                            @if(App\Jenjang::where('id_jenjang', App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->id_jenjang)->first()->nama_jenjang == "SMA")
-
-                                            Rp{{App\BulanSPP::where('id_bulan', $spp->id_bulan)->first()->spp_sma-$spp->nominal_spp}}
-
-                                            @endif
-
-                                            @if(App\Jenjang::where('id_jenjang', App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->id_jenjang)->first()->nama_jenjang == "I'dady")
-
-                                            Rp{{App\BulanSPP::where('id_bulan', $spp->id_bulan)->first()->spp_idady-$spp->nominal_spp}}
-
-                                            @endif
                                             </td>
                                             <td>
-                                                <button class="btn btn-danger">Belum Lunas</button>
+                                                <button class="btn btn-danger" >Belum Lunas</button>
                                             </td>
                                             <td>
                                             
                                             <button type="button" class="btn btn-outline-success btn-sm" 
                                                 data-target="#update" 
                                                 data-toggle="modal" 
-                                                data-id_spp="{{$spp->id_spp}}"
-
-                                                <?php if (App\Jenjang::where('id_jenjang', App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->id_jenjang)->first()->nama_jenjang == "SMP"): ?>
-                                                    data-nominal="{{App\BulanSPP::where('id_bulan', $spp->id_bulan)->first()->spp_smp-$spp->nominal_spp}}"
-                                                <?php endif ?>
-
-                                                <?php if (App\Jenjang::where('id_jenjang', App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->id_jenjang)->first()->nama_jenjang == "SMA"): ?>
-                                                    data-nominal="{{App\BulanSPP::where('id_bulan', $spp->id_bulan)->first()->spp_sma-$spp->nominal_spp}}"
-                                                <?php endif ?>
-                                                <?php if (App\Jenjang::where('id_jenjang', App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->id_jenjang)->first()->nama_jenjang == "I'dady"): ?>
-                                                    data-nominal="{{App\BulanSPP::where('id_bulan', $spp->id_bulan)->first()->spp_idady-$spp->nominal_spp}}"
-                                                <?php endif ?>
-
+                                                data-id_psb="{{$psb->id_psb}}"
+                                                data-nominal="{{App\Rincian::where('id_rincian', $psb->id_rincian)->first()->biaya-$psb->nominal}}"
                                                 >
                                                 <i class="fa fa-edit"></i>
                                                 &nbsp; Lunasi
@@ -478,16 +375,15 @@
               var button = $(event.relatedTarget); // Button that triggered the modal
               // Extract info from data-* attributes
               var nominal = button.data('nominal');
-              var idSPP = button.data('id_spp');
+              var idPSB = button.data('id_psb');
               // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
               // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
               var modal = $(this);
               modal.find('.modal-body #nominal').val(nominal);
-              modal.find('.modal-body #id_spp').val(idSPP);
+              modal.find('.modal-body #id_psb').val(idPSB);
             });
         }); 
     </script>
-    
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script> 
     <script>
         $('#tgl_pembayaran').datepicker();

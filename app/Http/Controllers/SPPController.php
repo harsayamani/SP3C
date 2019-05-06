@@ -14,13 +14,21 @@ use App\modelUser;
 class SPPController extends Controller
 {
     public function index(){
+        $jumlah = 0;
     	$siswa = Siswa::count();
-        $spp = SPP::all()->get('nominal_spp');
+        $spp = SPP::all();
+        $transaksi = SPP::count();
+        $lunas = SPP::where('status_pembayaran', "1")->count();
+
+
+        foreach ($spp as $spp) {
+            $jumlah = $jumlah + $spp->nominal_spp ;
+        }
 
     	if(!Session::get('loginSPP')){
 	    	return redirect('login')->with('alert','Anda harus login terlebih dulu');
 	    }else{
-	 	    return view('/spp/dashboardSPP', compact('siswa', 'spp'));
+	 	    return view('/spp/dashboardSPP', compact('siswa', 'jumlah', 'transaksi', 'lunas'));
 	    }
     }
 
@@ -44,7 +52,6 @@ class SPPController extends Controller
     public function detailPembayaran($NIS){
     	$siswa = Siswa::where('NIS', $NIS)->first();
     	$spp = SPP::all();
-
         $bulan = BulanSPP::all();
 
     	if (!Session::get('loginSPP')) {

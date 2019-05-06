@@ -35,7 +35,7 @@ class User extends Controller
 	                Session::put('name',$data->name);
 	                Session::put('username',$data->username);
 	                Session::put('loginAdmin',TRUE);
-	                return redirect('/admin/dashboard');
+	                return redirect('/admin/dashboard')->with('alert success', 'Login berhasil');
 	            }
 	            else{
 	                return redirect('login')->with('alert','Password, Salah !');
@@ -50,7 +50,7 @@ class User extends Controller
 	                Session::put('name',$data->name);
 	                Session::put('username',$data->username);
 	                Session::put('loginPSB',TRUE);
-	                return redirect('psb/dashboard');
+	                return redirect('psb/dashboard')->with('alert success', 'Login berhasil');
 	            }
 	            else{
 	                return redirect('login')->with('alert','Password, Salah !');
@@ -65,7 +65,7 @@ class User extends Controller
 	                Session::put('name',$data->name);
 	                Session::put('username',$data->username);
 	                Session::put('loginSPP',TRUE);
-	                return redirect('spp/dashboard');
+	                return redirect('spp/dashboard')->with('alert success', 'Login berhasil');
 	            }
 	            else{
 	                return redirect('login')->with('alert','Password, Salah !');

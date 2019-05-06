@@ -10,4 +10,5 @@ class PSB extends Model
     public $timestamps = false;
     protected $primaryKey = 'id_psb';
     protected $guarded = array();
+    public $incrementing = false;
 }

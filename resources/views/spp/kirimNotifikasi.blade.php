@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Kelola Pembayaran | Pembayaran SPP</title>
+    <title>Pesan Notifikasi | Pembayaran SPP</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
@@ -188,42 +188,53 @@
             <div class="animated fadeIn">
                 <!-- Widgets  -->
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-8 col-md-offset-2">
                         <div class="card">
                             <div class="card-header">
                                 <strong class="card-title">Pembayaran Siswa</strong>
                             </div>
                         
                             <div class="card-body">
-
-                                <br>
-
-                                <table id="bootstrap-data-table" class="table table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>NIS</th>
-                                            <th>Nama</th>
-                                            <th>Kelas</th>
-                                            <th>Jenjang</th>
-                                            <th>Angkatan</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($siswa as $siswa)
-                                        <tr>
-                                            <td>{{$siswa->NIS}}</td>
-                                            <td>{{$siswa->nama_siswa}}</td>
-                                            <td>{{App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->nama_kelas}}</td>
-                                            <td>{{App\Jenjang::where('id_jenjang', App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->id_jenjang)->first()->nama_jenjang}}</td>
-                                            <td>{{$siswa->angkatan}}</td>
-                                            <td>
-                                            <a href="/spp/detailSPP/{{$siswa->NIS}}" class="btn btn-outline-success btn-sm"><i class="fa fa-money"></i>&nbsp;Bayar</a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>    
+                                <form class="form-horizontal" role="form" method="post" action="/spp/notifikasiPembayaran/kirim">
+                                    {{ csrf_field() }}
+                                    {{ method_field('post') }}
+             
+                                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                        <label for="email" class="col-md-4 control-label">Recipient Number</label>
+             
+                                        <div class="col-md-6">
+                                            <input id="number" type="text" class="form-control" name="number" value="{{ old('email') }}" autofocus>             
+                                        </div>
+                                    </div>
+             
+                                    <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                                        <label for="name" class="col-md-4 control-label">Name</label>
+             
+                                        <div class="col-md-6">
+                                            <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}">
+             
+                                            
+                                        </div>
+                                    </div>
+             
+                                    <div class="form-group{{ $errors->has('message') ? ' has-error' : '' }}">
+                                        <label for="message" class="col-md-4 control-label">Message</label>
+             
+                                        <div class="col-md-6">
+                                            <textarea class="form-control" name="message">{{ old('message') }}</textarea>
+             
+                                            
+                                        </div>
+                                    </div>
+             
+                                    <div class="form-group">
+                                        <div class="col-md-8 col-md-offset-4">
+                                            <button type="submit" class="btn btn-primary">
+                                                Send Message
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

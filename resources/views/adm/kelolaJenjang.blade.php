@@ -218,7 +218,11 @@
                                                                     {{ csrf_field()}}
                                                     <div class="row form-group">
                                                         <div class="col col-md-3"><label for="email-input" class=" form-control-label">ID</label></div>
-                                                        <div class="col-12 col-md-9"><input type="number" id="id_jenjang" name="id_jenjang" placeholder="Masukkan ID Jenjang " class="form-control" required></div>
+                                                        <div class="col-12 col-md-9"><input type="number" id="id_jenjang" name="id_jenjang" placeholder="Masukkan ID Jenjang " class="form-control" 
+                                                        @if(!empty(App\Jenjang::all()))value="{{App\Jenjang::all()->last()->id_jenjang+1}}" 
+                                                    @else
+                                                    value="4324325" 
+                                                    @endif readonly></div>
                                                     </div>
                                                     <div class="row form-group">
                                                         <div class="col col-md-3"><label for="text-input" class=" form-control-label">Nama Jenjang</label></div>

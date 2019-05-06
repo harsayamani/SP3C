@@ -218,7 +218,10 @@
                                                                     {{ csrf_field() }}
                                                     <div class="row form-group">
                                                         <div class="col col-md-3"><label for="email-input" class=" form-control-label">ID</label></div>
-                                                        <div class="col-12 col-md-9"><input type="text" id="id_bulan" name="id_bulan" placeholder="Masukkan ID Bulan SPP" class="form-control" required></div>
+                                                        <div class="col-12 col-md-9"><input type="text" id="id_bulan" name="id_bulan" placeholder="Masukkan ID Bulan SPP" class="form-control" @if(!empty(App\BulanSPP::all()))value="{{App\BulanSPP::all()->last()->id_bulan+1}}" 
+                                                    @else
+                                                    value="342001" 
+                                                    @endif readonly></div>
                                                     </div>
                                                     <div class="row form-group">
                                                         <div class="col col-md-3"><label for="text-input" class=" form-control-label">Nama Bulan</label></div>

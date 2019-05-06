@@ -204,10 +204,10 @@
                                        <div class="row form-group">
                                             <div class="col col-md-12">
                                                 <div class="input-group">
-                                                    <select name="id_bulan" id="id_bulan" class="form-control">
-                                                    <option value="">---Pilih bulan ke---</option>
-                                                    @foreach($data_bulan_spp as $bulan)
-                                                    <option value="{{$bulan->id_bulan}}">{{$bulan->nama_bulan}}</option>
+                                                    <select name="id_kelas" id="id_kelas" class="form-control">
+                                                    <option value="">---Pilih kelas---</option>
+                                                    @foreach($data_kelas as $kelas)
+                                                    <option value="{{$kelas->id_kelas}}">{{$kelas->nama_kelas}}</option>
                                                     @endforeach
                                                 </select>
                                                     <div class="input-group-btn"><button class="btn btn-info">Filter</button></div>
@@ -235,7 +235,8 @@
                                             <th>Status Pembayaran</th>
                                         </tr>
                                     </thead>
-                                    @foreach($data_spp as $spp)
+                                    @if(!empty($spp))
+                                    @foreach($spp as $spp)
                                     <tbody>
                                         <tr>
                                             <td>{{$spp->id_spp}}</td>
@@ -252,6 +253,7 @@
                                         </tr>
                                     </tbody>
                                     @endforeach
+                                    @endif
                                 </table>   
                             </div>
                         </div>

@@ -119,5 +119,18 @@ route::get('/spp/kembali', function(){
 
 Route::post('/admin/datapembayaran/spp/filter', 'AdminSPPController@filter');
 
+Route::get('/spp/notifikasiPembayaran', 'PesanController@form')->name('sms.form');;
+
+Route::post('/spp/notifikasiPembayaran/kirim', 'PesanController@send')->name('sms.send');
+
+//---Route PSB
+
+route::get('/psb/pembayaranPSB', 'PSBController@pembayaran');
+
+route::get('/psb/detailPSB/{NIS}', 'PSBController@detail');
+
+route::post('/psb/bayarPSB', 'PSBController@bayarPSB');
+
+route::post('/psb/lunasiPSB', 'PSBController@lunasiPSB');
 
 

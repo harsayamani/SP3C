@@ -30,21 +30,14 @@
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-
                     <li>
-                        <a href="/spp/dashboard"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
+                        <a href="/psb/dashboard"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
                     </li>
-
-                    <li class="menu-title">Fitur Utama</li>
-
+                    <li class="menu-title">Fitur Utama</li><!-- /.menu-title -->
                     <li class="active">
-                        <a href="/spp/pembayaranSPP"><i class="menu-icon fa fa-table"></i>Pembayaran SPP </a>
+                        <a href="/psb/pembayaranPSB"><i class="menu-icon fa fa-table"></i>Pembayaran PSB </a>
                     </li>
 
-                    <li >
-                        <a href="/spp/notifikasiPembayaran"><i class="menu-icon fa fa-table"></i>Notifikasi Pembayaran</a>
-                    </li>
-                    
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
@@ -71,47 +64,6 @@
                                 <input class="form-control mr-sm-2" type="text" placeholder="Search ..." aria-label="Search">
                                 <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
                             </form>
-                        </div>
-                        <div class="dropdown for-message">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-envelope"></i>
-                                <span class="count bg-primary">4</span>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="message">
-                                <p class="red">You have 4 Mails</p>
-                                <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="/images/avatar/1.jpg"></span>
-                                    <div class="message media-body">
-                                        <span class="name float-left">Jonathan Smith</span>
-                                        <span class="time float-right">Just now</span>
-                                        <p>Hello, this is an example msg</p>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="/images/avatar/2.jpg"></span>
-                                    <div class="message media-body">
-                                        <span class="name float-left">Jack Sanders</span>
-                                        <span class="time float-right">5 minutes ago</span>
-                                        <p>Lorem ipsum dolor sit amet, consectetur</p>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="/images/avatar/3.jpg"></span>
-                                    <div class="message media-body">
-                                        <span class="name float-left">Cheryl Wheeler</span>
-                                        <span class="time float-right">10 minutes ago</span>
-                                        <p>Hello, this is an example msg</p>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="/images/avatar/4.jpg"></span>
-                                    <div class="message media-body">
-                                        <span class="name float-left">Rachel Santos</span>
-                                        <span class="time float-right">15 minutes ago</span>
-                                        <p>Lorem ipsum dolor sit amet, consectetur</p>
-                                    </div>
-                                </a>
-                            </div>
                         </div>
                     </div>
                     <div class="user-area dropdown float-right">
@@ -210,7 +162,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($siswa as $siswa)
+                                    @foreach($siswa_baru as $siswa)
                                         <tr>
                                             <td>{{$siswa->NIS}}</td>
                                             <td>{{$siswa->nama_siswa}}</td>
@@ -218,7 +170,7 @@
                                             <td>{{App\Jenjang::where('id_jenjang', App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->id_jenjang)->first()->nama_jenjang}}</td>
                                             <td>{{$siswa->angkatan}}</td>
                                             <td>
-                                            <a href="/spp/detailSPP/{{$siswa->NIS}}" class="btn btn-outline-success btn-sm"><i class="fa fa-money"></i>&nbsp;Bayar</a>
+                                            <a href="/psb/detailPSB/{{$siswa->NIS}}" class="btn btn-outline-success btn-sm"><i class="fa fa-money"></i>&nbsp;Bayar</a>
                                             </td>
                                         </tr>
                                     @endforeach

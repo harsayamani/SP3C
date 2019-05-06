@@ -52,9 +52,9 @@ class AdminSPPController extends Controller
     }
 
     public function kelolaSPP(){
-    	$data_spp = SPP::all();
-    	$data_bulan_spp = BulanSPP::all();
-    	return view('adm/kelolaSPP', compact('data_spp', 'data_bulan_spp'));
+    	$spp = SPP::all();
+    	$data_kelas = Kelas::all();
+    	return view('adm/kelolaSPP', compact('spp', 'data_kelas'));
     }
 
     public function filter(Request $request){

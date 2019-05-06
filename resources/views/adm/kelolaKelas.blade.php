@@ -217,7 +217,11 @@
                                                                 {{ csrf_field()}}
                                                 <div class="row form-group">
                                                     <div class="col col-md-3"><label for="number-input" class=" form-control-label">ID</label></div>
-                                                    <div class="col-12 col-md-9"><input type="number" id="id_kelas" name="id_kelas" placeholder="Masukkan ID Kelas " class="form-control" value="835" required><small class="form-text text-muted">ID harus 6 digit</small></div>
+                                                    <div class="col-12 col-md-9"><input type="number" id="id_kelas" name="id_kelas" placeholder="Masukkan ID Kelas " class="form-control" 
+                                                    @if(!empty(App\Kelas::all()))value="{{App\Kelas::all()->last()->id_kelas+1}}" 
+                                                    @else
+                                                    value="835001" 
+                                                    @endif readonly><small class="form-text text-muted">ID harus 6 digit</small></div>
                                                 </div>
                                                 <div class="row form-group">
                                                     <div class="col col-md-3"><label for="text-input" class=" form-control-label">Nama Kelas</label></div>
