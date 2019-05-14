@@ -39,11 +39,15 @@
                     <li class="menu-title">Fitur Utama</li>
 
                     <li class="active">
-                        <a href="/spp/pembayaranSPP"><i class="menu-icon fa fa-table"></i>Pembayaran SPP </a>
+                        <a href="/spp/pembayaranSPP"><i class="menu-icon fa fa-money"></i>Pembayaran SPP </a>
                     </li>
 
                     <li >
-                        <a href="/spp/notifikasiPembayaran"><i class="menu-icon fa fa-table"></i>Notifikasi Pembayaran</a>
+                        <a href="/spp/notifikasiPembayaran"><i class="menu-icon fa fa-bell"></i>Notifikasi Pembayaran</a>
+                    </li>
+
+                    <li >
+                        <a href="/spp/pesanMasuk"><i class="menu-icon fa fa-envelope-o"></i>Pesan Masuk</a>
                     </li>
                     
                 </ul>
@@ -79,39 +83,16 @@
                                 <span class="count bg-primary">4</span>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="message">
-                                <p class="red">You have 4 Mails</p>
-                                <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="/images/avatar/1.jpg"></span>
+                                <p class="red">Anda Mendapat 4 SMS</p>
+                                @for($n=0; $n<4; $n++)
+                                <a class="dropdown-item media" href="/spp/pesanMasuk/{{$inbox[$n]->ID}}">
                                     <div class="message media-body">
-                                        <span class="name float-left">Jonathan Smith</span>
-                                        <span class="time float-right">Just now</span>
-                                        <p>Hello, this is an example msg</p>
+                                        <span class="name float-left">{{$inbox[$n]->SenderNumber}}</span>
+                                        <span class="time float-right">{{$inbox[$n]->ReceivingDateTime}}</span>
+                                        <p>{{substr($inbox[$n]->TextDecoded, 0 , 40)}}...</p>
                                     </div>
                                 </a>
-                                <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="/images/avatar/2.jpg"></span>
-                                    <div class="message media-body">
-                                        <span class="name float-left">Jack Sanders</span>
-                                        <span class="time float-right">5 minutes ago</span>
-                                        <p>Lorem ipsum dolor sit amet, consectetur</p>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="/images/avatar/3.jpg"></span>
-                                    <div class="message media-body">
-                                        <span class="name float-left">Cheryl Wheeler</span>
-                                        <span class="time float-right">10 minutes ago</span>
-                                        <p>Hello, this is an example msg</p>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="/images/avatar/4.jpg"></span>
-                                    <div class="message media-body">
-                                        <span class="name float-left">Rachel Santos</span>
-                                        <span class="time float-right">15 minutes ago</span>
-                                        <p>Lorem ipsum dolor sit amet, consectetur</p>
-                                    </div>
-                                </a>
+                                @endfor
                             </div>
                         </div>
                     </div>
@@ -143,19 +124,19 @@
 
         @if (session()->has('alert success'))
             <div class="alert alert-success" role="alert">
-                Data berhasil ditambahkan
+                {{session()->get('alert success')}}
             </div>
         @endif
 
         @if (session()->has('alert danger'))
             <div class="alert alert-danger" role="alert">
-                Data berhasil dihapus
+                {{session()->get('alert danger')}}
             </div>
         @endif
 
         @if (session()->has('alert warning'))
             <div class="alert alert-success" role="alert">
-                Data berhasil diubah
+                {{session()->get('alert warning')}}
             </div>
         @endif
                                
@@ -221,12 +202,9 @@
                                             <div class="col-12 col-md-9">
                                                 <select name="id_bulan" id="id_bulan" class="form-control">
                                                     <option value="">---Pilih Bulan---</option>
-                                                    
-                                                    
                                                     @foreach($bulan as $bulan)
                                                          <option value="{{$bulan->id_bulan}}">{{$bulan->nama_bulan}}</option>
                                                     @endforeach
-                                                    
                                                 </select>
                                             </div>
                                         </div>
@@ -235,7 +213,7 @@
                                                 <label for="text-input" class=" form-control-label">Tanggal Pembayaran</label>
                                             </div>
                                             <div class="col-12 col-md-9" >
-                                                <input type="text" id="tgl_pembayaran" name="tgl_pembayaran" placeholder="Masukkan Tanggal Pembayaran" class="form-control" required="">
+                                                <input type="text" id="tgl_pembayaran" name="tgl_pembayaran" placeholder="Masukkan Tanggal Pembayaran" class="form-control" value="{{$date}}" readonly>
                                             </div>
                                         </div>
                                         <div class="row form-group">
@@ -296,7 +274,7 @@
                                             <div class="row form-group">
                                                 <div class="col col-md-3"><label for="text-input" class=" form-control-label">Tanggal Pelunasan</label></div>
                                                 <div class="col-12 col-md-9">
-                                                    <input type="text" id="tgl" name="tgl" placeholder="Masukkan Tanggal Pelunasan" class="form-control" required="">
+                                                    <input type="text" id="tgl" name="tgl" placeholder="Masukkan Tanggal Pelunasan" class="form-control" value="{{$date}}" readonly="">
                                                 </div>
                                             </div>
                                             <div class="row form-group">
@@ -489,12 +467,12 @@
     </script>
     
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script> 
-    <script>
+    <!-- <script>
         $('#tgl_pembayaran').datepicker();
-    </script>
-    <script>
+    </script> -->
+    <!-- <script>
         $('#tgl').datepicker();
-    </script>
+    </script> -->
     
 </body>
 </html>

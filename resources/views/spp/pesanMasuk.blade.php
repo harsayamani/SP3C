@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Pesan Notifikasi | Pembayaran SPP</title>
+    <title>Pesan Masuk | Pembayaran SPP</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
@@ -41,14 +41,13 @@
                         <a href="/spp/pembayaranSPP"><i class="menu-icon fa fa-money"></i>Pembayaran SPP </a>
                     </li  class="active">
 
-                    <li class="active">
+                    <li>
                         <a href="/spp/notifikasiPembayaran"><i class="menu-icon fa fa-bell"></i>Notifikasi Pembayaran</a>
                     </li>
 
-                    <li >
+                    <li  class="active">
                         <a href="/spp/pesanMasuk"><i class="menu-icon fa fa-envelope-o"></i>Pesan Masuk</a>
                     </li>
-                    
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
@@ -123,19 +122,19 @@
 
         @if (session()->has('alert success'))
             <div class="alert alert-success" role="alert">
-                {{session()->get('alert success')}}
+                Data berhasil ditambahkan
             </div>
         @endif
 
         @if (session()->has('alert danger'))
             <div class="alert alert-danger" role="alert">
-                {{session()->get('alert danger')}}
+                Data berhasil dihapus
             </div>
         @endif
 
         @if (session()->has('alert warning'))
-            <div class="alert alert-warning" role="alert">
-                {{session()->get('alert warning')}}
+            <div class="alert alert-success" role="alert">
+                Data berhasil diubah
             </div>
         @endif
 
@@ -145,7 +144,7 @@
                     <div class="col-sm-4">
                         <div class="page-header float-left">
                             <div class="page-title">
-                                <h1>Notifikasi</h1>
+                                <h1>Pesan Masuk</h1>
                             </div>
                         </div>
                     </div>
@@ -154,8 +153,8 @@
                             <div class="page-title">
                                 <ol class="breadcrumb text-right">
                                     <li><a href="#">Dashboard</a></li>
-                                    <li><a href="#">Notifikasi</a></li>
-                                    <li class="active">SPP</li>
+                                    <li><a href="#">Pembayaran</a></li>
+                                    <li class="active">Pesan Masuk</li>
                                 </ol>
                             </div>
                         </div>
@@ -172,117 +171,39 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">Pesan Notifikasi</strong>
+                                <strong class="card-title">Kelola Pesan Masuk</strong>
                             </div>
                         
                             <div class="card-body">
-                                <form class="form-horizontal" role="form" method="post" action="/spp/notifikasiPembayaran/kirim">
-                                    {{ csrf_field() }}
-                                    {{ method_field('post') }}
-             
-             
-                                    <div class="form-group">
-                                        <label for="nama" class=" form-control-label">Nama</label>
-                                        
-                                        <input type="text" id="nama" name="nama" value="PP Al-Islah Tajug" class="form-control" readonly>
-                                    </div>
-             
-                                    <div class="form-group">
-                                        <label for="pesan" class="control-label">Message</label>
-             
-                                        
-                                        <textarea class="form-control" name="pesan" id="pesan" required>{{ old('message') }}</textarea>
-                                    </div>
 
-                                    <table id="bootstrap-data-table" class="table table-striped table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Nama</th>
-                                                <th>Kelas</th>
-                                                <th>Jenjang</th>
-                                                <th>No HP Ortu</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($siswa as $siswa)
-                                            <tr>
-                                                <td><input type="checkbox" name="no_hp_ortu[]" value="{{$siswa->no_hp_ortu}}" class="checkbox"></td>
-                                                <td>{{$siswa->nama_siswa}}</td>
-                                                <td>{{App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->nama_kelas}}</td>
-                                                <td>{{App\Jenjang::where('id_jenjang', App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->id_jenjang)->first()->nama_jenjang}}</td>
-                                                <td>{{$siswa->no_hp_ortu}}</td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                    <br>
-                                    <br>
-             
-                                    <div class="form-group">
-                                        <div class="col-md-8 col-md-offset-4">
-                                            <button type="submit" class="btn btn-primary">
-                                                Kirim Pesan
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <strong class="card-title">Status Pesan</strong>
-                            </div>
-                        
-                            <div class="card-body">
-                                <table  id="bootstrap-data-table" class="table table-striped table-bordered">
+                                <table id="bootstrap-data-table" class="table table-striped table-bordered">
                                     <thead>
-                                            <tr>
-                                                <th>No.</th>
-                                                <th>Pesan</th>
-                                                <th>Nomor Tujuan</th>
-                                                <th>Waktu</th>
-                                                <th>Status</th>
-                                            </tr>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Waktu Masuk</th>
+                                            <th>Pengirim</th>
+                                            <th>Pesan</th>
+                                            <th>Aksi</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($sent as $sent)
+                                    @foreach($inbox as $inbox)
                                         <tr>
-                                            <td scope="row">{{$i+=1}}</td>
-                                            <td>{{$sent->TextDecoded}}</td>
-                                            <td>{{$sent->DestinationNumber}}</td>
-                                            <td>{{$sent->SendingDateTime}}</td>
-                                            <td>{{$sent->Status}}</td>
+                                            <td><?php  
+                                            $i=$i+1;
+                                            echo $i;
+                                            ?></td>
+                                            <td>{{$inbox->ReceivingDateTime}}</td>
+                                            <td>{{$inbox->SenderNumber}}</td>
+                                            <td>{{$inbox->TextDecoded}}</td>
+                                            <td>
+                                            <a href="/spp/hapusPesan/{{$inbox->ID}}" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i>&nbsp;Hapus</a>
+                                            <a href="/spp/pesanMasuk/{{$inbox->ID}}" class="btn btn-outline-success btn-sm"><i class="fa fa-info"></i>&nbsp;Detail</a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <strong class="card-title">Kontak Keluar</strong>
-                            </div>
-                        
-                            <div class="card-body">
-                                <table id="bootstrap-data-table" class="table table-striped table-bordered">
-                                    <tbody>
-                                    @foreach($pesan as $pesan)
-                                        <tr>
-                                            <td scope="row">{{$pesan->id}}</td>
-                                            <td>{{$pesan->contact_number}}</td>
-                                            <td>{{$pesan->contact_name}}</td>
-                                            <td>{{$pesan->created_at}}</td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
+                                </table>    
                             </div>
                         </div>
                     </div>
@@ -322,6 +243,7 @@
     <script src="/assets/js/lib/data-table/buttons.print.min.js"></script>
     <script src="/assets/js/lib/data-table/buttons.colVis.min.js"></script>
     <script src="/assets/js/init/datatables-init.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>   
 

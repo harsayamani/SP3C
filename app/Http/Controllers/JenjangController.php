@@ -14,7 +14,8 @@ class JenjangController extends Controller
             return redirect('login')->with('alert','Anda harus login terlebih dulu');
         }else{
             $data_jenjang = Jenjang::all();
-            return view('/adm/kelolaJenjang', ['data_jenjang'=>$data_jenjang]);
+            $i=0;
+            return view('/adm/kelolaJenjang', ['data_jenjang'=>$data_jenjang, 'i'=>$i]);
         }
     }
 

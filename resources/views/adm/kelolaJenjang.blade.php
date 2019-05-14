@@ -197,7 +197,7 @@
                             <div class="card-body">
 
                                 <div class="col-lg-3 col-md-6">
-                                    <button type="button" class="btn btn-info mb-1" data-toggle="modal" data-target="#tambahJenjang">
+                                    <button type="button" class="btn btn-info mb-1" data-toggle="modal" data-target="#tambahJenjang"><i class="fa fa-plus-square"></i>
                                       Tambah Jenjang
                                     </button>
                                 </div>
@@ -288,7 +288,7 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th scope="row">Id</th>
+                                            <th scope="row">No.</th>
                                             <th scope="col">Jenjang</th>
                                             <th scope="col">Aksi</th>
                                         </tr>
@@ -296,7 +296,7 @@
                                     <tbody>
                                     @foreach($data_jenjang as $jenjang)
                                         <tr>
-                                            <td scope="row">{{$jenjang->id_jenjang}}</td>
+                                            <td scope="row">{{$i+=1}}</td>
                                             <td>{{$jenjang->nama_jenjang}}</td>
                                             <td>
                                                 <button type="button" class="btn btn-outline-success btn-sm" 

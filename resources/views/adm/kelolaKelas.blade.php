@@ -196,7 +196,7 @@
                         <div class="card-body">
 
                             <div class="col-lg-3 col-md-6">
-                                <button type="button" class="btn btn-info mb-1" data-toggle="modal" data-target="#tambahKelas">
+                                <button type="button" class="btn btn-info mb-1" data-toggle="modal" data-target="#tambahKelas"><i class="fa fa-plus-square"></i>
                                   Tambah Kelas
                                 </button>
                             </div>
@@ -221,7 +221,7 @@
                                                     @if(!empty(App\Kelas::all()))value="{{App\Kelas::all()->last()->id_kelas+1}}" 
                                                     @else
                                                     value="835001" 
-                                                    @endif readonly><small class="form-text text-muted">ID harus 6 digit</small></div>
+                                                    @endif required><small class="form-text text-muted">ID harus 6 digit</small></div>
                                                 </div>
                                                 <div class="row form-group">
                                                     <div class="col col-md-3"><label for="text-input" class=" form-control-label">Nama Kelas</label></div>
@@ -253,7 +253,7 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th scope="row">Id</th>
+                                        <th scope="row">No.</th>
                                         <th scope="col">Kelas</th>
                                         <th scope="col">Jenjang</th>
                                         <th scope="col">Aksi</th>
@@ -262,7 +262,7 @@
                                 <tbody>
                                 @foreach($data_kelas as $kelas)
                                     <tr>
-                                        <td scope="row">{{$kelas->id_kelas}}</td>
+                                        <td scope="row">{{$i = $i+1}}</td>
                                         <td>{{$kelas->nama_kelas}}</td>
                                         <td>{{App\Jenjang::where('id_jenjang', $kelas->id_jenjang)->first()->nama_jenjang}}</td>
                                         <td>

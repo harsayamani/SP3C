@@ -4,8 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Pesan extends Model
+class Outbox extends Model
 {
-    protected $table = 'pesan';
+    protected $table = 'outbox';
     protected $primaryKey = 'id';
+    public $timestamps = false;
 }

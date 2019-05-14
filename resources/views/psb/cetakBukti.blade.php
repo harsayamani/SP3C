@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Kwitansi SPP - {{$spp->id_spp}}</title>
+	<title>Kwitansi PSB - {{$siswa->NIS}}</title>
 	<style type="text/css">
 			.lead {
 				font-family: "Verdana";
@@ -19,7 +19,7 @@
 				valign : "top";
 			}
 			/* @page { size: with x height */
-			@page { size: 20cm 9.5cm; margin: 0px; }
+			@page { size: 20cm 13cm; margin: 0px; }
 			/*@page {
 				size: A4;
 				margin : 0px;
@@ -35,7 +35,7 @@
 		var beforePrint = function() {
 		};
 		var afterPrint = function() {
-			document.location.href = '/spp/kembali';
+			document.location.href = '/psb/detailPSB/{{$siswa->NIS}}';
 		};
 		if (window.matchMedia) {
 			var mediaQueryList = window.matchMedia('print');
@@ -61,31 +61,41 @@
 				<table cellpadding="4">
 					<tr>
 						<td width="200px"><div class="lead">No kwitansi</td>
-						<td><div class="value">: {{$spp->id_spp}}</div></td>
+						<td><div class="value">: {{uniqid()}}</div></td>
 					</tr>
 					<tr>
 						<td><div class="lead">Telah terima dari</div></td>
-						<td><div class="value">: {{App\Siswa::where('NIS', $spp->NIS)->first()->nama_siswa}}</div></td>
+						<td><div class="value">: {{$siswa->nama_siswa}}</div></td>
 					</tr>
 					<tr>
 						<td><div class="lead">Untuk pembayaran</div></td>
-						<td><div class="value">: SPP</div></td>
+						@if(count($psb)==1)
+						<td>
+						@for($i=0; $i<count($rincian)-1; $i++)
+						<div class="value">: - {{$rincian[$i]->detail_rincian}}
+						</div>
+						@endfor
+						@endif
+						@if(count($psb)>1)
+						<td>
+						@for($i=0; $i<count($rincian)-1; $i++)
+						<div class="value">: - {{$rincian[$i]->detail_rincian}}
+						</div>
+						@endfor
+						@endif
+						</td>
+						
 					</tr>
-					<tr>
-						<td><div class="lead">Bulan</div></td>
-						<td><div class="value">: {{App\BulanSPP::where('id_bulan', $spp->id_bulan)->first()->nama_bulan}}</div></td>
-					</tr>
-					<tr>
 						<td><div class="lead">Tanggal</div></td>
-						<td><div class="value">: {{$spp->tgl_pembayaran}}</div></td>
+						<td><div class="value">: {{$tgl_pembayaran}}</div></td>
 					</tr>
 					<tr>
 						<td><div class="lead">Uang sejumlah</div></td>
-						<td><div class="value-big">: Rp. {{$spp->nominal_spp}},-</div></td>
+						<td><div class="value-big">: Rp. {{$total}},-</div></td>
 					</tr>
 					<tr>
 						<td><div class="lead">Terbilang</div></td>
-						<td><div class="value">: {{penyebut($spp->nominal_spp)}} rupiah</div></td>
+						<td><div class="value">: {{penyebut($total)}} rupiah</div></td>
 					</tr>
 					<tr>
 						<td colspan="2">&nbsp;</td>

@@ -77,7 +77,7 @@
                     </li>
                     <li class="menu-title">Fitur Utama</li><!-- /.menu-title -->
                     <li >
-                        <a href="/psb/pembayaranPSB"><i class="menu-icon fa fa-table"></i>Pembayaran PSB </a>
+                        <a href="/psb/pembayaranPSB"><i class="menu-icon fa fa-money"></i>Pembayaran PSB </a>
                     </li>
 
                 </ul>
@@ -110,7 +110,7 @@
 
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="/images/admin.jpg" alt="User Avatar">
+                            <img class="user-avatar rounded-circle" src="/images/boss.png" alt="User Avatar">
                         </a>
 
                         <div class="user-menu dropdown-menu">
@@ -156,76 +156,84 @@
             <div class="animated fadeIn">
                 <!-- Widgets  -->
                 <div class="row">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="card">
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="card text-white bg-flat-color-1">
                             <div class="card-body">
-                                <div class="stat-widget-five">
-                                    <div class="stat-icon dib flat-color-1">
-                                        <i class="pe-7s-cash"></i>
-                                    </div>
+                                <div class="card-left pt-1 float-left">
+                                    <h3 class="mb-0 fw-r">
+                                        <span class="currency float-left mr-1">Rp</span>
+                                        <span class="count">{{$jumlah}}</span>
+                                    </h3>
+                                    <p class="text-light mt-1 m-0">Jumlah PSB Masuk</p>
+                                </div><!-- /.card-left -->
 
-                                    <div class="stat-content">
-                                        <div class="text-left dib">
-                                            <div class="stat-text">Rp<span class="count"></span></div>
-                                            <div class="stat-heading">Jumlah SPP Masuk</div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div class="card-right float-right text-right">
+                                    <i class="icon fade-5 icon-lg pe-7s-cash"></i>
+                                </div><!-- /.card-right -->
+
                             </div>
+
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-6">
-                        <div class="card">
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="card text-white bg-flat-color-6">
                             <div class="card-body">
-                                <div class="stat-widget-five">
-                                    <div class="stat-icon dib flat-color-2">
-                                        <i class="pe-7s-cart"></i>
-                                    </div>
-                                    <div class="stat-content">
-                                        <div class="text-left dib">
-                                            <div class="stat-text"><span class="count">3435</span></div>
-                                            <div class="stat-heading">Sales</div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div class="card-left pt-1 float-left">
+                                    <h3 class="mb-0 fw-r">
+                                        <span class="count float-left">@if($psb->count()>0){{($lunas/$transaksi)*100}}
+                                        @else
+                                        0
+                                        @endif</span>
+                                        <span>%</span>
+                                    </h3>
+                                    <p class="text-light mt-1 m-0">Persentase Transaksi Lunas</p>
+                                </div><!-- /.card-left -->
+
+                                <div class="card-right float-right text-right">
+                                    <div id="flotBar1" class="flotBar1"></div>
+                                </div><!-- /.card-right -->
+
                             </div>
+
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-6">
-                        <div class="card">
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="card text-white bg-flat-color-2">
                             <div class="card-body">
-                                <div class="stat-widget-five">
-                                    <div class="stat-icon dib flat-color-3">
-                                        <i class="pe-7s-browser"></i>
-                                    </div>
-                                    <div class="stat-content">
-                                        <div class="text-left dib">
-                                            <div class="stat-text"><span class="count">349</span></div>
-                                            <div class="stat-heading">Templates</div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div class="card-left pt-1 float-left">
+                                    <h3 class="mb-0 fw-r">
+                                        <span class="count">{{$transaksi}}</span>
+                                    </h3>
+                                    <p class="text-light mt-1 m-0">Jumlah Transaksi</p>
+                                </div><!-- /.card-left -->
+
+                                <div class="card-right float-right text-right">
+                                    <i class="icon fade-5 icon-lg pe-7s-cart"></i>
+                                </div><!-- /.card-right -->
+
                             </div>
+
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-6">
-                        <div class="card">
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="card text-white bg-flat-color-3">
                             <div class="card-body">
-                                <div class="stat-widget-five">
-                                    <div class="stat-icon dib flat-color-4">
-                                        <i class="pe-7s-users"></i>
-                                    </div>
-                                    <div class="stat-content">
-                                        <div class="text-left dib">
-                                            <div class="stat-text"><span class="count">34324</span></div>
-                                            <div class="stat-heading">Jumlah Siswa</div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div class="card-left pt-1 float-left">
+                                    <h3 class="mb-0 fw-r">
+                                        <span class="count">{{$siswa}}</span>
+                                    </h3>
+                                    <p class="text-light mt-1 m-0">Jumlah Siswa</p>
+                                </div><!-- /.card-left -->
+
+                                <div class="card-right float-right text-right">
+                                    <i class="icon fade-5 icon-lg pe-7s-users"></i>
+                                </div><!-- /.card-right -->
+
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -342,6 +350,12 @@
     <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.js"></script>
     <script src="/assets/js/init/fullcalendar-init.js"></script>
+
+    <!--Flot Chart-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flot-spline@0.0.1/js/jquery.flot.spline.min.js"></script>
+    <!-- local -->
+    <script src="/assets/js/widgets.js"></script>
 
     <!--Local Stuff-->
     <script>

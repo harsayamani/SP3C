@@ -8,6 +8,7 @@ use App\BulanSPP;
 use App\Jenjang;
 use App\SPP;
 use App\Kelas;
+use App\Siswa;
 
 class AdminSPPController extends Controller
 {
@@ -53,14 +54,15 @@ class AdminSPPController extends Controller
 
     public function kelolaSPP(){
     	$spp = SPP::all();
-    	$data_kelas = Kelas::all();
-    	return view('adm/kelolaSPP', compact('spp', 'data_kelas'));
+    	$data_bulan_spp = BulanSPP::all();
+    	return view('adm/kelolaSPP', compact('spp', 'data_bulan_spp'));
     }
 
     public function filter(Request $request){
-        $data_spp = SPP::find($request->id_bulan);
+        $spp = SPP::where('id_bulan', $request->id_bulan)->get();
+        
         $data_bulan_spp = BulanSPP::all();
 
-        return view('adm/kelolaSPP', compact('data_spp', 'data_bulan_spp'));
+        return view('adm/kelolaSPP', compact('data_bulan_spp', 'spp'));
     }
 }

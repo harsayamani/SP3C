@@ -6,82 +6,128 @@ use App\Http\Requests\Pesan\ValidationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Pesan;
- 
-/**
- * @author Yugo <dedy.yugo.purwanto@gmail.com>
- * @copyright Laravel.web.id - 2016
- */
+use App\Siswa;
+use App\Outbox;
+use App\Inbox;
+use App\Sentitems;
+
 class PesanController extends Controller
 {
-    /**
-     * Show form for send messae
-     */
+    
     public function form()
     {
-        return view('spp/kirimNotifikasi');
+        $siswa = Siswa::all();
+        $pesan = Pesan::all();
+        $inbox = Inbox::orderBy('ReceivingDateTime', 'desc')->get();
+        $sent = Sentitems::orderBy('ID', 'desc')->get();
+        $sent_count = Sentitems::all();
+        $i = 0; 
+
+        if(!Session::get('loginSPP')){
+            return redirect('login')->with('alert','Anda harus login terlebih dulu');
+        }else{
+            return view('spp/kirimNotifikasi', compact('siswa', 'pesan', 'inbox', 'sent', 'i'));
+        }
     }
  
-    /**
-     * @param ValidationRequest $request
-     */
-    public function send(ValidationRequest $request)
+    
+    public function send(Request $request)
     {
 
-    	// $this->validate($request, [
-     //            'number'  => 'required|max:30',
-	    //         'name'    => 'required|string|max:50',
-	    //         'message' => 'required',
-     //        ]);
+        $nama = $request->nama;
+        $pesan = $request->pesan;
+        
+        try {
+          for ($i=0; $i <count($request->no_hp_ortu) ; $i++) { 
+            $basic  = new \Nexmo\Client\Credentials\Basic('0a3fdb5e', 'mVHelRccDZFXU8RI');
+            $client = new \Nexmo\Client($basic);
 
-        abort_if(!function_exists('curl_init'), 400, 'CURL is not installed.');
- 
-        $curl = curl_init('https://smsgateway.me/api/v4/message/send');
- 
-        curl_setopt($curl, CURLOPT_POST, 1);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, [
-            'email'    => config('smsgateway.email'),
-            'password' => config('smsgateway.password'),
-            'device'   => config('smsgateway.device'),
-            'number'   => $request->number,
-            'name'     => $request->name,
-            'message'  => $request->message,
-        ]);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
- 
-        $response = json_decode(curl_exec($curl));
- 
-        curl_close($curl);
- 
-        if ($response->success === true) {
-            if (!empty($response->result->fails)) {
-                \Log::debug($response->result->fails);
-            } else {
-                foreach ($response->result->success as $success) {
-                    $messages[] = [
-                        'type'           => 'outbox',
-                        'contact_id'     => $success->contact->id,
-                        'contact_name'   => $success->contact->name,
-                        'contact_number' => $success->contact->number,
-                        'device_id'      => $success->device_id,
-                        'message'        => $success->message,
-                        'expired_at'     => \Carbon\Carbon::now()->timestamp($success->expires_at),
-                        'created_at'     => \Carbon\Carbon::now(),
-                        'updated_at'     => \Carbon\Carbon::now(),
-                    ];
-                }
- 
-                Pesan::insert($messages);
- 
-                return redirect()
-                    ->route('spp/notifikasiPembayaran')
-                    ->withSuccess('Message has been sent successfully.');
+            $message = $client->message()->send([
+                'to' => $request->no_hp_ortu[$i],
+                'from' => $nama,
+                'text' => $pesan
+            ]);
+
+            $nama_ortu = Siswa::where('no_hp_ortu', $request->no_hp_ortu[$i])->value('nama_ortu');
+
+            $response = $message->getResponseData();
+
+            if ($response['messages'][0]['status'] == 0) {
+                $log_pesan = new Pesan;
+                $log_pesan->contact_number = $request->no_hp_ortu[$i];
+                $log_pesan->contact_name = $nama_ortu;
+                $log_pesan->message = $pesan;
+                $log_pesan->save();
+                return redirect('/spp/notifikasiPembayaran')->with('alert success', 'Pesan berhasil dikirim');
+            }else{
+                return redirect('/spp/notifikasiPembayaran')->with('alert danger', 'Pesan gagal dikirim');
             }
-        } else {
-            \Log::debug(json_encode($response->errors));
         }
- 
-        return redirect()
-            ->back()
-            ->withError('Failed to send message.');
+        }
+        catch (\Exception $e) {
+            return redirect('/spp/notifikasiPembayaran')->with('alert danger', 'Nomor tidak terdaftar');
+        }
+
+    }
+
+    public function sendGammu(Request $request){
+        $nama = $request->nama;
+        $pesan = $request->pesan;
+        
+        try {
+          for ($i=0; $i <count($request->no_hp_ortu) ; $i++) { 
+            
+            $message = new Outbox;
+
+            $message->DestinationNumber = $request->no_hp_ortu[$i];
+            $message->TextDecoded = $pesan;
+            $message->CreatorID = $nama;
+            $message->save();
+
+            $nama_ortu = Siswa::where('no_hp_ortu', $request->no_hp_ortu[$i])->value('nama_ortu');
+
+            if ($message) {
+                $log_pesan = new Pesan;
+                $log_pesan->contact_number = $request->no_hp_ortu[$i];
+                $log_pesan->contact_name = $nama_ortu;
+                $log_pesan->message = $pesan;
+                $log_pesan->save();
+                return redirect('/spp/notifikasiPembayaran')->with('alert success', 'Pesan berhasil dikirim');
+            }else{
+                return redirect('/spp/notifikasiPembayaran')->with('alert danger', 'Pesan gagal dikirim');
+            }
+        }
+        }
+        catch (\Exception $e) {
+            return redirect('/spp/notifikasiPembayaran')->with('alert danger', 'error : '.$e);
+        }
+    }
+
+    public function pesanMasuk(){
+        $inbox = Inbox::orderBy('ReceivingDateTime', 'desc')->get();
+        $i=0;
+        if(!Session::get('loginSPP')){
+            return redirect('login')->with('alert','Anda harus login terlebih dulu');
+        }else{
+            return view('spp/pesanMasuk', compact('inbox','i'));
+        }
+    }
+
+    public function detailPesan($ID){
+        $dtl_inbox = Inbox::find($ID);
+        $inbox = Inbox::orderBy('ReceivingDateTime', 'desc')->get();
+
+        if(!Session::get('loginSPP')){
+            return redirect('login')->with('alert','Anda harus login terlebih dulu');
+        }else{
+            return view('spp/detailPesan', compact('dtl_inbox', 'inbox'));
+        }
+    }
+
+    public function hapusPesan($ID){
+        $inbox = Inbox::find($ID);
+        $inbox->delete($inbox);
+
+        return redirect('/spp/pesanMasuk')->with('alert danger', 'Pesan Berhasil Dihapus');
     }
 }

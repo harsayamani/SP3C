@@ -197,7 +197,7 @@
                             <div class="card-body">
 
                                 <div class="col-lg-3 col-md-6">
-                                    <button type="button" class="btn btn-info mb-1" data-toggle="modal" data-target="#tambahJenjang">
+                                    <button type="button" class="btn btn-info mb-1" data-toggle="modal" data-target="#tambahJenjang"><i class="fa fa-plus-square"></i>
                                       Tambah Rincian
                                     </button>
                                 </div>

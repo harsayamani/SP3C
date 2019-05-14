@@ -13,16 +13,17 @@ class KelasController extends Controller
         if(!Session::get('loginAdmin')){
             return redirect('login')->with('alert','Anda harus login terlebih dulu');
         }else{
+            $i=0;
             $data_kelas = Kelas::all();
             $data_jenjang = Jenjang::all();
-            return view('/adm/kelolaKelas', compact('data_kelas', 'data_jenjang'));
+            return view('/adm/kelolaKelas', compact('data_kelas', 'data_jenjang', 'i'));
         }
     }
 
     public function tambahKelas(Request $request){
     	$this->validate($request, [
     			'id_kelas=' => '|unique:kelas|digits:6|numeric|regex:/^([1-9][0-9]+)/',
-    			'nama_kelas' => '|unique:kelas|max:2',
+    			'nama_kelas' => '|unique:kelas|max:10',
     		]);
     	$data = new Kelas();
         $data->id_kelas = $request->id_kelas;

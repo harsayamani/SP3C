@@ -22,8 +22,9 @@ class SiswaController extends Controller
         if(!Session::get('loginAdmin')){
             return redirect('login')->with('alert','Anda harus login terlebih dulu');
         }else{
+            $i=0;
             $data_siswa = Siswa::all();
-            return view('adm/kelolaSiswa', ['data_siswa'=>$data_siswa]);
+            return view('adm/kelolaSiswa', ['data_siswa'=>$data_siswa, 'i'=>$i]);
         }
     }
 
@@ -39,8 +40,8 @@ class SiswaController extends Controller
                 'nama_siswa' => '|unique:siswa|',
                 'jenis_kelamin' => '|max:1|',
                 'alamat' => '|unique:siswa|',
-                'no_hp' => '|unique:siswa|max:12',
-                'no_hp_ortu' => '|max:12',
+                'no_hp' => '|unique:siswa|max:20',
+                'no_hp_ortu' => '|max:20',
                 'angkatan' =>'|digits:4|numeric|regex:/^([1-9][0-9]+)/',
             ]);
     	$data = new Siswa();
@@ -54,7 +55,7 @@ class SiswaController extends Controller
         $data->no_hp_ortu = $request->no_hp_ortu;
         $data->angkatan = $request->angkatan;
         $data->save();
-        return redirect('/admin/datasiswa/formSiswa')->with('alert success', 'Data berhasil ditambahkan');
+        return redirect('/admin/datasiswa/kelolaSiswa')->with('alert success', 'Data berhasil ditambahkan');
     }
 
     public function updateSiswa($NIS){

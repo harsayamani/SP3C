@@ -196,8 +196,8 @@
                                 <div class="form-group"><label for="jenis_kelamin" class=" form-control-label">Jenis Kelamin</label>
                                     <select name="jenis_kelamin" id="jenis_kelamin" class="form-control">
                                         <option value="0">---Pilih jenis kelamin---</option>
-                                        <option value="L">Laki-Laki</option>
-                                        <option value="P">Perempuan</option>
+                                        <option value="L" @if($data_siswa->jenis_kelamin == "L") selected @endif>Laki-Laki</option>
+                                        <option value="P" @if($data_siswa->jenis_kelamin == "P") selected @endif>Perempuan</option>
                                     </select>
                                 </div> 
                                 <div class="form-group"><label for="street" class=" form-control-label">Alamat</label><textarea type="text" id="alamat" name="alamat" placeholder="Masukkan alamat siswa" class="form-control" required>{{$data_siswa->alamat}}</textarea></div>

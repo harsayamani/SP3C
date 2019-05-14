@@ -198,16 +198,18 @@
                             <div class="card-body">
 
                                 <div class="col-lg-3 col-md-6">
-                                    <a href="/admin/datasiswa/formSiswa" class="btn btn-info mb-1">
+                                    <a href="/admin/datasiswa/formSiswa" class="btn btn-info mb-1"><i class="fa fa-plus-square"></i>
                                       Tambah Siswa
                                     </a>
                                 </div>
+
 
                                 <br>
 
                                 <table id="bootstrap-data-table" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
+                                            <th>No.</th>
                                             <th>NIS</th>
                                             <th>Nama</th>
                                             <th>Kelas</th>
@@ -219,6 +221,10 @@
                                     <tbody>
                                     @foreach($data_siswa as $siswa)
                                         <tr>
+                                            <td><?php  
+                                            $i=$i+1;
+                                            echo $i;
+                                            ?></td>
                                             <td>{{$siswa->NIS}}</td>
                                             <td>{{$siswa->nama_siswa}}</td>
                                             <td>{{App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->nama_kelas}}</td>

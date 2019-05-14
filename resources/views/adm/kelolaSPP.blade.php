@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
@@ -199,15 +201,15 @@
                             <div class="card-body">
 
                                 <div class="col-md-6">
-                                    <form action="/admin/datapembayaran/spp/filter" method="post">
+                                    <form action="/admin/datapembayaran/spp/filter" method="get">
                                        {{csrf_field()}}
                                        <div class="row form-group">
                                             <div class="col col-md-12">
                                                 <div class="input-group">
-                                                    <select name="id_kelas" id="id_kelas" class="form-control">
-                                                    <option value="">---Pilih kelas---</option>
-                                                    @foreach($data_kelas as $kelas)
-                                                    <option value="{{$kelas->id_kelas}}">{{$kelas->nama_kelas}}</option>
+                                                    <select name="id_bulan" id="id_bulan" class="form-control">
+                                                    <option value="">---Pilih bulan---</option>
+                                                    @foreach($data_bulan_spp as $bulan)
+                                                    <option value="{{$bulan->id_bulan}}">{{$bulan->nama_bulan}}</option>
                                                     @endforeach
                                                 </select>
                                                     <div class="input-group-btn"><button class="btn btn-info">Filter</button></div>
@@ -215,12 +217,9 @@
                                             </div>
                                         </div> 
                                     </form>
-                                    <button type="button" class="btn btn-info mb-1"><i class="fa fa-edit"></i>
-                                      Rekap Data
-                                    </button>
-                                    <button type="button" class="btn btn-print mb-1"><i class="fa fa-print"></i>
-                                      Cetak
-                                    </button>     
+                                    <a href="#" class="btn btn-danger mb-1"><i class="fa fa-trash"></i>
+                                      Reset Data
+                                    </a>  
                                 </div>
 
                                 <br>
@@ -228,32 +227,37 @@
                                 <table id="bootstrap-data-table" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
+                                            <th>No</th>
                                             <th>Nama</th>
+                                            <th>Kelas</th>
                                             <th>Bulan</th>
                                             <th>Tgl Bayar</th>
-                                            <th>Status Pembayaran</th>
+                                            <th>Status</th>
                                         </tr>
                                     </thead>
-                                    @if(!empty($spp))
-                                    @foreach($spp as $spp)
+                                    
                                     <tbody>
+                                    @if(!empty($spp))
+                                    @for($i=0; $i<count($spp); $i++)
                                         <tr>
-                                            <td>{{$spp->id_spp}}</td>
-                                            <td>{{App\Siswa::where('NIS', $spp->NIS)->first()->nama_siswa}}</td>
-                                            <td>{{App\BulanSPP::where('id_bulan', $spp->id_bulan)->first()->nama_bulan}}</td>
-                                            <td>{{$spp->tgl_pembayaran}}</td>
+                                            <td>{{$i+1}}</td>
+                                            <td>{{App\Siswa::where('NIS', $spp[$i]->NIS)->first()->nama_siswa}}</td>
+                                            <td>{{App\Kelas::where('id_kelas', App\Siswa::where('NIS', $spp[$i]->NIS)->first()->id_kelas)->first()->nama_kelas}}</td>
+                                            <td>{{App\BulanSPP::where('id_bulan', $spp[$i]->id_bulan)->first()->nama_bulan}}</td>
+                                            <td>{{$spp[$i]->tgl_pembayaran}}</td>
                                             <td>
-                                                @if($spp->status_pembayaran == 1)
+                                                @if($spp[$i]->status_pembayaran == 1)
                                                     <button class="btn btn-success">Lunas</button>
-                                                @else
+                                                @endif
+                                                @if($spp[$i]->status_pembayaran == 0)
                                                     <button class="btn btn-danger">Belum Lunas</button>
                                                 @endif
                                             </td>
                                         </tr>
-                                    </tbody>
-                                    @endforeach
+                                    @endfor
                                     @endif
+                                    </tbody>
+                                    
                                 </table>   
                             </div>
                         </div>
@@ -284,20 +288,31 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
     <script src="/assets/js/main.js"></script>
-    <script src="/assets/js/lib/data-table/datatables.min.js"></script>
-    <script src="/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
-    <script src="/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
-    <script src="/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
-    <script src="/assets/js/lib/data-table/jszip.min.js"></script>
-    <script src="/assets/js/lib/data-table/vfs_fonts.js"></script>
-    <script src="/assets/js/lib/data-table/buttons.html5.min.js"></script>
-    <script src="/assets/js/lib/data-table/buttons.print.min.js"></script>
-    <script src="/assets/js/lib/data-table/buttons.colVis.min.js"></script>
-    <script src="/assets/js/init/datatables-init.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script> 
     
+    <script src="/assets/js/lib/data-table/datatables.min.js"></script>
+    <script src="/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script> 
+    <script src="/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script> 
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script> 
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script> 
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#bootstrap-data-table').DataTable( {
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            } );
+        } );
+    </script>    
 
 </body>
 </html>

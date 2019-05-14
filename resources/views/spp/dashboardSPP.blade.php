@@ -80,11 +80,15 @@
                     <li class="menu-title">Fitur Utama</li>
 
                     <li >
-                        <a href="/spp/pembayaranSPP"><i class="menu-icon fa fa-table"></i>Pembayaran SPP </a>
+                        <a href="/spp/pembayaranSPP"><i class="menu-icon fa fa-money"></i>Pembayaran SPP </a>
                     </li>
 
                     <li >
-                        <a href="/spp/notifikasiPembayaran"><i class="menu-icon fa fa-table"></i>Notifikasi Pembayaran</a>
+                        <a href="/spp/notifikasiPembayaran"><i class="menu-icon fa fa-bell"></i>Notifikasi Pembayaran</a>
+                    </li>
+
+                    <li >
+                        <a href="/spp/pesanMasuk"><i class="menu-icon fa fa-envelope-o"></i>Pesan Masuk</a>
                     </li>
                    	
                 </ul>
@@ -120,46 +124,23 @@
                                 <span class="count bg-primary">4</span>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="message">
-                                <p class="red">You have 4 Mails</p>
-                                <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="/images/avatar/1.jpg"></span>
+                                <p class="red">Anda Mendapat 4 SMS</p>
+                                @for($n=0; $n<4; $n++)
+                                <a class="dropdown-item media" href="/spp/pesanMasuk/{{$inbox[$n]->ID}}">
                                     <div class="message media-body">
-                                        <span class="name float-left">Jonathan Smith</span>
-                                        <span class="time float-right">Just now</span>
-                                        <p>Hello, this is an example msg</p>
+                                        <span class="name float-left">{{$inbox[$n]->SenderNumber}}</span>
+                                        <span class="time float-right">{{$inbox[$n]->ReceivingDateTime}}</span>
+                                        <p>{{substr($inbox[$n]->TextDecoded, 0 , 40)}}...</p>
                                     </div>
                                 </a>
-                                <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="/images/avatar/2.jpg"></span>
-                                    <div class="message media-body">
-                                        <span class="name float-left">Jack Sanders</span>
-                                        <span class="time float-right">5 minutes ago</span>
-                                        <p>Lorem ipsum dolor sit amet, consectetur</p>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="/images/avatar/3.jpg"></span>
-                                    <div class="message media-body">
-                                        <span class="name float-left">Cheryl Wheeler</span>
-                                        <span class="time float-right">10 minutes ago</span>
-                                        <p>Hello, this is an example msg</p>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="/images/avatar/4.jpg"></span>
-                                    <div class="message media-body">
-                                        <span class="name float-left">Rachel Santos</span>
-                                        <span class="time float-right">15 minutes ago</span>
-                                        <p>Lorem ipsum dolor sit amet, consectetur</p>
-                                    </div>
-                                </a>
+                                @endfor
                             </div>
                         </div>
                     </div>
 
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="/images/admin.jpg" alt="User Avatar">
+                            <img class="user-avatar rounded-circle" src="/images/boss.png" alt="User Avatar">
                         </a>
 
                         <div class="user-menu dropdown-menu">
@@ -205,85 +186,85 @@
             <div class="animated fadeIn">
                 <!-- Widgets  -->
                 <div class="row">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="card">
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="card text-white bg-flat-color-1">
                             <div class="card-body">
-                                <div class="stat-widget-five">
-                                    <div class="stat-icon dib flat-color-1">
-                                        <i class="pe-7s-cash"></i>
-                                    </div>
+                                <div class="card-left pt-1 float-left">
+                                    <h3 class="mb-0 fw-r">
+                                        <span class="currency float-left mr-1">Rp</span>
+                                        <span class="count">{{$jumlah}}</span>
+                                    </h3>
+                                    <p class="text-light mt-1 m-0">Jumlah SPP Masuk</p>
+                                </div><!-- /.card-left -->
 
-                                    <div class="stat-content">
-                                        <div class="text-left dib">
-                                            <div class="stat-text">Rp<span class="count">{{$jumlah}}</span></div>
-                                            <div class="stat-heading">Jumlah SPP Masuk</div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div class="card-right float-right text-right">
+                                    <i class="icon fade-5 icon-lg pe-7s-cash"></i>
+                                </div><!-- /.card-right -->
+
                             </div>
+
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-6">
-                        <div class="card">
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="card text-white bg-flat-color-6">
                             <div class="card-body">
-                                <div class="stat-widget-five">
-                                    <div class="stat-icon dib flat-color-2">
-                                        <i class="pe-7s-cart"></i>
-                                    </div>
-                                    <div class="stat-content">
-                                        <div class="text-left dib">
-                                            <div class="stat-text"><span class="count">{{$transaksi}}</span></div>
-                                            <div class="stat-heading">Jumlah Transaksi</div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div class="card-left pt-1 float-left">
+                                    <h3 class="mb-0 fw-r">
+                                        <span class="count float-left">{{($lunas/$transaksi)*100}}</span>
+                                        <span>%</span>
+                                    </h3>
+                                    <p class="text-light mt-1 m-0">Persentase Transaksi Lunas</p>
+                                </div><!-- /.card-left -->
+
+                                <div class="card-right float-right text-right">
+                                    <div id="flotBar1" class="flotBar1"></div>
+                                </div><!-- /.card-right -->
+
                             </div>
+
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-6">
-                        <div class="card">
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="card text-white bg-flat-color-2">
                             <div class="card-body">
-                                <div class="stat-widget-five">
-                                    <div class="stat-icon dib flat-color-3">
-                                        <i class="pe-7s-users"></i>
-                                    </div>
-                                    <div class="stat-content">
-                                        <div class="text-left dib">
-                                            <div class="stat-text" ><span class="count">{{$lunas}}</span></div>
-                                            <div class="stat-heading">Jumlah Transaksi Lunas</div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div class="card-left pt-1 float-left">
+                                    <h3 class="mb-0 fw-r">
+                                        <span class="count">{{$transaksi}}</span>
+                                    </h3>
+                                    <p class="text-light mt-1 m-0">Jumlah Transaksi</p>
+                                </div><!-- /.card-left -->
+
+                                <div class="card-right float-right text-right">
+                                    <i class="icon fade-5 icon-lg pe-7s-cart"></i>
+                                </div><!-- /.card-right -->
+
                             </div>
+
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-6">
-                        <div class="card">
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="card text-white bg-flat-color-3">
                             <div class="card-body">
-                                <div class="stat-widget-five">
-                                    <div class="stat-icon dib flat-color-4">
-                                        <i class="pe-7s-users"></i>
-                                    </div>
-                                    <div class="stat-content">
-                                        <div class="text-left dib">
-                                            <div class="stat-text"><span class="count">{{$siswa}}</span></div>
-                                            <div class="stat-heading">Jumlah Siswa</div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div class="card-left pt-1 float-left">
+                                    <h3 class="mb-0 fw-r">
+                                        <span class="count">{{$siswa}}</span>
+                                    </h3>
+                                    <p class="text-light mt-1 m-0">Jumlah Siswa</p>
+                                </div><!-- /.card-left -->
+
+                                <div class="card-right float-right text-right">
+                                    <i class="icon fade-5 icon-lg pe-7s-users"></i>
+                                </div><!-- /.card-right -->
+
                             </div>
+
                         </div>
                     </div>
                 </div>
-                <!-- /Widgets -->
-                <!--  Traffic  -->
-                <!-- Orders -->
-                <!-- /.orders -->
-                <!-- To Do and Live Chat -->
-                <!-- /To Do and Live Chat -->
+                
                 <!-- Calender Chart Weather  -->
                 <div class="row">
                     <div class="col-md-12">
@@ -396,6 +377,12 @@
     <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.js"></script>
     <script src="/assets/js/init/fullcalendar-init.js"></script>
+
+    <!--Flot Chart-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flot-spline@0.0.1/js/jquery.flot.spline.min.js"></script>
+    <!-- local -->
+    <script src="/assets/js/widgets.js"></script>
 
     
 </body>

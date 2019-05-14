@@ -10,22 +10,31 @@ use App\Jenjang;
 use App\PSB;
 use App\Rincian;
 use DB;
+use Carbon\Carbon;
 
 class PSBController extends Controller
 {
     public function index(){
+        $jumlah = 0;
+        $siswa = Siswa::count();
+        $psb = PSB::all();
+        $transaksi = PSB::count();
+        $lunas = PSB::where('status_pembayaran', "1")->count();
+
+        foreach ($psb as $psb) {
+            $jumlah = $jumlah + $psb->nominal;
+        }
+
     	if(!Session::get('loginPSB')){
 	    	return redirect('login')->with('alert','Anda harus login terlebih dulu');
 	    }else{
-	 	    return view('/psb/dashboardPSB');
+	 	    return view('/psb/dashboardPSB', compact('siswa', 'psb', 'transaksi', 'lunas', 'jumlah'));
 	    }
     }
 
     public function pembayaran(){
-    	$val = "1";
-    	$id_kelas = Kelas::where('id_jenjang', 4627275)->pluck('id_kelas');
 
-    	$siswa_baru = Siswa::where('id_kelas', $id_kelas)->get();
+    	$siswa_baru = Siswa::all();
 
     	if(!Session::get('loginPSB')){
 	    	return redirect('login')->with('alert','Anda harus login terlebih dulu');
@@ -39,11 +48,12 @@ class PSBController extends Controller
     	$rincian = Rincian::all();
     	$psb = PSB::all();
         $rnc_psb = PSB::where('NIS', $NIS)->get();
+        $date = Carbon::now()->toDateString();
 
     	if (!Session::get('loginPSB')) {
 	    	return redirect('login')->with('alert','Anda harus login terlebih dulu');
     	}else{
-    		return view('/psb/detailPSB', ['psb'=>$psb, 'siswa'=>$siswa, 'rincian'=>$rincian, 'rnc_psb'=>$rnc_psb]);
+    		return view('/psb/detailPSB', ['psb'=>$psb, 'siswa'=>$siswa, 'rincian'=>$rincian, 'rnc_psb'=>$rnc_psb, 'date'=>$date]);
     	}
 
     }
@@ -52,25 +62,44 @@ class PSBController extends Controller
         $this->validate($request, [
                 'nominal' => '|max:6|regex:/^([1-9][0-9]+)/',
             ]);
+        // $NIS = PSB::where('NIS', $request->NIS)->value('id_rincian');
 
-        $psb = new PSB;
-        $psb->id_psb = uniqid();
-        $psb->NIS = $request->NIS;
-        $psb->id_rincian = $request->id_rincian;
-        $psb->nominal = $request->nominal;
-        $psb->tgl_pembayaran = $request->tgl_pembayaran;
+        $psb = PSB::where('NIS', $request->NIS)->count();
+        // $rincian = Rincian::where('id_rincian', $NIS)->value('detail_rincian');
         
-        $rincian = Rincian::where('id_rincian', $request->id_rincian)->first();
+        $id_rincian_all = PSB::where('NIS', $request->NIS)->where('id_rincian', 583010)->count();
+        $id_rincian = PSB::where('NIS', $request->NIS)->where('id_rincian', $request->id_rincian)->count();
 
-        if ($request->nominal < $rincian->biaya) {
-            $psb->status_pembayaran = 0;
-        }else{
-            $psb->status_pembayaran = 1;
-        }
+            if ($id_rincian_all>0) {
+                return redirect()->back()->with('alert danger', 'Pembayaran Sudah Dilakukan');
+            }elseif($id_rincian_all<1){
+                if ($request->id_rincian!=583010 || $id_rincian <1) {
+                    $psb = new PSB;
+                    $psb->id_psb = uniqid();
+                    $psb->NIS = $request->NIS;
+                    $psb->id_rincian = $request->id_rincian;
+                    $psb->nominal = $request->nominal;
+                    $psb->tgl_pembayaran = $request->tgl_pembayaran;
+                    
+                    $rincian = Rincian::where('id_rincian', $request->id_rincian)->first();
 
-        $psb->save();
+                    if ($request->nominal < $rincian->biaya) {
+                        $psb->status_pembayaran = 0;
+                    }
+                    elseif($request->nominal > $rincian->biaya){
+                        return redirect()->back()->with('alert danger', 'Nominal tidak boleh lebih dari Rp.'.$rincian->biaya);
+                    }
+                    else{
+                        $psb->status_pembayaran = 1;
+                    }
 
-        return redirect()->back()->with('alert success', 'Pembayaran berhasil');
+                    $psb->save();
+
+                    return redirect()->back()->with('alert success', 'Pembayaran berhasil');
+                }else{
+                    return redirect()->back()->with('alert danger', 'Pembayaran Sudah Dilakukan');
+                }
+            }
     }
 
     public function lunasiPSB(Request $request){
@@ -93,5 +122,33 @@ class PSBController extends Controller
 
         $psb_baru->save();
         return redirect()->back()->with('alert success', 'Data berhasil ditambahkan');
+    }
+
+    function fetch(Request $request){
+        $select = $request->get('select');
+        $value = $request->get('value');
+        $dependent = $request->get('dependent');
+        $data = Rincian::where($select, $value)->first();
+        $output = '<input value="">';
+        foreach ($data as $row) {
+            $output .= '<input value="'.$row->nominal.'">';
+        }
+        echo $output;
+    }
+
+    public function cetakKwitansi($NIS){
+        $siswa = Siswa::find($NIS);
+        $psb = PSB::where('NIS', $NIS)->get();
+        $bendahara = Session::get('name');
+        $rincian = Rincian::all();
+        $total=0;
+
+        $tgl_pembayaran = PSB::where('NIS', $NIS)->orderBy('tgl_pembayaran', 'desc')->value('tgl_pembayaran');
+
+        foreach ($psb as $psb) {
+            $total = $total+$psb->nominal;
+        }
+
+        return view('/psb/cetakBukti', compact('siswa', 'psb', 'bendahara', 'tgl_pembayaran', 'total', 'rincian'));
     }
 }

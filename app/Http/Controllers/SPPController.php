@@ -10,6 +10,8 @@ use App\BulanSPP;
 use App\Jenjang;
 use App\Kelas;
 use App\modelUser;
+use App\Inbox;
+use Carbon\Carbon;
 
 class SPPController extends Controller
 {
@@ -19,7 +21,7 @@ class SPPController extends Controller
         $spp = SPP::all();
         $transaksi = SPP::count();
         $lunas = SPP::where('status_pembayaran', "1")->count();
-
+        $inbox = Inbox::orderBy('ReceivingDateTime', 'desc')->get();
 
         foreach ($spp as $spp) {
             $jumlah = $jumlah + $spp->nominal_spp ;
@@ -28,17 +30,18 @@ class SPPController extends Controller
     	if(!Session::get('loginSPP')){
 	    	return redirect('login')->with('alert','Anda harus login terlebih dulu');
 	    }else{
-	 	    return view('/spp/dashboardSPP', compact('siswa', 'jumlah', 'transaksi', 'lunas'));
+	 	    return view('/spp/dashboardSPP', compact('siswa', 'jumlah', 'transaksi', 'lunas', 'inbox'));
 	    }
     }
 
     public function pembayaran(){
     	$siswa = Siswa::all();
+        $inbox = Inbox::orderBy('ReceivingDateTime', 'desc')->get();
 
     	if(!Session::get('loginSPP')){
 	    	return redirect('login')->with('alert','Anda harus login terlebih dulu');
     	}else{
-	 	    return view('/spp/kelolaPembayaranSPP', compact('siswa', 'spp'));
+	 	    return view('/spp/kelolaPembayaranSPP', compact('siswa', 'spp', 'inbox'));
     	}
     }
 
@@ -51,13 +54,15 @@ class SPPController extends Controller
 
     public function detailPembayaran($NIS){
     	$siswa = Siswa::where('NIS', $NIS)->first();
+        $date = Carbon::now()->toDateString();
     	$spp = SPP::all();
         $bulan = BulanSPP::all();
+        $inbox = Inbox::orderBy('ReceivingDateTime', 'desc')->get();
 
     	if (!Session::get('loginSPP')) {
 	    	return redirect('login')->with('alert','Anda harus login terlebih dulu');
     	}else{
-    		return view('/spp/detailSPP', ['spp'=>$spp, 'siswa'=>$siswa, 'bulan'=>$bulan]);
+    		return view('/spp/detailSPP', ['spp'=>$spp, 'siswa'=>$siswa, 'bulan'=>$bulan, 'inbox'=>$inbox, 'date'=>$date]);
     	}
     }
 
@@ -110,43 +115,50 @@ class SPPController extends Controller
                 'nominal' => '|max:6|regex:/^([1-9][0-9]+)/',
             ]);
 
-        $spp = new SPP;
-        $spp->id_spp = uniqid();
-        $spp->NIS = $request->NIS;
-        $spp->id_bulan = $request->id_bulan;
-        $spp->nominal_spp = $request->nominal;
-        $spp->tgl_pembayaran = $request->tgl_pembayaran;
+        $id_bulan = SPP::where('NIS', $request->NIS)->where('id_bulan', $request->id_bulan)->count();
 
-        $id_kelas = Siswa::where('NIS', $request->NIS)->first()->id_kelas;
+        if ($id_bulan<1) {
+                $spp = new SPP;
+                $spp->id_spp = uniqid();
+                $spp->NIS = $request->NIS;
+                $spp->id_bulan = $request->id_bulan;
+                $spp->nominal_spp = $request->nominal;
+                $spp->tgl_pembayaran = $request->tgl_pembayaran;
 
-        $id_jenjang = Kelas::where('id_kelas', $id_kelas)->first()->id_jenjang;
+                $id_kelas = Siswa::where('NIS', $request->NIS)->first()->id_kelas;
 
-        $jenjang = Jenjang::where('id_jenjang', $id_jenjang)->first()->nama_jenjang;
+                $id_jenjang = Kelas::where('id_kelas', $id_kelas)->first()->id_jenjang;
+
+                $jenjang = Jenjang::where('id_jenjang', $id_jenjang)->first()->nama_jenjang;
+                
+                $bulan = BulanSPP::where('id_bulan', $request->id_bulan)->first();
+
+                if ($jenjang == "SMA") {
+                    if ($request->nominal < $bulan->spp_sma) {
+                        $spp->status_pembayaran = 0;
+                    }else{
+                        $spp->status_pembayaran = 1;
+                    }
+                }else if ($jenjang == "SMP") {
+                    if ($request->nominal < $bulan->spp_smp) {
+                        $spp->status_pembayaran = 0;
+                    }else{
+                        $spp->status_pembayaran = 1;
+                    }
+                }else if ($jenjang == "I'dady") {
+                    if ($request->nominal < $bulan->spp_idady) {
+                        $spp->status_pembayaran = 0;
+                    }else{
+                        $spp->status_pembayaran = 1;
+                    }
+                }
+
+                $spp->save();
+
+                return redirect()->back()->with('alert success', 'Pembayaran Berhasil');
+            }else{
+                return redirect()->back()->with('alert danger', 'SPP bulan ini sudah dibayar');
+            }
         
-        $bulan = BulanSPP::where('id_bulan', $request->id_bulan)->first();
-
-        if ($jenjang == "SMA") {
-            if ($request->nominal < $bulan->spp_sma) {
-                $spp->status_pembayaran = 0;
-            }else{
-                $spp->status_pembayaran = 1;
-            }
-        }else if ($jenjang == "SMP") {
-            if ($request->nominal < $bulan->spp_smp) {
-                $spp->status_pembayaran = 0;
-            }else{
-                $spp->status_pembayaran = 1;
-            }
-        }else if ($jenjang == "I'dady") {
-            if ($request->nominal < $bulan->spp_idady) {
-                $spp->status_pembayaran = 0;
-            }else{
-                $spp->status_pembayaran = 1;
-            }
-        }
-
-        $spp->save();
-
-        return redirect()->back()->with('alert success', 'Data berhasil ditambahkan');
     }
 }

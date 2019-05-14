@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Session;
 use App\Rincian;
 use App\Kelas;
 use App\PSB;
+use App\BulanSPP;
+use App\Exports\PSBReport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminPSBController extends Controller
 {
@@ -17,6 +20,12 @@ class AdminPSBController extends Controller
             $data_rincian = Rincian::all();
             return view('/adm/kelolaRincian', ['data_rincian'=>$data_rincian]);
         }
+    }
+
+    public function resetData(){
+        $psb = PSB::all();
+        $psb->truncate();
+        return redirect('/admin/datapembayaran/psb')->with('alert danger', 'Data berhasil dihapus');
     }
 
     public function tambahRincian(Request $request){
@@ -46,8 +55,7 @@ class AdminPSBController extends Controller
     }
 
     public function kelolaPSB(){
-        $data_psb = PSB::all();
-        $data_kelas = Kelas::all();
-        return view('adm/kelolaPSB', compact('data_psb', 'data_kelas'));
+        $psb = PSB::all();
+        return view('adm/kelolaPSB', compact('psb'));
     }
 }

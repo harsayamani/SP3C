@@ -36,7 +36,7 @@
                     </li>
                     <li class="menu-title">Fitur Utama</li><!-- /.menu-title -->
                     <li class="active">
-                        <a href="/psb/pembayaranPSB"><i class="menu-icon fa fa-table"></i>Pembayaran PSB </a>
+                        <a href="/psb/pembayaranPSB"><i class="menu-icon fa fa-money"></i>Pembayaran PSB </a>
                     </li>
 
                 </ul>
@@ -142,10 +142,22 @@
                         </div>
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="col-lg-12">
                         <button type="button" class="btn btn-warning mb-1" data-toggle="modal" data-target="#tambah"><i class="fa fa-money"></i>
                             Bayar Pendaftar Siswa Baru
                          </button>
+
+                         @if(!empty(App\PSB::where('NIS', $siswa->NIS)->first()))
+                         @if(App\PSB::where('NIS', $siswa->NIS)->count() == $rincian->count()-1 || App\PSB::where('NIS', $siswa->NIS)->where('id_rincian', 583010)->count()>0)
+                         <a href="/psb/cetak/{{$siswa->NIS}}" class="btn btn-success mb-1" ><i class="fa fa-print"></i>
+                            Cetak Bukti Tanda Lunas
+                         </a>
+                         @else
+                         <a hidden class="btn btn-success mb-1" disabled><i class="fa fa-print"></i>
+                            Cetak Bukti Tanda Lunas
+                         </a>
+                         @endif
+                         @endif
                     </div>
 
                     <br>
@@ -162,13 +174,21 @@
                                 <ul class="list-group list-group-flush">
 
                                 @if(!empty(App\PSB::where('NIS', $siswa->NIS)->first()))
+                                @if(App\PSB::where('id_rincian', 583010)->where('NIS', $siswa->NIS)->where('status_pembayaran', 1)->count() > 0)
+                                @for($i=0; $i<count($rincian)-1; $i++)
+                                    <li class="list-group-item" disabled>
+                                        <a > <i class="fa fa-check-square"></i> {{$rincian[$i]->detail_rincian}} <span class="badge badge-success pull-right">Lunas</span></a>
+                                    </li>
+                                @endfor
+                                @else
                                 @foreach($psb as $psbsiswa)
                                 @if($psbsiswa->NIS == $siswa->NIS && $psbsiswa->status_pembayaran == 1)
-                                    <li class="list-group-item">
-                                        <a href="#"> <i class="fa fa-check-square"></i> {{App\Rincian::where('id_rincian', $psbsiswa->id_rincian)->first()->detail_rincian}} <span class="badge badge-success pull-right">Lunas</span></a>
+                                    <li class="list-group-item" disabled>
+                                        <a > <i class="fa fa-check-square"></i> {{App\Rincian::where('id_rincian', $psbsiswa->id_rincian)->first()->detail_rincian}} <span class="badge badge-success pull-right">Lunas</span></a>
                                     </li>
                                 @endif
                                 @endforeach
+                                @endif 
                                 @endif
                                 </ul>
                             </section>
@@ -202,7 +222,7 @@
                                                 <label for="id_rincian" class=" form-control-label">Rincian</label>
                                             </div>
                                             <div class="col-12 col-md-9">
-                                                <select name="id_rincian" id="id_rincian" class="form-control">
+                                                <select name="id_rincian" id="id_rincian" class="form-control input-lg dynamic" data-dependent="nominal">
                                                     <option value="">---Pilih Rincian---</option>
                                                     @foreach($rincian as $rinc)
                                                     <option value="{{$rinc->id_rincian}}">{{$rinc->detail_rincian}}</option>
@@ -215,7 +235,7 @@
                                                 <label for="text-input" class=" form-control-label">Tanggal Pembayaran</label>
                                             </div>
                                             <div class="col-12 col-md-9" >
-                                                <input type="text" id="tgl_pembayaran" name="tgl_pembayaran" placeholder="Masukkan Tanggal Pembayaran" class="form-control" required="">
+                                                <input type="text" id="tgl_pembayaran" name="tgl_pembayaran" placeholder="Masukkan Tanggal Pembayaran" class="form-control" value="{{$date}}" readonly>
                                             </div>
                                         </div>
                                         <div class="row form-group">
@@ -223,7 +243,9 @@
                                                 <label for="text-input" class=" form-control-label">Nominal</label>
                                             </div>
                                             <div class="col-12 col-md-9">
-                                                <input type="text" id="nominal" name="nominal" placeholder="Masukkan Nominal " class="form-control" required><small class="form-text text-muted">Tuliskan nominal disini</small>
+                                                <input type="text" id="nominal" name="nominal" placeholder="Masukkan Nominal" class="form-control" 
+
+                                                required><small class="form-text text-muted">Tuliskan nominal disini</small>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -263,7 +285,7 @@
                                             <div class="row form-group">
                                                 <div class="col col-md-3"><label for="text-input" class=" form-control-label">Tanggal Pelunasan</label></div>
                                                 <div class="col-12 col-md-9">
-                                                    <input type="text" id="tgl" name="tgl" placeholder="Masukkan Tanggal Pelunasan" class="form-control" required="">
+                                                    <input type="text" id="tgl" name="tgl" placeholder="Masukkan Tanggal Pelunasan" class="form-control" value="{{$date}}" readonly>
                                                 </div>
                                             </div>
                                             <div class="row form-group">
@@ -384,13 +406,35 @@
             });
         }); 
     </script>
+    <script type="text/javascript">
+        $(document).ready(function{
+            $(.dynamic).change(function(){
+                if($(this).val() != ''){
+                    var select = $(this).attr('id_rincian');
+                    var value = $(this).val();
+                    var dependent = $(this).data('dependent');
+                    var _token = $('input[name="_token"]').val();
+                    $.ajax({
+                        url:"{{route('dynamicdependent.fetch')}}",
+                        method:"POST",
+                        data:{select:select, value:value, _token:_token, dependent:dependent},
+                        success:function(result)
+                        {
+                            $('#'+dependent).html(result);
+                        }
+                    })
+                }
+            });
+        });
+    </script>
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script> 
-    <script>
+    <!-- <script>
         $('#tgl_pembayaran').datepicker();
     </script>
     <script>
         $('#tgl').datepicker();
-    </script>
+    </script> -->
+    
     
 </body>
 </html>
