@@ -222,7 +222,7 @@
                                                 <label for="id_rincian" class=" form-control-label">Rincian</label>
                                             </div>
                                             <div class="col-12 col-md-9">
-                                                <select name="id_rincian" id="id_rincian" class="form-control input-lg dynamic" data-dependent="nominal">
+                                                <select name="id_rincian" id="id_rincian" class="dynamic form-control input-lg " data-dependent="nominal">
                                                     <option value="">---Pilih Rincian---</option>
                                                     @foreach($rincian as $rinc)
                                                     <option value="{{$rinc->id_rincian}}">{{$rinc->detail_rincian}}</option>
@@ -244,7 +244,6 @@
                                             </div>
                                             <div class="col-12 col-md-9">
                                                 <input type="text" id="nominal" name="nominal" placeholder="Masukkan Nominal" class="form-control" 
-
                                                 required><small class="form-text text-muted">Tuliskan nominal disini</small>
                                             </div>
                                         </div>
@@ -406,25 +405,15 @@
             });
         }); 
     </script>
+    
     <script type="text/javascript">
-        $(document).ready(function{
-            $(.dynamic).change(function(){
-                if($(this).val() != ''){
-                    var select = $(this).attr('id_rincian');
-                    var value = $(this).val();
-                    var dependent = $(this).data('dependent');
-                    var _token = $('input[name="_token"]').val();
-                    $.ajax({
-                        url:"{{route('dynamicdependent.fetch')}}",
-                        method:"POST",
-                        data:{select:select, value:value, _token:_token, dependent:dependent},
-                        success:function(result)
-                        {
-                            $('#'+dependent).html(result);
-                        }
-                    })
-                }
-            });
+        $(document).ready(function(){
+            $('#id_rincian').on('change', function(){
+              $('#nominal').val($(this).val());
+            })
+
+            // init
+            $('#id_rincian').change();
         });
     </script>
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script> 

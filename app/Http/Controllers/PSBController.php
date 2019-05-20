@@ -60,7 +60,7 @@ class PSBController extends Controller
 
     public function bayarPSB(Request $request){
         $this->validate($request, [
-                'nominal' => '|max:6|regex:/^([1-9][0-9]+)/',
+                'nominal' => '|max:7|regex:/^([1-9][0-9]+)/',
             ]);
         // $NIS = PSB::where('NIS', $request->NIS)->value('id_rincian');
 
@@ -106,6 +106,7 @@ class PSBController extends Controller
         $psb_lama = PSB::where('id_psb', $request->id_psb)->first()->nominal;
 
         $psb_baru = PSB::where('id_psb', $request->id_psb)->first();
+
         $psb_baru->id_psb = $request->id_psb;
         $psb_baru->tgl_pembayaran = $request->tgl;
         $psb_baru->nominal = $psb_lama + $request->nominal;
@@ -116,6 +117,8 @@ class PSBController extends Controller
 
         if (($psb_lama + $request->nominal) < $rincian->biaya) {
             $psb_baru->status_pembayaran = 0;
+        }elseif ($request->nominal > $rincian->biaya-$psb_lama) {
+            return redirect()->back()->with('alert danger', 'Nominal tidak boleh lebih dari Rp.'.($rincian->biaya-$psb_lama));
         }else{
             $psb_baru->status_pembayaran = 1;
         }
@@ -125,15 +128,11 @@ class PSBController extends Controller
     }
 
     function fetch(Request $request){
-        $select = $request->get('select');
         $value = $request->get('value');
         $dependent = $request->get('dependent');
-        $data = Rincian::where($select, $value)->first();
-        $output = '<input value="">';
-        foreach ($data as $row) {
-            $output .= '<input value="'.$row->nominal.'">';
-        }
-        echo $output;
+        $data = Rincian::where('id_rincian', $value)->value('biaya');
+        
+        return $data;
     }
 
     public function cetakKwitansi($NIS){

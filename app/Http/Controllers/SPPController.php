@@ -89,18 +89,24 @@ class SPPController extends Controller
         if ($jenjang == "SMA") {
             if (($spp_lama + $request->nominal) < $bulan->spp_sma) {
                 $spp_baru->status_pembayaran = 0;
+            }elseif ($request->nominal > $bulan->spp_sma-$spp_lama) {
+                return redirect()->back()->with('alert danger', 'Nominal tidak boleh lebih dari Rp.'.($bulan->spp_sma-$spp_lama));
             }else{
                 $spp_baru->status_pembayaran = 1;
             }
         }else if ($jenjang == "SMP") {
             if (($spp_lama + $request->nominal) < $bulan->spp_smp) {
                 $spp_baru->status_pembayaran = 0;
+            }elseif ($request->nominal > $bulan->spp_smp-$spp_lama) {
+                return redirect()->back()->with('alert danger', 'Nominal tidak boleh lebih dari Rp.'.($bulan->spp_smp-$spp_lama));
             }else{
                 $spp_baru->status_pembayaran = 1;
             }
         }else if ($jenjang == "I'dady") {
             if (($spp_lama + $request->nominal) < $bulan->spp_idady) {
                 $spp_baru->status_pembayaran = 0;
+            }elseif ($request->nominal > $bulan->spp_idady-$spp_lama) {
+                return redirect()->back()->with('alert danger', 'Nominal tidak boleh lebih dari Rp.'.($bulan->spp_idady-$spp_lama));
             }else{
                 $spp_baru->status_pembayaran = 1;
             }
@@ -112,7 +118,7 @@ class SPPController extends Controller
 
     public function bayarSPP(Request $request){
         $this->validate($request, [
-                'nominal' => '|max:6|regex:/^([1-9][0-9]+)/',
+                'nominal' => '|max:7|regex:/^([1-9][0-9]+)/',
             ]);
 
         $id_bulan = SPP::where('NIS', $request->NIS)->where('id_bulan', $request->id_bulan)->count();

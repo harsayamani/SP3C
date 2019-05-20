@@ -197,7 +197,8 @@
                                     <table id="bootstrap-data-table" class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>#</th>
+                                                <th><input type="checkbox" id="pilihsemua">
+                                                </th>
                                                 <th>Nama</th>
                                                 <th>Kelas</th>
                                                 <th>Jenjang</th>
@@ -207,7 +208,9 @@
                                         <tbody>
                                         @foreach($siswa as $siswa)
                                             <tr>
-                                                <td><input type="checkbox" name="no_hp_ortu[]" value="{{$siswa->no_hp_ortu}}" class="checkbox"></td>
+                                                <td>
+                                                   <input type="checkbox" name="no_hp_ortu[]" value="{{$siswa->no_hp_ortu}}" class="pilih"> 
+                                                </td>
                                                 <td>{{$siswa->nama_siswa}}</td>
                                                 <td>{{App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->nama_kelas}}</td>
                                                 <td>{{App\Jenjang::where('id_jenjang', App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->id_jenjang)->first()->nama_jenjang}}</td>
@@ -309,6 +312,8 @@
 
     <!-- /#right-panel -->
     <!-- Scripts -->
+    
+
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
     <script src="/assets/js/main.js"></script>
@@ -323,7 +328,28 @@
     <script src="/assets/js/lib/data-table/buttons.colVis.min.js"></script>
     <script src="/assets/js/init/datatables-init.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>   
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"></script> 
+    
+    <script>
+        $(document).ready(function(){
+            // Fungsi Checkbox Pilih Semua
+            $("#pilihsemua").click(function () { // Jika Checkbox Pilih Semua di ceklis maka semua sub checkbox akan diceklis juga
+            $('.pilih').attr('checked', this.checked);
+            });
+             
+            // Jika semua sub checkbox diceklis maka Checkbox Pilih Semua akan diceklis juga
+            $(".pilih").click(function(){
+             
+            if($(".pilih").length == $(".pilih:checked").length) {
+            $("#pilihsemua").attr("checked", "checked");
+            } else {
+            $("#pilihsemua").removeAttr("checked");
+            }
+             
+            });
+        });
+    </script>
 
 </body>
 </html>
