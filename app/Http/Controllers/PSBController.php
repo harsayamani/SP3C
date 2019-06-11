@@ -9,6 +9,7 @@ use App\Kelas;
 use App\Jenjang;
 use App\PSB;
 use App\Rincian;
+use App\BulanSPP;
 use DB;
 use Carbon\Carbon;
 
@@ -127,12 +128,14 @@ class PSBController extends Controller
         return redirect()->back()->with('alert success', 'Data berhasil ditambahkan');
     }
 
-    function fetch(Request $request){
-        $value = $request->get('value');
-        $dependent = $request->get('dependent');
-        $data = Rincian::where('id_rincian', $value)->value('biaya');
-        
-        return $data;
+    public function cetakNota($NIS){
+        $siswa = Siswa::find($NIS);
+        $psb = PSB::where('NIS', $NIS)->get();
+        $bendahara = Session::get('name');
+        $rincian = Rincian::all();
+        $thn_ajaran = BulanSPP::value('thn_ajaran');
+
+         return view('/psb/cetakNota', compact('psb', 'bendahara', 'siswa', 'thn_ajaran', 'rincian'));
     }
 
     public function cetakKwitansi($NIS){

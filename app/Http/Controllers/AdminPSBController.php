@@ -23,9 +23,8 @@ class AdminPSBController extends Controller
     }
 
     public function resetData(){
-        $psb = PSB::all();
-        $psb->truncate();
-        return redirect('/admin/datapembayaran/psb')->with('alert danger', 'Data berhasil dihapus');
+        $psb = PSB::whereNotNull('id_psb')->delete();;
+        return redirect('/admin/datapembayaran/psb')->with('alert danger', 'Semua data berhasil dihapus');
     }
 
     public function tambahRincian(Request $request){
@@ -55,7 +54,7 @@ class AdminPSBController extends Controller
     }
 
     public function kelolaPSB(){
-        $psb = PSB::all();
+        $psb = PSB::orderBy('tgl_pembayaran', 'desc')->get();
         return view('adm/kelolaPSB', compact('psb'));
     }
 }

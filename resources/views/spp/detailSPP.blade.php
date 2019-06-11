@@ -164,6 +164,10 @@
                                             <td><h5><b>KELAS</b></h5></td>
                                             <td>: {{App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->nama_kelas}}</td>
                                         </tr>
+                                        <tr>
+                                            <td><h5><b>TAHUN AJARAN</b></h5></td>
+                                            <td>: {{$thn_ajaran}}</td>
+                                        </tr>
                                     </table>
                             </div>
                             <div class="card-text text-sm-center">
@@ -186,7 +190,7 @@
                                 </div>      
                                 <div class="modal-body">
                                     <form action="{{ url('/spp/bayarSPP') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
-                                                                    {{ csrf_field()}}
+                                            {{ csrf_field()}}
                                         <div class="row form-group">
                                             <div class="col col-md-3">
                                                 <label for="text-input" class=" form-control-label">NIS</label>
@@ -300,6 +304,10 @@
                         <button type="button" class="btn btn-warning mb-1" data-toggle="modal" data-target="#tambah"><i class="fa fa-money"></i>
                             Bayar SPP
                          </button>
+
+                         <a href="/spp/cetakKartu/{{$siswa->NIS}}" class="btn btn-success mb-1"><i class="fa fa-print"></i>
+                            Cetak Kartu
+                         </a>
                     </div>
 
                     <br>
@@ -307,7 +315,6 @@
                     <br>
 
                     @if(!empty(App\SPP::where('NIS', $siswa->NIS)->first()))
-
 
                     @foreach($spp as $sppsiswa)
                     @if($sppsiswa->NIS == $siswa->NIS && $sppsiswa->status_pembayaran == 1)
@@ -336,9 +343,6 @@
 
                     @endif
 
-
-
-
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
@@ -350,7 +354,7 @@
                                 <table id="bootstrap-data-table" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>ID SPP</th>
+                                            <th>No. Pembayaran</th>
                                             <th>Bulan</th>
                                             <th>Tgl</th>
                                             <th>Nominal Pelunasan</th>
@@ -429,9 +433,6 @@
                 <div class="row">
                     <div class="col-sm-6">
                         Copyright &copy; 2019 Pondok Pesantren Al-Islah Tajug
-                    </div>
-                    <div class="col-sm-6 text-right">
-                        Designed by <a href="https://colorlib.com">Colorlib</a>
                     </div>
                 </div>
             </div>

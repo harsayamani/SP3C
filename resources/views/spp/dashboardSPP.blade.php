@@ -211,7 +211,13 @@
                             <div class="card-body">
                                 <div class="card-left pt-1 float-left">
                                     <h3 class="mb-0 fw-r">
-                                        <span class="count float-left">{{($lunas/$transaksi)*100}}</span>
+                                        <span class="count float-left">
+                                        @if($spp->count()>0)
+                                        {{($lunas/$transaksi)*100}}
+                                        @else
+                                        0
+                                        @endif
+                                        </span>
                                         <span>%</span>
                                     </h3>
                                     <p class="text-light mt-1 m-0">Persentase Transaksi Lunas</p>
@@ -342,9 +348,6 @@
                 <div class="row">
                     <div class="col-sm-6">
                         Copyright &copy; 2019 Pondok Pesantren Al-Islah Tajug
-                    </div>
-                    <div class="col-sm-6 text-right">
-                        Designed by <a href="https://colorlib.com">Colorlib</a>
                     </div>
                 </div>
             </div>

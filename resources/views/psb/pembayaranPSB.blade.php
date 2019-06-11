@@ -148,6 +148,12 @@
                         
                             <div class="card-body">
 
+                                <div class="alert alert-primary" role="alert">
+                                    Tekan tombol <i>bayar</i> untuk memulai pembayaran siswa baru
+                                    <br>
+                                    Pilih <i>search</i> untuk menemukan siswa yang dituju
+                                </div>
+
                                 <br>
 
                                 <table id="bootstrap-data-table" class="table table-striped table-bordered">
@@ -171,7 +177,7 @@
                                             <td>{{App\Jenjang::where('id_jenjang', App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->id_jenjang)->first()->nama_jenjang}}</td>
                                             <td>{{$siswa->angkatan}}</td>
                                             <td>
-                                            <a href="/psb/detailPSB/{{$siswa->NIS}}" class="btn btn-outline-success btn-sm"><i class="fa fa-money"></i>&nbsp;Bayar</a>
+                                            <a href="/psb/detailPSB/{{$siswa->NIS}}" class="btn btn-success btn-sm"><i class="fa fa-money"></i>&nbsp;Bayar</a>
                                             </td>
                                         </tr>
                                         @endif
@@ -192,9 +198,6 @@
                 <div class="row">
                     <div class="col-sm-6">
                         Copyright &copy; 2019 Pondok Pesantren Al-Islah Tajug
-                    </div>
-                    <div class="col-sm-6 text-right">
-                        Designed by <a href="https://colorlib.com">Colorlib</a>
                     </div>
                 </div>
             </div>

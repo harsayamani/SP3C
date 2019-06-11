@@ -181,7 +181,7 @@
                             <form method="post" action="{{ url('/admin/datasiswa/tambahSiswa') }}">
                             <div class="card-header"><strong>Form</strong> <strong>Siswa</strong></div>
                             <div class="card-body card-block">
-                                                        {{ csrf_field() }}
+                                    {{ csrf_field() }}
 
                                 <div class="form-group"><label for="NIS" class=" form-control-label">NIS</label><input type="text" id="NIS" name="NIS" value="1905" placeholder="Masukkan NIS Siswa" class="form-control" required></div>
                                 <div class="form-group"><label for="nama_siswa" class=" form-control-label">Nama Siswa</label><input type="text" id="nama_siswa" name="nama_siswa" placeholder="Masukkan nama siswa" class="form-control" required></div>
@@ -203,9 +203,23 @@
                                 </div> 
                                 <div class="form-group"><label for="street" class=" form-control-label">Alamat</label><textarea type="text" id="alamat" name="alamat" placeholder="Masukkan alamat siswa" class="form-control" required></textarea></div>
                                 <div class="form-group"><label for="no_hp" class=" form-control-label">Nomor HP Siswa</label><input type="text" id="no_hp" name="no_hp" placeholder="mis.0894648273xxx" class="form-control" required></div>
-                                <div class="form-group"><label for="nama_ortu" class=" form-control-label">Nama Orang Tua Siswa</label><input type="text" id="nama_ortu" name="nama_ortu" placeholder="Masukkan nama orang tua siswa" class="form-control" required></div>
-                                <div class="form-group"><label for="no_hp_ortu" class=" form-control-label">Nomor HP Orang Tua Siswa</label><input type="text" id="no_hp_ortu" name="no_hp_ortu" placeholder="mis.0894648273xxx" class="form-control" required></div>
-                                <div class="form-group"><label for="no_hp_ortu" class=" form-control-label">Angkatan</label><input type="text" id="angkatan" name="angkatan" placeholder="mis.2017" class="form-control" required></div>
+                                <div class="form-group"><label for="nama_ortu" class=" form-control-label">Nama Orang Tua Siswa</label><input type="text" id="nama_ortu" name="nama_ortu" placeholder="Masukkan nama orang tua siswa" class="form-control" value="+62" required></div>
+                                <div class="form-group"><label for="no_hp_ortu" class=" form-control-label">Nomor HP Orang Tua Siswa</label><input type="text" id="no_hp_ortu" name="no_hp_ortu" placeholder="mis.0894648273xxx" value="+62" class="form-control" required></div>
+                                <div class="form-group"><label for="no_hp_ortu" class=" form-control-label">Tahun Masuk</label><select name="angkatan" id="angkatan" class="form-control">
+                                        <option value="">---Pilih tahun masuk---</option>
+                                        <option value="2016">2016</option>
+                                        <option value="2017">2017</option>
+                                        <option value="2018">2018</option>
+                                        <option value="2019">2019</option>
+                                        <option value="2020">2020</option>
+                                        <option value="2021">2021</option>
+                                        <option value="2022">2022</option>
+                                        <option value="2023">2023</option>
+                                        <option value="2024">2024</option>
+                                        <option value="2025">2025</option>
+                                        <option value="2026">2026</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary btn-sm">
@@ -230,9 +244,6 @@
                 <div class="row">
                     <div class="col-sm-6">
                         Copyright &copy; 2019 Pondok Pesantren Al-Islah Tajug
-                    </div>
-                    <div class="col-sm-6 text-right">
-                        Designed by <a href="https://colorlib.com">Colorlib</a>
                     </div>
                 </div>
             </div>

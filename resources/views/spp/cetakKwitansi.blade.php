@@ -35,7 +35,7 @@
 		var beforePrint = function() {
 		};
 		var afterPrint = function() {
-			document.location.href = '/spp/kembali';
+			document.location.href = '/spp/detailSPP/{{$spp->NIS}}';
 		};
 		if (window.matchMedia) {
 			var mediaQueryList = window.matchMedia('print');

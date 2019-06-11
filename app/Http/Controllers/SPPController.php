@@ -30,7 +30,7 @@ class SPPController extends Controller
     	if(!Session::get('loginSPP')){
 	    	return redirect('login')->with('alert','Anda harus login terlebih dulu');
 	    }else{
-	 	    return view('/spp/dashboardSPP', compact('siswa', 'jumlah', 'transaksi', 'lunas', 'inbox'));
+	 	    return view('/spp/dashboardSPP', compact('siswa', 'jumlah', 'transaksi', 'lunas', 'inbox', 'spp'));
 	    }
     }
 
@@ -52,17 +52,27 @@ class SPPController extends Controller
         return view('/spp/cetakKwitansi', compact('spp', 'bendahara'));
     }
 
+    public function cetakKartu($NIS){
+        $siswa = Siswa::find($NIS);
+        $spp = SPP::where('NIS', $NIS)->get();
+        $bendahara = Session::get('name');
+        $thn_ajaran = BulanSPP::value('thn_ajaran');
+
+         return view('/spp/cetakKartu', compact('spp', 'bendahara', 'siswa', 'thn_ajaran'));
+    }
+
     public function detailPembayaran($NIS){
     	$siswa = Siswa::where('NIS', $NIS)->first();
         $date = Carbon::now()->toDateString();
     	$spp = SPP::all();
         $bulan = BulanSPP::all();
         $inbox = Inbox::orderBy('ReceivingDateTime', 'desc')->get();
+        $thn_ajaran = BulanSPP::value('thn_ajaran');
 
     	if (!Session::get('loginSPP')) {
 	    	return redirect('login')->with('alert','Anda harus login terlebih dulu');
     	}else{
-    		return view('/spp/detailSPP', ['spp'=>$spp, 'siswa'=>$siswa, 'bulan'=>$bulan, 'inbox'=>$inbox, 'date'=>$date]);
+    		return view('/spp/detailSPP', ['spp'=>$spp, 'siswa'=>$siswa, 'bulan'=>$bulan, 'inbox'=>$inbox, 'date'=>$date, 'thn_ajaran'=>$thn_ajaran]);
     	}
     }
 

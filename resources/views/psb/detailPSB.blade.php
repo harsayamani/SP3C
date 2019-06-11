@@ -148,7 +148,7 @@
                          </button>
 
                          @if(!empty(App\PSB::where('NIS', $siswa->NIS)->first()))
-                         @if(App\PSB::where('NIS', $siswa->NIS)->count() == $rincian->count()-1 || App\PSB::where('NIS', $siswa->NIS)->where('id_rincian', 583010)->count()>0)
+                         @if(App\PSB::where('NIS', $siswa->NIS)->count() == $rincian->count()-1 || App\PSB::where('NIS', $siswa->NIS)->where('id_rincian', 583010)->count()>0 && (App\PSB::where('status_pembayaran', 1)->count() == $rincian->count()-1 || App\PSB::where('id_rincian', 583010)->where('status_pembayaran', 1)->count() == 1))
                          <a href="/psb/cetak/{{$siswa->NIS}}" class="btn btn-success mb-1" ><i class="fa fa-print"></i>
                             Cetak Bukti Tanda Lunas
                          </a>
@@ -158,6 +158,10 @@
                          </a>
                          @endif
                          @endif
+
+                         <a href="/psb/cetakNota/{{$siswa->NIS}}" class="btn btn-primary mb-1" ><i class="fa fa-print"></i>
+                            Cetak Nota
+                         </a>
                     </div>
 
                     <br>
@@ -369,9 +373,6 @@
                 <div class="row">
                     <div class="col-sm-6">
                         Copyright &copy; 2019 Pondok Pesantren Al-Islah Tajug
-                    </div>
-                    <div class="col-sm-6 text-right">
-                        Designed by <a href="https://colorlib.com">Colorlib</a>
                     </div>
                 </div>
             </div>

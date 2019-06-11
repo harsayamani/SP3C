@@ -53,7 +53,7 @@ class AdminSPPController extends Controller
     }
 
     public function kelolaSPP(){
-    	$spp = SPP::all();
+    	$spp = SPP::orderBy('id_bulan', 'asc')->get();
     	$data_bulan_spp = BulanSPP::all();
     	return view('adm/kelolaSPP', compact('spp', 'data_bulan_spp'));
     }
@@ -64,5 +64,10 @@ class AdminSPPController extends Controller
         $data_bulan_spp = BulanSPP::all();
 
         return view('adm/kelolaSPP', compact('data_bulan_spp', 'spp'));
+    }
+
+    public function resetData(){
+        $spp = SPP::whereNotNull('id_spp')->delete();;
+        return redirect('/admin/datapembayaran/spp')->with('alert danger', 'Semua data berhasil dihapus');
     }
 }

@@ -23,7 +23,7 @@ class SiswaController extends Controller
             return redirect('login')->with('alert','Anda harus login terlebih dulu');
         }else{
             $i=0;
-            $data_siswa = Siswa::all();
+            $data_siswa = Siswa::orderBy('id_kelas', 'asc')->get();
             return view('adm/kelolaSiswa', ['data_siswa'=>$data_siswa, 'i'=>$i]);
         }
     }

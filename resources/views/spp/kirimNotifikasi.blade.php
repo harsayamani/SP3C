@@ -176,116 +176,111 @@
                             </div>
                         
                             <div class="card-body">
-                                <form class="form-horizontal" role="form" method="post" action="/spp/notifikasiPembayaran/kirim">
-                                    {{ csrf_field() }}
-                                    {{ method_field('post') }}
-             
-             
-                                    <div class="form-group">
-                                        <label for="nama" class=" form-control-label">Nama</label>
-                                        
-                                        <input type="text" id="nama" name="nama" value="PP Al-Islah Tajug" class="form-control" readonly>
-                                    </div>
-             
-                                    <div class="form-group">
-                                        <label for="pesan" class="control-label">Message</label>
-             
-                                        
-                                        <textarea class="form-control" name="pesan" id="pesan" required>{{ old('message') }}</textarea>
-                                    </div>
+                                <div class="default-tab">
+                                        <nav>
+                                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Kirim Pesan</a>
+                                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Status Pesan</a>
+                                                <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Kontak Keluar</a>
+                                            </div>
+                                        </nav>
+                                        <div class="tab-content pl-3 pt-2" id="nav-tabContent">
+                                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                                <form class="form-horizontal" role="form" method="post" action="/spp/notifikasiPembayaran/kirim">
+                                                    {{ csrf_field() }}
+                                                    {{ method_field('post') }}
+                             
+                             
+                                                    <div class="form-group">
+                                                        <label for="nama" class=" form-control-label">Nama</label>
+                                                        
+                                                        <input type="text" id="nama" name="nama" value="PP Al-Islah Tajug" class="form-control" readonly>
+                                                    </div>
+                             
+                                                    <div class="form-group">
+                                                        <label for="pesan" class="control-label">Message</label>
+                             
+                                                        
+                                                        <textarea class="form-control" name="pesan" id="pesan" required>{{ old('message') }}</textarea>
+                                                    </div>
 
-                                    <table id="bootstrap-data-table" class="table table-striped table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th><input type="checkbox" id="pilihsemua">
-                                                </th>
-                                                <th>Nama</th>
-                                                <th>Kelas</th>
-                                                <th>Jenjang</th>
-                                                <th>No HP Ortu</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($siswa as $siswa)
-                                            <tr>
-                                                <td>
-                                                   <input type="checkbox" name="no_hp_ortu[]" value="{{$siswa->no_hp_ortu}}" class="pilih"> 
-                                                </td>
-                                                <td>{{$siswa->nama_siswa}}</td>
-                                                <td>{{App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->nama_kelas}}</td>
-                                                <td>{{App\Jenjang::where('id_jenjang', App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->id_jenjang)->first()->nama_jenjang}}</td>
-                                                <td>{{$siswa->no_hp_ortu}}</td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                    <br>
-                                    <br>
-             
-                                    <div class="form-group">
-                                        <div class="col-md-8 col-md-offset-4">
-                                            <button type="submit" class="btn btn-primary">
-                                                Kirim Pesan
-                                            </button>
+                                                    <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th><input type="checkbox" id="pilihsemua">
+                                                                </th>
+                                                                <th>Nama</th>
+                                                                <th>Kelas</th>
+                                                                <th>Jenjang</th>
+                                                                <th>No HP Ortu</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach($siswa as $siswa)
+                                                            <tr>
+                                                                <td>
+                                                                   <input type="checkbox" name="no_hp_ortu[]" value="{{$siswa->no_hp_ortu}}" class="pilih"> 
+                                                                </td>
+                                                                <td>{{$siswa->nama_siswa}}</td>
+                                                                <td>{{App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->nama_kelas}}</td>
+                                                                <td>{{App\Jenjang::where('id_jenjang', App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->id_jenjang)->first()->nama_jenjang}}</td>
+                                                                <td>{{$siswa->no_hp_ortu}}</td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                    <br>
+                                                    <br>
+                             
+                                                    <div class="form-group">
+                                                        <div class="col-md-8 col-md-offset-4">
+                                                            <button type="submit" class="btn btn-primary">
+                                                                Kirim Pesan
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                                <table  id="bootstrap-data-table" class="table table-striped table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>No.</th>
+                                                            <th>Pesan</th>
+                                                            <th>Nomor Tujuan</th>
+                                                            <th>Waktu</th>
+                                                            <th>Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($sent as $sent)
+                                                        <tr>
+                                                            <td scope="row">{{$i+=1}}</td>
+                                                            <td>{{$sent->TextDecoded}}</td>
+                                                            <td>{{$sent->DestinationNumber}}</td>
+                                                            <td>{{$sent->SendingDateTime}}</td>
+                                                            <td>{{$sent->Status}}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                                <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                                                    <tbody>
+                                                    @foreach($pesan as $pesan)
+                                                        <tr>
+                                                            <td scope="row">{{$pesan->id}}</td>
+                                                            <td>{{$pesan->contact_number}}</td>
+                                                            <td>{{$pesan->contact_name}}</td>
+                                                            <td>{{$pesan->created_at}}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <strong class="card-title">Status Pesan</strong>
-                            </div>
-                        
-                            <div class="card-body">
-                                <table  id="bootstrap-data-table" class="table table-striped table-bordered">
-                                    <thead>
-                                            <tr>
-                                                <th>No.</th>
-                                                <th>Pesan</th>
-                                                <th>Nomor Tujuan</th>
-                                                <th>Waktu</th>
-                                                <th>Status</th>
-                                            </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($sent as $sent)
-                                        <tr>
-                                            <td scope="row">{{$i+=1}}</td>
-                                            <td>{{$sent->TextDecoded}}</td>
-                                            <td>{{$sent->DestinationNumber}}</td>
-                                            <td>{{$sent->SendingDateTime}}</td>
-                                            <td>{{$sent->Status}}</td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <strong class="card-title">Kontak Keluar</strong>
-                            </div>
-                        
-                            <div class="card-body">
-                                <table id="bootstrap-data-table" class="table table-striped table-bordered">
-                                    <tbody>
-                                    @foreach($pesan as $pesan)
-                                        <tr>
-                                            <td scope="row">{{$pesan->id}}</td>
-                                            <td>{{$pesan->contact_number}}</td>
-                                            <td>{{$pesan->contact_name}}</td>
-                                            <td>{{$pesan->created_at}}</td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
                             </div>
                         </div>
                     </div>
@@ -301,9 +296,6 @@
                     <div class="col-sm-6">
                         Copyright &copy; 2019 Pondok Pesantren Al-Islah Tajug
                     </div>
-                    <div class="col-sm-6 text-right">
-                        Designed by <a href="https://colorlib.com">Colorlib</a>
-                    </div>
                 </div>
             </div>
         </footer>
@@ -315,6 +307,8 @@
     
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
     <script src="/assets/js/main.js"></script>
     <script src="/assets/js/lib/data-table/datatables.min.js"></script>
@@ -327,9 +321,6 @@
     <script src="/assets/js/lib/data-table/buttons.print.min.js"></script>
     <script src="/assets/js/lib/data-table/buttons.colVis.min.js"></script>
     <script src="/assets/js/init/datatables-init.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"></script> 
     
     <script>
         $(document).ready(function(){

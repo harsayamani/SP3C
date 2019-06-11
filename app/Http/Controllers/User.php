@@ -65,7 +65,7 @@ class User extends Controller
 	                Session::put('name',$data->name);
 	                Session::put('username',$data->username);
 	                Session::put('loginSPP',TRUE);
-	                return redirect('spp/dashboard')->with('alert success', 'Login berhasil');
+	                return redirect('/spp/dashboard')->with('alert success', 'Login berhasil');
 	            }
 	            else{
 	                return redirect('login')->with('alert','Password, Salah !');

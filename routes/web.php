@@ -96,10 +96,9 @@ route::post('/admin/datapembayaran/spp/bulanSPP/ubahBulan', 'AdminSPPController@
 //---Route Kelola Pembayaran
 
 route::get('/admin/datapembayaran/spp', 'AdminSPPController@kelolaSPP');
-
-
 route::get('/admin/datapembayaran/psb', 'AdminPSBController@kelolaPSB');
 route::get('/admin/datapembayaran/psb/reset', 'AdminPSBController@resetData');
+route::get('/admin/datapembayaran/spp/reset', 'AdminSPPController@resetData');
 
 //---Route SPP
 
@@ -115,9 +114,8 @@ route::post('/spp/lunasiSPP', 'SPPController@lunasiSPP');
 
 route::get('/spp/cetak/{id_spp}', 'SPPController@cetakKwitansi');
 
-route::get('/spp/kembali', function(){
-	return redirect('/spp/pembayaranSPP');
-});
+
+route::get('/spp/cetakKartu/{NIS}', 'SPPController@cetakKartu');
 
 Route::get('/admin/datapembayaran/spp/filter', 'AdminSPPController@filter');
 
@@ -142,8 +140,9 @@ route::post('/psb/bayarPSB', 'PSBController@bayarPSB');
 
 route::post('/psb/lunasiPSB', 'PSBController@lunasiPSB');
 
-route::post('/psb/nominal', 'PSBController@fetch')->name('dynamicdependent.fetch');
-
 route::get('/psb/cetak/{NIS}', 'PSBController@cetakKwitansi');
+
+route::get('/psb/cetakNota/{NIS}', 'PSBController@cetakNota');
+
 
 
