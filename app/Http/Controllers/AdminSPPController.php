@@ -9,6 +9,7 @@ use App\Jenjang;
 use App\SPP;
 use App\Kelas;
 use App\Siswa;
+use App\LogSistem;
 
 class AdminSPPController extends Controller
 {
@@ -17,7 +18,8 @@ class AdminSPPController extends Controller
             return redirect('login')->with('alert','Anda harus login terlebih dulu');
         }else{
     	   $data_bulan_spp = BulanSPP::all();
-           return view('/adm/kelolaBulanSPP', compact('data_bulan_spp'));
+           $log = LogSistem::orderBy('tgl', 'desc')->get();
+           return view('/adm/kelolaBulanSPP', compact('data_bulan_spp', 'log'));
         }
     }
 
@@ -55,7 +57,8 @@ class AdminSPPController extends Controller
     public function kelolaSPP(){
     	$spp = SPP::orderBy('id_bulan', 'asc')->get();
     	$data_bulan_spp = BulanSPP::all();
-    	return view('adm/kelolaSPP', compact('spp', 'data_bulan_spp'));
+        $log = LogSistem::orderBy('tgl', 'desc')->get();
+    	return view('adm/kelolaSPP', compact('spp', 'data_bulan_spp', 'log'));
     }
 
     public function filter(Request $request){

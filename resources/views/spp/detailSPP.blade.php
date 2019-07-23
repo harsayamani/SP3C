@@ -43,7 +43,7 @@
                     </li>
 
                     <li >
-                        <a href="/spp/notifikasiPembayaran"><i class="menu-icon fa fa-bell"></i>Notifikasi Pembayaran</a>
+                        <a href="/spp/notifikasiPembayaran"><i class="menu-icon fa fa-bell"></i>Kirim Pesan Notifikasi</a>
                     </li>
 
                     <li >
@@ -468,6 +468,7 @@
     </script>
     
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script> 
+
     <!-- <script>
         $('#tgl_pembayaran').datepicker();
     </script> -->

@@ -9,6 +9,7 @@ use App\Kelas;
 use App\Jenjang;
 use App\PSB;
 use App\SPP;
+use App\LogSistem;
 
 class AdminController extends Controller
 {
@@ -22,7 +23,36 @@ class AdminController extends Controller
 	    	$siswa = Siswa::count();
 	    	$kelas = Kelas::count();
 	    	$jenjang = Jenjang::count();
-	 	    return view('/adm/dashboardAdm', compact('siswa', 'kelas', 'jenjang', 'transaksi'));
+	    	$log = LogSistem::orderBy('tgl', 'desc')->get();
+	 	    return view('/adm/dashboardAdm', compact('siswa', 'kelas', 'jenjang', 'transaksi', 'log'));
+	    }
+    }
+
+    public function indexLog(){
+    	if(!Session::get('loginAdmin')){
+	    	return redirect('login')->with('alert','Anda harus login terlebih dulu');
+	    }else{
+	    	$log = LogSistem::orderBy('tgl', 'desc')->get();
+	    	return view('/adm/logSistem', compact('log'));
+	    }
+    }
+
+    public function getLog(){
+        $log = LogSistem::orderBy('tgl', 'desc')->get();
+        for($i=0; $i<count($log); $i++) {
+        	$logText = $log[$i]->jenis."\t\t".$log[$i]->aksi."\t".$log[$i]->tgl;
+        	return response()->json([
+                'logText' => $logText,
+            ], 200);
+        }  
+    }
+
+    public function indexBantuan(){
+    	if(!Session::get('loginAdmin')){
+	    	return redirect('login')->with('alert','Anda harus login terlebih dulu');
+	    }else{
+	    	$log = LogSistem::orderBy('tgl', 'desc')->get();
+	    	return view('/adm/bantuanAdmin', compact('log'));
 	    }
     }
 }

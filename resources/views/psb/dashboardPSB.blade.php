@@ -160,10 +160,10 @@
                         <div class="card text-white bg-flat-color-1">
                             <div class="card-body">
                                 <div class="card-left pt-1 float-left">
-                                    <h3 class="mb-0 fw-r">
+                                    <h5 class="mb-0 fw-r">
                                         <span class="currency float-left mr-1">Rp</span>
                                         <span class="count">{{$jumlah}}</span>
-                                    </h3>
+                                    </h5>
                                     <p class="text-light mt-1 m-0">Jumlah PSB Masuk</p>
                                 </div><!-- /.card-left -->
 
@@ -180,14 +180,14 @@
                         <div class="card text-white bg-flat-color-6">
                             <div class="card-body">
                                 <div class="card-left pt-1 float-left">
-                                    <h3 class="mb-0 fw-r">
+                                    <h4 class="mb-0 fw-r">
                                         <span class="count float-left">@if($psb->count()>0){{($lunas/$transaksi)*100}}
                                         @else
                                         0
                                         @endif</span>
                                         <span>%</span>
-                                    </h3>
-                                    <p class="text-light mt-1 m-0">Persentase Transaksi Lunas</p>
+                                    </h4>
+                                    <p class="text-light mt-1 m-0">Persentase Lunas</p>
                                 </div><!-- /.card-left -->
 
                                 <div class="card-right float-right text-right">
@@ -203,9 +203,9 @@
                         <div class="card text-white bg-flat-color-2">
                             <div class="card-body">
                                 <div class="card-left pt-1 float-left">
-                                    <h3 class="mb-0 fw-r">
+                                    <h4 class="mb-0 fw-r">
                                         <span class="count">{{$transaksi}}</span>
-                                    </h3>
+                                    </h4>
                                     <p class="text-light mt-1 m-0">Jumlah Transaksi</p>
                                 </div><!-- /.card-left -->
 
@@ -222,9 +222,9 @@
                         <div class="card text-white bg-flat-color-3">
                             <div class="card-body">
                                 <div class="card-left pt-1 float-left">
-                                    <h3 class="mb-0 fw-r">
+                                    <h4 class="mb-0 fw-r">
                                         <span class="count">{{$siswa}}</span>
-                                    </h3>
+                                    </h4>
                                     <p class="text-light mt-1 m-0">Jumlah Siswa</p>
                                 </div><!-- /.card-left -->
 

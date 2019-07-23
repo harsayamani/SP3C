@@ -410,7 +410,18 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $('#id_rincian').on('change', function(){
-              $('#nominal').val($(this).val());
+                $.ajax({
+                    url: "/getNominal",
+                    type:"POST",
+                    data : {"_token": "{{ csrf_token() }}",
+                    "id":$(this).val()},
+                    dataType: "json",
+                    success: function(res){
+                        console.log(res.biaya);
+                        $('#nominal').val(res.biaya);
+                    }
+                })
+              
             })
 
             // init

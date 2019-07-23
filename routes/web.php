@@ -37,6 +37,12 @@ Route::post('/loginPost', 'User@loginPost');
 
 Route::get('/logout', 'User@logout');
 
+Route::get('/admin/ekstra/logSistem', 'AdminController@indexLog');
+
+Route::get('/admin/ekstra/getLog', 'AdminController@getLog');
+
+Route::get('/admin/ekstra/bantuan', 'AdminController@indexBantuan');
+
 
 // ---Route Siswa---
 
@@ -143,6 +149,8 @@ route::post('/psb/lunasiPSB', 'PSBController@lunasiPSB');
 route::get('/psb/cetak/{NIS}', 'PSBController@cetakKwitansi');
 
 route::get('/psb/cetakNota/{NIS}', 'PSBController@cetakNota');
+
+route::post('/getNominal', 'PSBController@getNominal');
 
 
 

@@ -10,6 +10,7 @@ use App\PSB;
 use App\BulanSPP;
 use App\Exports\PSBReport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\LogSistem;
 
 class AdminPSBController extends Controller
 {
@@ -18,7 +19,8 @@ class AdminPSBController extends Controller
             return redirect('login')->with('alert','Anda harus login terlebih dulu');
         }else{
             $data_rincian = Rincian::all();
-            return view('/adm/kelolaRincian', ['data_rincian'=>$data_rincian]);
+            $log = LogSistem::orderBy('tgl', 'desc')->get();
+            return view('/adm/kelolaRincian', ['data_rincian'=>$data_rincian, 'log'=>$log]);
         }
     }
 
@@ -55,6 +57,13 @@ class AdminPSBController extends Controller
 
     public function kelolaPSB(){
         $psb = PSB::orderBy('tgl_pembayaran', 'desc')->get();
-        return view('adm/kelolaPSB', compact('psb'));
+        $log = LogSistem::orderBy('tgl', 'desc')->get();
+
+        if(!Session::get('loginAdmin')){
+            return redirect('login')->with('alert','Anda harus login terlebih dulu');
+        }else{
+            return view('adm/kelolaPSB', compact('psb', 'log'));
+        }
+        
     }
 }

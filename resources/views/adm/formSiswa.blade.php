@@ -37,33 +37,41 @@
                     <li class="menu-title">Data Siswa</li><!-- /.menu-title -->
 
                     <li class="active">
-                        <a href="/admin/datasiswa/kelolaSiswa"><i class="menu-icon fa fa-table"></i>Kelola Data Siswa</a>
+                        <a href="/admin/datasiswa/kelolaSiswa"><i class="menu-icon fa fa-list"></i>Kelola Data Siswa </a>
                     </li>
 
                     <li>
-                        <a href="/admin/datasiswa/kelas"><i class="menu-icon fa fa-table"></i>Kelola Data Kelas </a>
+                        <a href="/admin/datasiswa/kelas"><i class="menu-icon fa fa-list"></i>Kelola Data Kelas </a>
                     </li>
 
                     <li>
-                        <a href="/admin/datasiswa/jenjang"><i class="menu-icon fa fa-table"></i>Kelola Data Jenjang </a>
+                        <a href="/admin/datasiswa/jenjang"><i class="menu-icon fa fa-list"></i>Kelola Data Jenjang </a>
                     </li>
 
                     <li class="menu-title">Data Pembayaran Siswa</li><!-- /.menu-title -->
 
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Pembayaran SPP</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-folder"></i>Pembayaran SPP</a>
                         <ul class="sub-menu children dropdown-menu">                           
-                            <li><i class="fa fa-puzzle-piece"></i><a href="/admin/datapembayaran/spp">Kelola Data</a></li>
-                            <li><i class="fa fa-puzzle-piece"></i><a href="/admin/datapembayaran/spp/bulanSPP">Kelola Bulan SPP</a></li>
+                            <li><i class="fa fa-file"></i><a href="/admin/datapembayaran/spp">Kelola Data</a></li>
+                            <li><i class="fa fa-file"></i><a href="/admin/datapembayaran/spp/bulanSPP">Kelola Bulan SPP</a></li>
                         </ul>
                     </li>
 
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Pembayaran Siswa Baru</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-folder"></i>Pembayaran Siswa Baru</a>
                         <ul class="sub-menu children dropdown-menu">                           
-                            <li><i class="fa fa-puzzle-piece"></i><a href="/admin/datapembayaran/psb">Kelola Data</a></li>
-                            <li><i class="fa fa-puzzle-piece"></i><a href="/admin/datapembayaran/psb/rincian">Kelola Rincian</a></li>
+                            <li><i class="fa fa-file"></i><a href="/admin/datapembayaran/psb">Kelola Data</a></li>
+                            <li><i class="fa fa-file"></i><a href="/admin/datapembayaran/psb/rincian">Kelola Rincian</a></li>
                         </ul>
+                    </li>
+
+                    <li class="menu-title">Ekstra</li><!-- /.menu-title -->
+                    <li>
+                        <a href="/admin/ekstra/logSistem"><i class="menu-icon fa fa-book"></i>Log Sistem</a>
+                    </li>
+                    <li>
+                        <a href="/admin/ekstra/bantuan"><i class="menu-icon ti-help"></i>Bantuan</a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -98,19 +106,14 @@
                                 <span class="count bg-danger">3</span>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
-                                <p class="red">You have 3 Notification</p>
-                                <a class="dropdown-item media" href="#">
-                                    <i class="fa fa-check"></i>
-                                    <p>Server #1 overloaded.</p>
-                                </a>
-                                <a class="dropdown-item media" href="#">
+                                <p class="red">Anda Mendapatkan 3 Notifikasi</p>
+
+                                @for($i=0; $i<3; $i++)
+                                <a class="dropdown-item media" href="/admin/ekstra/log">
                                     <i class="fa fa-info"></i>
-                                    <p>Server #2 overloaded.</p>
+                                    <p>{{substr($log[$i]->jenis."\t".$log[$i]->aksi."\t".$log[$i]->tgl, 0, 20)."..."}}</p>
                                 </a>
-                                <a class="dropdown-item media" href="#">
-                                    <i class="fa fa-warning"></i>
-                                    <p>Server #3 overloaded.</p>
-                                </a>
+                                @endfor
                             </div>
                         </div>
                     </div>
@@ -202,8 +205,8 @@
                                     </select>
                                 </div> 
                                 <div class="form-group"><label for="street" class=" form-control-label">Alamat</label><textarea type="text" id="alamat" name="alamat" placeholder="Masukkan alamat siswa" class="form-control" required></textarea></div>
-                                <div class="form-group"><label for="no_hp" class=" form-control-label">Nomor HP Siswa</label><input type="text" id="no_hp" name="no_hp" placeholder="mis.0894648273xxx" class="form-control" required></div>
-                                <div class="form-group"><label for="nama_ortu" class=" form-control-label">Nama Orang Tua Siswa</label><input type="text" id="nama_ortu" name="nama_ortu" placeholder="Masukkan nama orang tua siswa" class="form-control" value="+62" required></div>
+                                <div class="form-group"><label for="no_hp" class=" form-control-label">Nomor HP Siswa</label><input type="text" id="no_hp" name="no_hp" placeholder="mis.0894648273xxx" value="+62" class="form-control" required></div>
+                                <div class="form-group"><label for="nama_ortu" class=" form-control-label">Nama Orang Tua Siswa</label><input type="text" id="nama_ortu" name="nama_ortu" placeholder="Masukkan nama orang tua siswa" class="form-control" required></div>
                                 <div class="form-group"><label for="no_hp_ortu" class=" form-control-label">Nomor HP Orang Tua Siswa</label><input type="text" id="no_hp_ortu" name="no_hp_ortu" placeholder="mis.0894648273xxx" value="+62" class="form-control" required></div>
                                 <div class="form-group"><label for="no_hp_ortu" class=" form-control-label">Tahun Masuk</label><select name="angkatan" id="angkatan" class="form-control">
                                         <option value="">---Pilih tahun masuk---</option>

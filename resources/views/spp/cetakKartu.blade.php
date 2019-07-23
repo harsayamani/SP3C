@@ -141,13 +141,25 @@
 						        <br>
 						        <br>
 			        			<table cellpadding="4">
+			        			<tr>
+									<td>&nbsp;</td>
+									<td><div class="value">{{$bendahara}}</div>
+									<br>
+									<br>
+									<br>
+									</td>
+								</tr>
 					        	<tr>
 									<td>&nbsp;</td>
 									<td>____________________________________________________</td>
 								</tr>
 								<tr>
 									<td>&nbsp;</td>
-									<td><div class="value">{{$bendahara}}</div></td>
+									<td><div class="value"></div>
+									<br>
+									<br>
+									<br>
+									</td>
 								</tr>
 								</table>
 			        		</td>

@@ -71,9 +71,12 @@ class PSBController extends Controller
         $id_rincian_all = PSB::where('NIS', $request->NIS)->where('id_rincian', 583010)->count();
         $id_rincian = PSB::where('NIS', $request->NIS)->where('id_rincian', $request->id_rincian)->count();
 
-            if ($id_rincian_all>0) {
+        $total_psb = PSB::where('NIS', $request->NIS)->count();
+        $total_rincian = Rincian::count();
+
+            if ($id_rincian>0 || $total_psb==1 && $id_rincian_all==1 || $total_psb == $total_rincian-1) {
                 return redirect()->back()->with('alert danger', 'Pembayaran Sudah Dilakukan');
-            }elseif($id_rincian_all<1){
+            }elseif($id_rincian==0){
                 if ($request->id_rincian!=583010 || $id_rincian <1) {
                     $psb = new PSB;
                     $psb->id_psb = uniqid();
@@ -134,8 +137,14 @@ class PSBController extends Controller
         $bendahara = Session::get('name');
         $rincian = Rincian::all();
         $thn_ajaran = BulanSPP::value('thn_ajaran');
+        $biaya = PSB::where('NIS', $NIS)->where('status_pembayaran', 1)->get();
+        $total = 0;
 
-         return view('/psb/cetakNota', compact('psb', 'bendahara', 'siswa', 'thn_ajaran', 'rincian'));
+        foreach ($biaya as $biaya) {
+            $total += $biaya->nominal;
+        }
+
+         return view('/psb/cetakNota', compact('psb', 'bendahara', 'siswa', 'thn_ajaran', 'rincian', 'total'));
     }
 
     public function cetakKwitansi($NIS){
@@ -152,5 +161,13 @@ class PSBController extends Controller
         }
 
         return view('/psb/cetakBukti', compact('siswa', 'psb', 'bendahara', 'tgl_pembayaran', 'total', 'rincian'));
+    }
+
+    public function getNominal(Request $request){
+        $nominal = Rincian::where('id_rincian', $request->id)->value('biaya');
+
+        return response()->json([
+                'biaya' => $nominal
+            ], 200);
     }
 }

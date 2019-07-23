@@ -42,7 +42,7 @@
                     </li  class="active">
 
                     <li>
-                        <a href="/spp/notifikasiPembayaran"><i class="menu-icon fa fa-bell"></i>Notifikasi Pembayaran</a>
+                        <a href="/spp/notifikasiPembayaran"><i class="menu-icon fa fa-bell"></i>Kirim Pesan Notifikasi</a>
                     </li>
 
                     <li  class="active">

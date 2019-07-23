@@ -35,7 +35,7 @@ class SPPController extends Controller
     }
 
     public function pembayaran(){
-    	$siswa = Siswa::all();
+    	$siswa = Siswa::orderBy('id_kelas', 'desc')->get();
         $inbox = Inbox::orderBy('ReceivingDateTime', 'desc')->get();
 
     	if(!Session::get('loginSPP')){
@@ -99,7 +99,7 @@ class SPPController extends Controller
         if ($jenjang == "SMA") {
             if (($spp_lama + $request->nominal) < $bulan->spp_sma) {
                 $spp_baru->status_pembayaran = 0;
-            }elseif ($request->nominal > $bulan->spp_sma-$spp_lama) {
+            }elseif (($request->nominal+$spp_lama) > $bulan->spp_sma) {
                 return redirect()->back()->with('alert danger', 'Nominal tidak boleh lebih dari Rp.'.($bulan->spp_sma-$spp_lama));
             }else{
                 $spp_baru->status_pembayaran = 1;
@@ -107,7 +107,7 @@ class SPPController extends Controller
         }else if ($jenjang == "SMP") {
             if (($spp_lama + $request->nominal) < $bulan->spp_smp) {
                 $spp_baru->status_pembayaran = 0;
-            }elseif ($request->nominal > $bulan->spp_smp-$spp_lama) {
+            }elseif (($request->nominal+$spp_lama) > $bulan->spp_smp) {
                 return redirect()->back()->with('alert danger', 'Nominal tidak boleh lebih dari Rp.'.($bulan->spp_smp-$spp_lama));
             }else{
                 $spp_baru->status_pembayaran = 1;
@@ -115,7 +115,7 @@ class SPPController extends Controller
         }else if ($jenjang == "I'dady") {
             if (($spp_lama + $request->nominal) < $bulan->spp_idady) {
                 $spp_baru->status_pembayaran = 0;
-            }elseif ($request->nominal > $bulan->spp_idady-$spp_lama) {
+            }elseif (($request->nominal+$spp_lama) > $bulan->spp_idady) {
                 return redirect()->back()->with('alert danger', 'Nominal tidak boleh lebih dari Rp.'.($bulan->spp_idady-$spp_lama));
             }else{
                 $spp_baru->status_pembayaran = 1;
@@ -152,18 +152,24 @@ class SPPController extends Controller
                 if ($jenjang == "SMA") {
                     if ($request->nominal < $bulan->spp_sma) {
                         $spp->status_pembayaran = 0;
+                    }elseif ($request->nominal > $bulan->spp_sma) {
+                        return redirect()->back()->with('alert danger', 'Nominal tidak boleh lebih dari Rp.'.($bulan->spp_sma));
                     }else{
                         $spp->status_pembayaran = 1;
                     }
                 }else if ($jenjang == "SMP") {
                     if ($request->nominal < $bulan->spp_smp) {
                         $spp->status_pembayaran = 0;
+                    }elseif ($request->nominal > $bulan->spp_smp) {
+                        return redirect()->back()->with('alert danger', 'Nominal tidak boleh lebih dari Rp.'.($bulan->spp_smp));
                     }else{
                         $spp->status_pembayaran = 1;
                     }
                 }else if ($jenjang == "I'dady") {
                     if ($request->nominal < $bulan->spp_idady) {
                         $spp->status_pembayaran = 0;
+                    }elseif ($request->nominal > $bulan->spp_idady) {
+                        return redirect()->back()->with('alert danger', 'Nominal tidak boleh lebih dari Rp.'.($bulan->spp_idady));
                     }else{
                         $spp->status_pembayaran = 1;
                     }

@@ -11,6 +11,7 @@
         "maatwebsite/excel": "^2.1",
         "nexmo/client": "^1.8",
         "nexmo/laravel": "^1.1",
+        "pusher/pusher-php-server": "^3.4",
         "slim/slim": "^3.8"
     },
     "require-dev": {

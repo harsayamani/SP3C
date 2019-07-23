@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Jenjang;
 use App\Kelas;
 use Illuminate\Support\Facades\Session;
+use App\LogSistem;
 
 class JenjangController extends Controller
 {
@@ -15,7 +16,8 @@ class JenjangController extends Controller
         }else{
             $data_jenjang = Jenjang::all();
             $i=0;
-            return view('/adm/kelolaJenjang', ['data_jenjang'=>$data_jenjang, 'i'=>$i]);
+            $log = LogSistem::orderBy('tgl', 'desc')->get();
+            return view('/adm/kelolaJenjang', ['data_jenjang'=>$data_jenjang, 'i'=>$i, 'log'=>$log]);
         }
     }
 

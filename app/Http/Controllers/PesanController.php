@@ -17,16 +17,17 @@ class PesanController extends Controller
     public function form()
     {
         $siswa = Siswa::all();
-        $pesan = Pesan::all();
+        $pesan = Pesan::orderBy('created_at', 'desc')->get();
         $inbox = Inbox::orderBy('ReceivingDateTime', 'desc')->get();
         $sent = Sentitems::orderBy('ID', 'desc')->get();
         $sent_count = Sentitems::all();
         $i = 0; 
+        $x = 0;
 
         if(!Session::get('loginSPP')){
             return redirect('login')->with('alert','Anda harus login terlebih dulu');
         }else{
-            return view('spp/kirimNotifikasi', compact('siswa', 'pesan', 'inbox', 'sent', 'i'));
+            return view('spp/kirimNotifikasi', compact('siswa', 'pesan', 'inbox', 'sent', 'i', 'x'));
         }
     }
  
@@ -75,7 +76,7 @@ class PesanController extends Controller
         $pesan = $request->pesan;
         
         try {
-          for ($i=0; $i <count($request->no_hp_ortu) ; $i++) { 
+          for ($i=0; $i<count($request->no_hp_ortu) ; $i++) { 
             
             $message = new Outbox;
 

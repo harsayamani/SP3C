@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Kelas;
 use App\Siswa;
 use Illuminate\Support\Facades\Session;
+use App\LogSistem;
 
 class SiswaController extends Controller
 {
@@ -14,7 +15,8 @@ class SiswaController extends Controller
             return redirect('login')->with('alert','Anda harus login terlebih dulu');
         }else{
            $data_kelas = Kelas::all();
-           return view('adm/formSiswa', ['data_kelas'=>$data_kelas]); 
+           $log = LogSistem::orderBy('tgl', 'desc')->get();
+           return view('adm/formSiswa', ['data_kelas'=>$data_kelas, 'log'=>$log]); 
         }
     }
 
@@ -24,7 +26,8 @@ class SiswaController extends Controller
         }else{
             $i=0;
             $data_siswa = Siswa::orderBy('id_kelas', 'asc')->get();
-            return view('adm/kelolaSiswa', ['data_siswa'=>$data_siswa, 'i'=>$i]);
+            $log = LogSistem::orderBy('tgl', 'desc')->get();
+            return view('adm/kelolaSiswa', ['data_siswa'=>$data_siswa, 'i'=>$i, 'log'=>$log]);
         }
     }
 
@@ -64,7 +67,8 @@ class SiswaController extends Controller
         }else{
             $data_siswa = Siswa::find($NIS);
             $data_kelas = Kelas::all();
-            return view('adm/updateSiswa', ['data_siswa'=>$data_siswa, 'data_kelas'=>$data_kelas]);
+            $log = LogSistem::orderBy('tgl', 'desc')->get();
+            return view('adm/updateSiswa', ['data_siswa'=>$data_siswa, 'data_kelas'=>$data_kelas, 'log'=>$log]);
         }
     }
 

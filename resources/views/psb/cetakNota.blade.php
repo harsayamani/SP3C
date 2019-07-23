@@ -113,19 +113,24 @@
                                 @if(App\PSB::where('id_rincian', 583010)->where('NIS', $siswa->NIS)->where('status_pembayaran', 1)->count() > 0)
                                 @for($i=0; $i<count($rincian)-1; $i++)
                                     <li class="list-group-item" disabled>
-                                        <a > <i class="fa fa-check-square"></i> {{$rincian[$i]->detail_rincian}} <span class="badge badge-success pull-right">Rp.{{$rincian[$i]->biaya}}</span></a>
+                                        <a > <i class="fa fa-check-square"></i> {{$rincian[$i]->detail_rincian}} <span class=" pull-right">Rp.{{$rincian[$i]->biaya}}</span></a>
                                     </li>
                                 @endfor
                                 @else
                                 @foreach($psb as $psbsiswa)
                                 @if($psbsiswa->NIS == $siswa->NIS && $psbsiswa->status_pembayaran == 1)
                                     <li class="list-group-item" disabled>
-                                        <a > <i class="fa fa-check-square"></i> {{App\Rincian::where('id_rincian', $psbsiswa->id_rincian)->first()->detail_rincian}} <span class="badge badge-success pull-right">Rp.{{App\Rincian::where('id_rincian', $psbsiswa->id_rincian)->first()->biaya}} </span></a>
+                                        <a > <i class="fa fa-check-square"></i> {{App\Rincian::where('id_rincian', $psbsiswa->id_rincian)->first()->detail_rincian}} <span class="pull-right">Rp.{{App\Rincian::where('id_rincian', $psbsiswa->id_rincian)->first()->biaya}} </span></a>
                                     </li>
                                 @endif
                                 @endforeach
                                 @endif 
                                 @endif
+                                </ul>
+                                <ul class="list-group list-group-flush">
+                                	<li class="list-group-item" disabled>
+                                        <a ><b>Total</b><span class="pull-right"><b>Rp.{{$total}}</b></span></a>
+                                    </li>
                                 </ul>
                             </section>
                         </aside>
@@ -144,11 +149,23 @@
 			        			<table cellpadding="4">
 					        	<tr>
 									<td>&nbsp;</td>
+									<td><div class="value">{{$bendahara}}</div>
+									<br>
+									<br>
+									<br>
+									</td>
+								</tr>
+					        	<tr>
+									<td>&nbsp;</td>
 									<td>____________________________________________________</td>
 								</tr>
 								<tr>
 									<td>&nbsp;</td>
-									<td><div class="value">{{$bendahara}}</div></td>
+									<td><div class="value"></div>
+									<br>
+									<br>
+									<br>
+									</td>
 								</tr>
 								</table>
 			        		</td>

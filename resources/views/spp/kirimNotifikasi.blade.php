@@ -42,7 +42,7 @@
                     </li  class="active">
 
                     <li class="active">
-                        <a href="/spp/notifikasiPembayaran"><i class="menu-icon fa fa-bell"></i>Notifikasi Pembayaran</a>
+                        <a href="/spp/notifikasiPembayaran"><i class="menu-icon fa fa-bell"></i>Kirim Pesan Notifikasi</a>
                     </li>
 
                     <li >
@@ -198,7 +198,7 @@
                                                     </div>
                              
                                                     <div class="form-group">
-                                                        <label for="pesan" class="control-label">Message</label>
+                                                        <label for="pesan" class="control-label">Pesan</label>
                              
                                                         
                                                         <textarea class="form-control" name="pesan" id="pesan" required>{{ old('message') }}</textarea>
@@ -267,10 +267,18 @@
                                             </div>
                                             <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                                                 <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>No.</th>
+                                                            <th>Nomor Pengirim</th>
+                                                            <th>Nama Pengirim</th>
+                                                            <th>Waktu</th>
+                                                        </tr>
+                                                    </thead>
                                                     <tbody>
                                                     @foreach($pesan as $pesan)
                                                         <tr>
-                                                            <td scope="row">{{$pesan->id}}</td>
+                                                            <td scope="row">{{$x+=1}}</td>
                                                             <td>{{$pesan->contact_number}}</td>
                                                             <td>{{$pesan->contact_name}}</td>
                                                             <td>{{$pesan->created_at}}</td>

@@ -6,13 +6,11 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Detail Pesan {{$dtl_inbox->ID}} | PembayaranSPP</title>
+    <title>Bantuan | Admin</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
     <link rel="shortcut icon" href="https://i.imgur.com/QRAUqs9.png">
-    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />    
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
@@ -33,23 +31,48 @@
                 <ul class="nav navbar-nav">
 
                     <li>
-                        <a href="/spp/dashboard"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
+                        <a href="/admin/dashboard"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
 
-                    <li class="menu-title">Fitur Utama</li>
-
-                    <li>
-                        <a href="/spp/pembayaranSPP"><i class="menu-icon fa fa-money"></i>Pembayaran SPP </a>
-                    </li>
+                    <li class="menu-title">Data Siswa</li><!-- /.menu-title -->
 
                     <li >
-                        <a href="/spp/notifikasiPembayaran"><i class="menu-icon fa fa-bell"></i>Kirim Pesan Notifikasi</a>
+                        <a href="/admin/datasiswa/kelolaSiswa"><i class="menu-icon fa fa-list"></i>Kelola Data Siswa </a>
                     </li>
 
-                    <li class="active">
-                        <a href="/spp/pesanMasuk"><i class="menu-icon fa fa-envelope-o"></i>Pesan Masuk</a>
+                    <li>
+                        <a href="/admin/datasiswa/kelas"><i class="menu-icon fa fa-list"></i>Kelola Data Kelas </a>
                     </li>
-                    
+
+                    <li>
+                        <a href="/admin/datasiswa/jenjang"><i class="menu-icon fa fa-list"></i>Kelola Data Jenjang </a>
+                    </li>
+
+                    <li class="menu-title">Data Pembayaran Siswa</li><!-- /.menu-title -->
+
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-folder"></i>Pembayaran SPP</a>
+                        <ul class="sub-menu children dropdown-menu">                           
+                            <li><i class="fa fa-file"></i><a href="/admin/datapembayaran/spp">Kelola Data</a></li>
+                            <li><i class="fa fa-file"></i><a href="/admin/datapembayaran/spp/bulanSPP">Kelola Bulan SPP</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-folder"></i>Pembayaran Siswa Baru</a>
+                        <ul class="sub-menu children dropdown-menu">                           
+                            <li><i class="fa fa-file"></i><a href="/admin/datapembayaran/psb">Kelola Data</a></li>
+                            <li><i class="fa fa-file"></i><a href="/admin/datapembayaran/psb/rincian">Kelola Rincian</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-title">Ekstra</li><!-- /.menu-title -->
+                    <li>
+                        <a href="/admin/ekstra/logSistem"><i class="menu-icon fa fa-book"></i>Log Sistem</a>
+                    </li>
+                    <li class="active">
+                        <a href="/admin/ekstra/bantuan"><i class="menu-icon ti-help"></i>Bantuan</a>
+                    </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
@@ -77,20 +100,18 @@
                                 <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
                             </form>
                         </div>
-                        <div class="dropdown for-message">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-envelope"></i>
-                                <span class="count bg-primary">4</span>
+                        <div class="dropdown for-notification">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-bell"></i>
+                                <span class="count bg-danger">3</span>
                             </button>
-                            <div class="dropdown-menu" aria-labelledby="message">
-                                <p class="red">Anda Mendapat 4 SMS</p>
-                                @for($n=0; $n<4; $n++)
-                                <a class="dropdown-item media" href="/spp/pesanMasuk/{{$inbox[$n]->ID}}">
-                                    <div class="message media-body">
-                                        <span class="name float-left">{{$inbox[$n]->SenderNumber}}</span>
-                                        <span class="time float-right">{{$inbox[$n]->ReceivingDateTime}}</span>
-                                        <p>{{substr($inbox[$n]->TextDecoded, 0 , 40)}}...</p>
-                                    </div>
+                            <div class="dropdown-menu" aria-labelledby="notification">
+                                <p class="red">Anda Mendapatkan 3 Notifikasi</p>
+
+                                @for($i=0; $i<3; $i++)
+                                <a class="dropdown-item media" href="/admin/ekstra/log">
+                                    <i class="fa fa-info"></i>
+                                    <p>{{$log[$i]->jenis."\t".$log[$i]->aksi."\t".$log[$i]->tgl}}</p>
                                 </a>
                                 @endfor
                             </div>
@@ -124,21 +145,46 @@
 
         @if (session()->has('alert success'))
             <div class="alert alert-success" role="alert">
-                {{session()->get('alert success')}}
+                Data berhasil ditambahkan
             </div>
         @endif
 
         @if (session()->has('alert danger'))
             <div class="alert alert-danger" role="alert">
-                {{session()->get('alert danger')}}
+                Data berhasil dihapus
             </div>
         @endif
 
         @if (session()->has('alert warning'))
             <div class="alert alert-success" role="alert">
-                {{session()->get('alert warning')}}
+                Data berhasil diubah
             </div>
         @endif
+
+        <div class="breadcrumbs">
+            <div class="breadcrumbs-inner">
+                <div class="row m-0">
+                    <div class="col-sm-4">
+                        <div class="page-header float-left">
+                            <div class="page-title">
+                                <h1>Bantuan</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="page-header float-right">
+                            <div class="page-title">
+                                <ol class="breadcrumb text-right">
+                                    <li><a href="#">Dashboard</a></li>
+                                    <li><a href="#">Ekstra</a></li>
+                                    <li class="active">Bantuan</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
                                
         <div class="content">
             <!-- Animated -->
@@ -146,36 +192,19 @@
                 <!-- Widgets  -->
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card">   
-                            <div class="card-header">
-                                <i class="fa fa-user"></i><strong class="card-title pl-2">Detail Pesan</strong>
-                            </div>
+                        <div class="card">
+                        
                             <div class="card-body">
-                                    <table cellpadding="5" >
-                                        <tr>
-                                            <td><h5><b>PENGIRIM</b></h5></td>
-                                            <td>: {{$dtl_inbox->SenderNumber}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><h5><b>WAKTU</b></h5></td>
-                                            <td>: {{$dtl_inbox->ReceivingDateTime}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><h5><b>PESAN</b></h5></td>
-                                            <td>: </td>
-                                        </tr>
-                                    </table>
-                                    <br>
-                                    
-                                    <textarea class="form-control" readonly>{{$dtl_inbox->TextDecoded}}</textarea>
 
-                            </div>
-                            <div class="card-text text-sm-center">   
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <textarea name="bantuan" id="bantuan" rows="9" class="form-control">
+                                        </textarea>
+                                    </div>
+                                </div>
+                                
                             </div>
                         </div>
-                        <br>
-                        <br>
-                        <br>
                     </div>
                 </div>
             </div>
@@ -200,11 +229,12 @@
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>  
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
     <script src="/assets/js/main.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script> 
+
 </body>
 </html>
