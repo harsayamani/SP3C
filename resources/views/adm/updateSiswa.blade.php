@@ -145,7 +145,19 @@
 
         @if (session()->has('alert success'))
             <div class="alert alert-success" role="alert">
-                Data berhasil ditambahkan
+                {{session()->get('alert success')}}
+            </div>
+        @endif
+
+        @if (session()->has('alert danger'))
+            <div class="alert alert-danger" role="alert">
+                {{session()->get('alert danger')}}
+            </div>
+        @endif
+
+        @if (session()->has('alert warning'))
+            <div class="alert alert-warning" role="alert">
+                {{session()->get('alert warning')}}
             </div>
         @endif
 
@@ -188,7 +200,7 @@
                                 <div class="form-group"><label for="NIS" class=" form-control-label">NIS</label><input type="text" id="NIS" name="NIS" value="{{$data_siswa->NIS}}" placeholder="Masukkan NIS Siswa" class="form-control" readonly></div>
                                 <div class="form-group"><label for="nama_siswa" class=" form-control-label">Nama Siswa</label><input type="text" id="nama_siswa" name="nama_siswa" placeholder="Masukkan nama siswa" class="form-control" value="{{$data_siswa->nama_siswa}}" required></div>
                                 <div class="form-group"><label for="id_kelas" class=" form-control-label">Kelas</label>
-                                    <select name="id_kelas" id="id_kelas" class="form-control">
+                                    <select name="id_kelas" id="id_kelas" class="form-control" required>
                                         <option value="0">---Pilih kelas---</option>
                                         @foreach($data_kelas as $kelas)
                                         <option value="{{$kelas->id_kelas}}" @if($data_siswa->id_kelas == $kelas->id_kelas) selected @endif>{{$kelas->nama_kelas}}
@@ -197,7 +209,7 @@
                                     </select>
                                 </div>  
                                 <div class="form-group"><label for="jenis_kelamin" class=" form-control-label">Jenis Kelamin</label>
-                                    <select name="jenis_kelamin" id="jenis_kelamin" class="form-control">
+                                    <select name="jenis_kelamin" id="jenis_kelamin" class="form-control" required>
                                         <option value="0">---Pilih jenis kelamin---</option>
                                         <option value="L" @if($data_siswa->jenis_kelamin == "L") selected @endif>Laki-Laki</option>
                                         <option value="P" @if($data_siswa->jenis_kelamin == "P") selected @endif>Perempuan</option>
@@ -207,7 +219,13 @@
                                 <div class="form-group"><label for="no_hp" class=" form-control-label">Nomor HP Siswa</label><input type="text" id="no_hp" name="no_hp" placeholder="mis.0894648273xxx" class="form-control" value="{{$data_siswa->no_hp}}" required></div>
                                 <div class="form-group"><label for="nama_ortu" class=" form-control-label">Nama Orang Tua Siswa</label><input type="text" id="nama_ortu" name="nama_ortu" placeholder="Masukkan nama orang tua siswa" class="form-control" value="{{$data_siswa->nama_ortu}}" required></div>
                                 <div class="form-group"><label for="no_hp_ortu" class=" form-control-label">Nomor HP Orang Tua Siswa</label><input type="text" id="no_hp_ortu" name="no_hp_ortu" placeholder="mis.0894648273xxx" class="form-control" value="{{$data_siswa->no_hp_ortu}}" required></div>
-                                <div class="form-group"><label for="no_hp_ortu" class=" form-control-label">Angkatan</label><input type="text" id="angkatan" name="angkatan" placeholder="mis.2017" class="form-control" value="{{$data_siswa->angkatan}}" required></div>
+                                <div class="form-group"><label for="angkatan" class=" form-control-label">Tahun Masuk</label><select name="angkatan" id="angkatan" class="form-control" required>
+                                        <option value="">---Pilih tahun masuk---</option>
+                                        @foreach($angkatan as $angkatan)
+                                            <option value="{{$angkatan->id_angkatan}}" @if($data_siswa->angkatan == $angkatan->id_angkatan) selected @endif>{{$angkatan->angkatan}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary btn-sm">

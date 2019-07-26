@@ -189,11 +189,11 @@
                                 <table id="bootstrap-data-table" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
+                                            <th>No.</th>
                                             <th>NIS</th>
                                             <th>Nama</th>
                                             <th>Kelas</th>
                                             <th>Jenjang</th>
-                                            <th>Angkatan</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -201,11 +201,11 @@
                                     @foreach($siswa as $siswa)
                                         @if($siswa->id_kelas != 835000)
                                         <tr>
+                                            <td>{{$i++}}</td>
                                             <td>{{$siswa->NIS}}</td>
                                             <td>{{$siswa->nama_siswa}}</td>
                                             <td>{{App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->nama_kelas}}</td>
                                             <td>{{App\Jenjang::where('id_jenjang', App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->id_jenjang)->first()->nama_jenjang}}</td>
-                                            <td>{{$siswa->angkatan}}</td>
                                             <td>
                                             <a href="/spp/detailSPP/{{$siswa->NIS}}" class="btn btn-success btn-sm"><i class="fa fa-money"></i>&nbsp;Bayar</a>
                                             </td>

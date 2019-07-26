@@ -15,12 +15,14 @@ use App\LogSistem;
 class AdminPSBController extends Controller
 {
     public function rincian(){
+        $data_rincian = Rincian::all();
+        $log = LogSistem::orderBy('tgl', 'desc')->get();
+        $i = 1;
+
         if(!Session::get('loginAdmin')){
             return redirect('login')->with('alert','Anda harus login terlebih dulu');
         }else{
-            $data_rincian = Rincian::all();
-            $log = LogSistem::orderBy('tgl', 'desc')->get();
-            return view('/adm/kelolaRincian', ['data_rincian'=>$data_rincian, 'log'=>$log]);
+            return view('/adm/kelolaRincian', compact('data_rincian', 'log', 'i'));
         }
     }
 

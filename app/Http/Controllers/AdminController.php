@@ -37,16 +37,6 @@ class AdminController extends Controller
 	    }
     }
 
-    public function getLog(){
-        $log = LogSistem::orderBy('tgl', 'desc')->get();
-        for($i=0; $i<count($log); $i++) {
-        	$logText = $log[$i]->jenis."\t\t".$log[$i]->aksi."\t".$log[$i]->tgl;
-        	return response()->json([
-                'logText' => $logText,
-            ], 200);
-        }  
-    }
-
     public function indexBantuan(){
     	if(!Session::get('loginAdmin')){
 	    	return redirect('login')->with('alert','Anda harus login terlebih dulu');

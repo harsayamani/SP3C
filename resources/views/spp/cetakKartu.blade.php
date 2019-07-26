@@ -77,7 +77,7 @@
                             <div class="card-body">
                             	<table cellpadding="5" >
                             			<tr>
-                            				<h5><b>BUKU CATATAN SPP</b></h5>
+                            				<h5><b>KARTU CATATAN SPP</b></h5>
                             			</tr>
                                         <tr>
                                             <td><h5><b>NIS</b></h5></td>

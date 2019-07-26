@@ -149,19 +149,19 @@
 
         @if (session()->has('alert success'))
             <div class="alert alert-success" role="alert">
-                Data berhasil ditambahkan
+                {{session()->get('alert success')}}
             </div>
         @endif
 
         @if (session()->has('alert danger'))
             <div class="alert alert-danger" role="alert">
-                Data berhasil dihapus
+                {{session()->get('alert danger')}}
             </div>
         @endif
 
         @if (session()->has('alert warning'))
-            <div class="alert alert-success" role="alert">
-                Data berhasil diubah
+            <div class="alert alert-warning" role="alert">
+                {{session()->get('alert warning')}}
             </div>
         @endif
 
@@ -211,8 +211,8 @@
                                                 <div class="input-group">
                                                     <select name="id_bulan" id="id_bulan" class="form-control">
                                                     <option value="">---Pilih bulan---</option>
-                                                    @foreach($data_bulan_spp as $bulan)
-                                                    <option value="{{$bulan->id_bulan}}">{{$bulan->nama_bulan}}</option>
+                                                    @foreach($data_bulan_spp as $data_bulan_spp)
+                                                    <option value="{{$data_bulan_spp->id_bulan}}">{{$data_bulan_spp->nama_bulan}}</option>
                                                     @endforeach
                                                 </select>
                                                     <div class="input-group-btn"><button class="btn btn-info">Filter</button></div>

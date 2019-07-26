@@ -72,14 +72,14 @@
 						@if(count($psb)==1)
 						<td>
 						@for($i=0; $i<count($rincian)-1; $i++)
-						<div class="value">: - {{$rincian[$i]->detail_rincian}}
+						<div class="value"> {{$i+1}} {{$rincian[$i]->detail_rincian}}
 						</div>
 						@endfor
 						@endif
 						@if(count($psb)>1)
-						<td>
+						<td>:
 						@for($i=0; $i<count($rincian)-1; $i++)
-						<div class="value">: - {{$rincian[$i]->detail_rincian}}
+						<div class="value"> {{$i+1}} {{$rincian[$i]->detail_rincian}}
 						</div>
 						@endfor
 						@endif
@@ -101,7 +101,7 @@
 						<td colspan="2">&nbsp;</td>
 					</tr>
 					<tr>
-						<td><div class="lead">Kasir:</div></td>
+						<td><div class="lead">Penerima:</div></td>
 						<td>&nbsp;</td>
 					</tr>
 					<tr>
@@ -110,7 +110,7 @@
 					</tr>
 					<tr>
 						<td>&nbsp;</td>
-						<td><div class="value">{{$bendahara}}</div></td>
+						<td></td>
 					</tr>
 				</table>
 			</td>

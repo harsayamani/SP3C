@@ -35,13 +35,14 @@ class SPPController extends Controller
     }
 
     public function pembayaran(){
-    	$siswa = Siswa::orderBy('id_kelas', 'desc')->get();
+    	$siswa = Siswa::orderBy('id_kelas', 'asc')->get();
         $inbox = Inbox::orderBy('ReceivingDateTime', 'desc')->get();
+        $i = 1;
 
     	if(!Session::get('loginSPP')){
 	    	return redirect('login')->with('alert','Anda harus login terlebih dulu');
     	}else{
-	 	    return view('/spp/kelolaPembayaranSPP', compact('siswa', 'spp', 'inbox'));
+	 	    return view('/spp/kelolaPembayaranSPP', compact('siswa', 'spp', 'inbox', 'i'));
     	}
     }
 
@@ -68,15 +69,21 @@ class SPPController extends Controller
         $bulan = BulanSPP::all();
         $inbox = Inbox::orderBy('ReceivingDateTime', 'desc')->get();
         $thn_ajaran = BulanSPP::value('thn_ajaran');
+        $i = 1;
 
     	if (!Session::get('loginSPP')) {
 	    	return redirect('login')->with('alert','Anda harus login terlebih dulu');
     	}else{
-    		return view('/spp/detailSPP', ['spp'=>$spp, 'siswa'=>$siswa, 'bulan'=>$bulan, 'inbox'=>$inbox, 'date'=>$date, 'thn_ajaran'=>$thn_ajaran]);
+    		return view('/spp/detailSPP', compact('spp', 'siswa', 'bulan', 'inbox', 'date', 'thn_ajaran', 'i'));
     	}
     }
 
     public function lunasiSPP(Request $request){
+
+        $this->validate($request, [
+                'nominal' => '|max:7|regex:/^([1-9][0-9]+)/',
+            ]);
+
         $spp_lama = SPP::where('id_spp', $request->id_spp)->first()->nominal_spp;
 
         $spp_baru = SPP::where('id_spp', $request->id_spp)->first();

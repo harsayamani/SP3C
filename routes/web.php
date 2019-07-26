@@ -25,17 +25,17 @@ Route::get('/tentang', function(){
 	return view('tentang');
 });
 
-Route::get('/login', 'User@index');
+Route::get('/login', 'UserController@index');
+
+Route::post('/loginPost', 'UserController@loginPost');
+
+Route::get('/logout', 'UserController@logout');
 
 Route::get('/spp/dashboard', 'SPPController@index');
 
 Route::get('/psb/dashboard', 'PSBController@index');
 
 Route::get('/admin/dashboard', 'AdminController@index');
-
-Route::post('/loginPost', 'User@loginPost');
-
-Route::get('/logout', 'User@logout');
 
 Route::get('/admin/ekstra/logSistem', 'AdminController@indexLog');
 
@@ -45,6 +45,8 @@ Route::get('/admin/ekstra/bantuan', 'AdminController@indexBantuan');
 
 
 // ---Route Siswa---
+
+Route::post('/getNIS', 'SiswaController@getNis');
 
 Route::get('/admin/datasiswa/formSiswa', 'SiswaController@formSiswa');
 

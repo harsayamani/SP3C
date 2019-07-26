@@ -35,12 +35,13 @@ class PSBController extends Controller
 
     public function pembayaran(){
 
-    	$siswa_baru = Siswa::all();
+    	$siswa_baru = Siswa::orderBy('id_kelas', 'asc')->get();
+        $i = 1;
 
     	if(!Session::get('loginPSB')){
 	    	return redirect('login')->with('alert','Anda harus login terlebih dulu');
 	    }else{
-	 	    return view('/psb/pembayaranPSB', compact('siswa_baru'));
+	 	    return view('/psb/pembayaranPSB', compact('siswa_baru', 'i'));
 	    }
     }
 
@@ -50,11 +51,12 @@ class PSBController extends Controller
     	$psb = PSB::all();
         $rnc_psb = PSB::where('NIS', $NIS)->get();
         $date = Carbon::now()->toDateString();
+        $i=1;
 
     	if (!Session::get('loginPSB')) {
 	    	return redirect('login')->with('alert','Anda harus login terlebih dulu');
     	}else{
-    		return view('/psb/detailPSB', ['psb'=>$psb, 'siswa'=>$siswa, 'rincian'=>$rincian, 'rnc_psb'=>$rnc_psb, 'date'=>$date]);
+    		return view('/psb/detailPSB', compact('psb', 'siswa', 'rincian', 'rnc_psb', 'date', 'i'));
     	}
 
     }
@@ -107,6 +109,10 @@ class PSBController extends Controller
     }
 
     public function lunasiPSB(Request $request){
+        $this->validate($request, [
+                'nominal' => '|max:7|regex:/^([1-9][0-9]+)/',
+            ]);
+
         $psb_lama = PSB::where('id_psb', $request->id_psb)->first()->nominal;
 
         $psb_baru = PSB::where('id_psb', $request->id_psb)->first();
@@ -160,7 +166,7 @@ class PSBController extends Controller
             $total = $total+$psb->nominal;
         }
 
-        return view('/psb/cetakBukti', compact('siswa', 'psb', 'bendahara', 'tgl_pembayaran', 'total', 'rincian'));
+        return view('/psb/cetakBukti', compact('siswa', 'psb', 'bendahara', 'tgl_pembayaran', 'total', 'rincian', 'i'));
     }
 
     public function getNominal(Request $request){

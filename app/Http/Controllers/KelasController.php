@@ -11,13 +11,14 @@ use App\LogSistem;
 class KelasController extends Controller
 {
     public function index(){
+        $i=0;
+        $data_kelas = Kelas::all();
+        $data_jenjang = Jenjang::all();
+        $log = LogSistem::orderBy('tgl', 'desc')->get();
+
         if(!Session::get('loginAdmin')){
             return redirect('login')->with('alert','Anda harus login terlebih dulu');
         }else{
-            $i=0;
-            $data_kelas = Kelas::all();
-            $data_jenjang = Jenjang::all();
-            $log = LogSistem::orderBy('tgl', 'desc')->get();
             return view('/adm/kelolaKelas', compact('data_kelas', 'data_jenjang', 'i', 'log'));
         }
     }
@@ -42,6 +43,10 @@ class KelasController extends Controller
     }
 
     public function ubahKelas(Request $request){
+        $this->validate($request, [
+                'id_kelas=' => '|digits:6|numeric|regex:/^([1-9][0-9]+)/',
+                'nama_kelas' => '|max:10',
+            ]);
         $kelas = Kelas::find($request->id_kelas);
         $kelas->update($request->all());
         return redirect('/admin/datasiswa/kelas')->with('alert warning', 'Data berhasil diubah');

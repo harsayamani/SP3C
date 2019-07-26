@@ -60,7 +60,7 @@
 			<td>
 				<table cellpadding="4">
 					<tr>
-						<td width="200px"><div class="lead">No kwitansi</td>
+						<td width="200px"><div class="lead">Nomor pembayaran</td>
 						<td><div class="value">: {{$spp->id_spp}}</div></td>
 					</tr>
 					<tr>
@@ -91,7 +91,7 @@
 						<td colspan="2">&nbsp;</td>
 					</tr>
 					<tr>
-						<td><div class="lead">Kasir:</div></td>
+						<td><div class="lead">Penerima:</div></td>
 						<td>&nbsp;</td>
 					</tr>
 					<tr>
@@ -100,7 +100,7 @@
 					</tr>
 					<tr>
 						<td>&nbsp;</td>
-						<td><div class="value">{{$bendahara}}</div></td>
+						<td></td>
 					</tr>
 				</table>
 			</td>

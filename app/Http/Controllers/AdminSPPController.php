@@ -14,12 +14,14 @@ use App\LogSistem;
 class AdminSPPController extends Controller
 {
     public function bulanSPP(){
+        $data_bulan_spp = BulanSPP::all();
+        $log = LogSistem::orderBy('tgl', 'desc')->get();
+        $i = 1;
+
         if(!Session::get('loginAdmin')){
             return redirect('login')->with('alert','Anda harus login terlebih dulu');
         }else{
-    	   $data_bulan_spp = BulanSPP::all();
-           $log = LogSistem::orderBy('tgl', 'desc')->get();
-           return view('/adm/kelolaBulanSPP', compact('data_bulan_spp', 'log'));
+           return view('/adm/kelolaBulanSPP', compact('data_bulan_spp', 'log', 'i'));
         }
     }
 
@@ -58,15 +60,20 @@ class AdminSPPController extends Controller
     	$spp = SPP::orderBy('id_bulan', 'asc')->get();
     	$data_bulan_spp = BulanSPP::all();
         $log = LogSistem::orderBy('tgl', 'desc')->get();
-    	return view('adm/kelolaSPP', compact('spp', 'data_bulan_spp', 'log'));
+
+        if(!Session::get('loginAdmin')){
+            return redirect('login')->with('alert','Anda harus login terlebih dulu');
+        }else {
+            return view('adm/kelolaSPP', compact('spp', 'data_bulan_spp', 'log'));
+        }
     }
 
     public function filter(Request $request){
         $spp = SPP::where('id_bulan', $request->id_bulan)->get();
-        
+        $log = LogSistem::orderBy('tgl', 'desc')->get();
         $data_bulan_spp = BulanSPP::all();
 
-        return view('adm/kelolaSPP', compact('data_bulan_spp', 'spp'));
+        return view('adm/kelolaSPP', compact('data_bulan_spp', 'spp', 'log'));
     }
 
     public function resetData(){

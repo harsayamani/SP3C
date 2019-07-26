@@ -204,7 +204,7 @@
                                                 <label for="id_jenjang" class=" form-control-label">Bulan</label>
                                             </div>
                                             <div class="col-12 col-md-9">
-                                                <select name="id_bulan" id="id_bulan" class="form-control">
+                                                <select name="id_bulan" id="id_bulan" class="form-control" required>
                                                     <option value="">---Pilih Bulan---</option>
                                                     @foreach($bulan as $bulan)
                                                          <option value="{{$bulan->id_bulan}}">{{$bulan->nama_bulan}}</option>
@@ -269,7 +269,7 @@
                                         <div class="modal-body">
                                             <div class="row form-group">
                                                 <div class="col col-md-3">
-                                                    <label for="text-input" class=" form-control-label">ID</label>
+                                                    <label for="text-input" class=" form-control-label">Nomor Pembayaran</label>
                                                 </div>
                                                 <div class="col-12 col-md-9">
                                                     <input type="text" id="id_spp" name="id_spp" class="form-control" readonly>
@@ -287,13 +287,13 @@
                                                 </div>
                                                 <div class="col-12 col-md-9">
                                                     <input type="text" id="nominal" name="nominal" class="form-control" required>
-                                                        </div>
                                                 </div>
+                                            </div>
                                         </div>                 
 
                                         <div class="modal-footer">
                                             <button type="submit" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                            <button type="submit" class="btn btn-primary">Ubah Data</button>
+                                            <button type="submit" class="btn btn-primary">Lunasi</button>
                                         </div>
                                     </form>
                                 </div>
@@ -306,7 +306,7 @@
                          </button>
 
                          <a href="/spp/cetakKartu/{{$siswa->NIS}}" class="btn btn-success mb-1"><i class="fa fa-print"></i>
-                            Cetak Kartu
+                            Cetak Kartu Catatan SPP
                          </a>
                     </div>
 
@@ -354,9 +354,8 @@
                                 <table id="bootstrap-data-table" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>No. Pembayaran</th>
+                                            <th>No.</th>
                                             <th>Bulan</th>
-                                            <th>Tgl</th>
                                             <th>Nominal Pelunasan</th>
                                             <th>Status</th>
                                             <th>Aksi</th>
@@ -366,9 +365,8 @@
                                     @foreach($spp as $spp)
                                     @if($spp->status_pembayaran == 0 && $spp->NIS == $siswa->NIS)
                                         <tr>
-                                            <td>{{$spp->id_spp}}</td>
+                                            <td>{{$i++}}</td>
                                             <td>{{App\BulanSPP::where('id_bulan', $spp->id_bulan)->first()->nama_bulan}}</td>
-                                            <td>{{$spp->tgl_pembayaran}}</td>
                                             <td>
                                             @if(App\Jenjang::where('id_jenjang', App\Kelas::where('id_kelas', $siswa->id_kelas)->first()->id_jenjang)->first()->nama_jenjang == "SMP")
 

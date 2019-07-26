@@ -145,7 +145,19 @@
 
         @if (session()->has('alert success'))
             <div class="alert alert-success" role="alert">
-                Data berhasil ditambahkan
+                {{session()->get('alert success')}}
+            </div>
+        @endif
+
+        @if (session()->has('alert danger'))
+            <div class="alert alert-danger" role="alert">
+                {{session()->get('alert danger')}}
+            </div>
+        @endif
+
+        @if (session()->has('alert warning'))
+            <div class="alert alert-warning" role="alert">
+                {{session()->get('alert warning')}}
             </div>
         @endif
 
@@ -186,19 +198,18 @@
                             <div class="card-body card-block">
                                     {{ csrf_field() }}
 
-                                <div class="form-group"><label for="NIS" class=" form-control-label">NIS</label><input type="text" id="NIS" name="NIS" value="1905" placeholder="Masukkan NIS Siswa" class="form-control" required></div>
+                                <div class="form-group"><label for="NIS" class=" form-control-label">NIS</label><input type="text" id="NIS" name="NIS" placeholder="Masukkan NIS Siswa" class="form-control" required></div>
                                 <div class="form-group"><label for="nama_siswa" class=" form-control-label">Nama Siswa</label><input type="text" id="nama_siswa" name="nama_siswa" placeholder="Masukkan nama siswa" class="form-control" required></div>
                                 <div class="form-group"><label for="id_kelas" class=" form-control-label">Kelas</label>
-                                    <select name="id_kelas" id="id_kelas" class="form-control">
+                                    <select name="id_kelas" id="id_kelas" class="form-control" required="">
                                         <option value="0">---Pilih kelas---</option>
                                         @foreach($data_kelas as $kelas)
                                         <option value="{{$kelas->id_kelas}}">{{$kelas->nama_kelas}}</option>
                                         @endforeach
-
                                     </select>
                                 </div>  
                                 <div class="form-group"><label for="jenis_kelamin" class=" form-control-label">Kelas</label>
-                                    <select name="jenis_kelamin" id="jenis_kelamin" class="form-control">
+                                    <select name="jenis_kelamin" id="jenis_kelamin" class="form-control" required>
                                         <option value="0">---Pilih jenis kelamin---</option>
                                         <option value="L">Laki-Laki</option>
                                         <option value="P">Perempuan</option>
@@ -208,19 +219,11 @@
                                 <div class="form-group"><label for="no_hp" class=" form-control-label">Nomor HP Siswa</label><input type="text" id="no_hp" name="no_hp" placeholder="mis.0894648273xxx" value="+62" class="form-control" required></div>
                                 <div class="form-group"><label for="nama_ortu" class=" form-control-label">Nama Orang Tua Siswa</label><input type="text" id="nama_ortu" name="nama_ortu" placeholder="Masukkan nama orang tua siswa" class="form-control" required></div>
                                 <div class="form-group"><label for="no_hp_ortu" class=" form-control-label">Nomor HP Orang Tua Siswa</label><input type="text" id="no_hp_ortu" name="no_hp_ortu" placeholder="mis.0894648273xxx" value="+62" class="form-control" required></div>
-                                <div class="form-group"><label for="no_hp_ortu" class=" form-control-label">Tahun Masuk</label><select name="angkatan" id="angkatan" class="form-control">
+                                <div class="form-group"><label for="angkatan" class=" form-control-label">Tahun Masuk</label><select name="angkatan" id="angkatan" class="form-control" required>
                                         <option value="">---Pilih tahun masuk---</option>
-                                        <option value="2016">2016</option>
-                                        <option value="2017">2017</option>
-                                        <option value="2018">2018</option>
-                                        <option value="2019">2019</option>
-                                        <option value="2020">2020</option>
-                                        <option value="2021">2021</option>
-                                        <option value="2022">2022</option>
-                                        <option value="2023">2023</option>
-                                        <option value="2024">2024</option>
-                                        <option value="2025">2025</option>
-                                        <option value="2026">2026</option>
+                                        @foreach($angkatan as $angkatan)
+                                            <option value="{{$angkatan->id_angkatan}}">{{$angkatan->angkatan}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -259,12 +262,33 @@
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>  
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
     <script src="/assets/js/main.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#id_kelas').on('change', function(){
+                $.ajax({
+                    url: "/getNominal",
+                    type:"POST",
+                    data : {"_token": "{{ csrf_token() }}",
+                    "id":$(this).val()},
+                    dataType: "json",
+                    success: function(res){
+                        console.log(res.NIS);
+                        $('#NIS').val(res.NIS);
+                    }
+                })
+              
+            })
+
+            // init
+            $('#id_kelas').change();
+        });
+    </script>
+
 </body>
 </html>

@@ -145,19 +145,19 @@
 
         @if (session()->has('alert success'))
             <div class="alert alert-success" role="alert">
-                Data berhasil ditambahkan
+                {{session()->get('alert success')}}
             </div>
         @endif
 
         @if (session()->has('alert danger'))
             <div class="alert alert-danger" role="alert">
-                Data berhasil dihapus
+                {{session()->get('alert danger')}}
             </div>
         @endif
 
         @if (session()->has('alert warning'))
-            <div class="alert alert-success" role="alert">
-                Data berhasil diubah
+            <div class="alert alert-warning" role="alert">
+                {{session()->get('alert warning')}}
             </div>
         @endif
 

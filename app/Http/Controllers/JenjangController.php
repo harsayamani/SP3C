@@ -17,7 +17,7 @@ class JenjangController extends Controller
             $data_jenjang = Jenjang::all();
             $i=0;
             $log = LogSistem::orderBy('tgl', 'desc')->get();
-            return view('/adm/kelolaJenjang', ['data_jenjang'=>$data_jenjang, 'i'=>$i, 'log'=>$log]);
+            return view('/adm/kelolaJenjang', compact('data_jenjang', 'i', 'log'));
         }
     }
 
@@ -40,6 +40,11 @@ class JenjangController extends Controller
     }
 
     public function ubahJenjang(Request $request){
+        $this->validate($request, [
+                'id_jenjang=' => '|digits:6|numeric|regex:/^([1-9][0-9]+)/',
+                'nama_jenjang' => '|max:6',
+            ]);
+
         $jenjang = Jenjang::find($request->id_jenjang);
         $jenjang->update($request->all());
         return redirect('/admin/datasiswa/jenjang')->with('alert warning', 'Data berhasil diubah');

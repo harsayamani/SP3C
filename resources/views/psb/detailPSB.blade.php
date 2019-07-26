@@ -205,7 +205,7 @@
                         <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h4 class="modal-title" id="mediumModalLabel"><b>PEMBAYARAN</b></h4>
+                                    <h5 class="modal-title" id="mediumModalLabel">Pembayaran</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                     </button>
@@ -226,7 +226,7 @@
                                                 <label for="id_rincian" class=" form-control-label">Rincian</label>
                                             </div>
                                             <div class="col-12 col-md-9">
-                                                <select name="id_rincian" id="id_rincian" class="dynamic form-control input-lg " data-dependent="nominal">
+                                                <select name="id_rincian" id="id_rincian" class="dynamic form-control input-lg " data-dependent="nominal" required>
                                                     <option value="">---Pilih Rincian---</option>
                                                     @foreach($rincian as $rinc)
                                                     <option value="{{$rinc->id_rincian}}">{{$rinc->detail_rincian}}</option>
@@ -268,7 +268,7 @@
                                 <div class="modal-content">
 
                                     <div class="modal-header">
-                                        <h4 class="modal-title" id="mediumModalLabel"><b>PELUNASAN</b></h4>
+                                        <h5 class="modal-title" id="mediumModalLabel">Pelunasan Pembayaran</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                         </button>
@@ -279,7 +279,7 @@
                                         <div class="modal-body">
                                             <div class="row form-group">
                                                 <div class="col col-md-3">
-                                                    <label for="text-input" class=" form-control-label">ID</label>
+                                                    <label for="text-input" class=" form-control-label">Nomor Pembayaran</label>
                                                 </div>
                                                 <div class="col-12 col-md-9">
                                                     <input type="text" id="id_psb" name="id_psb" class="form-control" readonly>
@@ -303,7 +303,7 @@
 
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                            <button type="submit" class="btn btn-primary">Ubah Data</button>
+                                            <button type="submit" class="btn btn-primary">Lunasi</button>
                                         </div>
                                     </form>
                                 </div>
@@ -321,8 +321,8 @@
                                 <table id="bootstrap-data-table" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
+                                            <th>No.</th>
                                             <th>Rincian</th>
-                                            <th>Tgl</th>
                                             <th>Nominal Pelunasan</th>
                                             <th>Status</th>
                                             <th>Aksi</th>
@@ -332,8 +332,8 @@
                                     @foreach($psb as $psb)
                                     @if($psb->status_pembayaran == 0 && $psb->NIS == $siswa->NIS)
                                         <tr>
+                                            <td>{{$i++}}</td>
                                             <td>{{App\Rincian::where('id_rincian', $psb->id_rincian)->first()->detail_rincian}}</td>
-                                            <td>{{$psb->tgl_pembayaran}}</td>
                                             <td>
 
                                             Rp{{App\Rincian::where('id_rincian', $psb->id_rincian)->first()->biaya-$psb->nominal}}

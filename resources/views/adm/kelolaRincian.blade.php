@@ -145,19 +145,19 @@
 
         @if (session()->has('alert success'))
             <div class="alert alert-success" role="alert">
-                Data berhasil ditambahkan
+                {{session()->get('alert success')}}
             </div>
         @endif
 
         @if (session()->has('alert danger'))
             <div class="alert alert-danger" role="alert">
-                Data berhasil dihapus
+                {{session()->get('alert danger')}}
             </div>
         @endif
 
         @if (session()->has('alert warning'))
-            <div class="alert alert-success" role="alert">
-                Data berhasil diubah
+            <div class="alert alert-warning" role="alert">
+                {{session()->get('alert warning')}}
             </div>
         @endif
 
@@ -256,7 +256,7 @@
                                                     </button>
                                             </div>                   
                                             <form action="{{ url('/admin/datapembayaran/psb/rincian/ubahRincian') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
-                                                                {{ csrf_field() }}
+                                                {{ csrf_field() }}
                                                 <div class="modal-body">
                                                     <div class="row form-group">
                                                         <div class="col col-md-3">
@@ -300,7 +300,7 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th scope="row">ID Rincian</th>
+                                            <th scope="row">No.</th>
                                             <th scope="col">Detail Rincian</th>
                                             <th scope="col">Biaya</th>
                                             <th scope="col">Aksi</th>
@@ -309,7 +309,7 @@
                                     <tbody>
                                     @foreach($data_rincian as $rincian)
                                         <tr>
-                                            <td scope="row">{{$rincian->id_rincian}}</td>
+                                            <td scope="row">{{$i++}}</td>
                                             <td>{{$rincian->detail_rincian}}</td>
                                             <td>Rp{{$rincian->biaya}}</td>
                                             <td>

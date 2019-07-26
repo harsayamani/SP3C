@@ -116,7 +116,6 @@
                                 @endfor
                             </div>
                         </div>
-                        </div>
                     </div>
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -146,19 +145,19 @@
 
         @if (session()->has('alert success'))
             <div class="alert alert-success" role="alert">
-                Data berhasil ditambahkan
+                {{session()->get('alert success')}}
             </div>
         @endif
 
         @if (session()->has('alert danger'))
             <div class="alert alert-danger" role="alert">
-                Data berhasil dihapus
+                {{session()->get('alert danger')}}
             </div>
         @endif
 
         @if (session()->has('alert warning'))
-            <div class="alert alert-success" role="alert">
-                Data berhasil diubah
+            <div class="alert alert-warning" role="alert">
+                {{session()->get('alert warning')}}
             </div>
         @endif
 
@@ -343,7 +342,7 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th scope="row">Id</th>
+                                            <th scope="row">No.</th>
                                             <th scope="col">Bulan</th>
                                             <th scope="col">Tahun Ajaran</th>
                                             <th scope="col">Biaya SPP SMP</th>
@@ -355,7 +354,7 @@
                                     <tbody>
                                     @foreach($data_bulan_spp as $bulan_spp)
                                         <tr>
-                                            <td scope="row">{{$bulan_spp->id_bulan}}</td>
+                                            <td scope="row">{{$i++}}</td>
                                             <td>{{$bulan_spp->nama_bulan}}</td>
                                             <td>{{$bulan_spp->thn_ajaran}}</td>
                                             <td>Rp{{$bulan_spp->spp_smp}}</td>
