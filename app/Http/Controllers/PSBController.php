@@ -52,11 +52,12 @@ class PSBController extends Controller
         $rnc_psb = PSB::where('NIS', $NIS)->get();
         $date = Carbon::now()->toDateString();
         $i=1;
+        $count_rincian_all = Rincian::all()->count();
 
     	if (!Session::get('loginPSB')) {
 	    	return redirect('login')->with('alert','Anda harus login terlebih dulu');
     	}else{
-    		return view('/psb/detailPSB', compact('psb', 'siswa', 'rincian', 'rnc_psb', 'date', 'i'));
+    		return view('/psb/detailPSB', compact('psb', 'siswa', 'rincian', 'rnc_psb', 'date', 'i', 'count_rincian_all'));
     	}
 
     }
@@ -69,8 +70,10 @@ class PSBController extends Controller
 
         $psb = PSB::where('NIS', $request->NIS)->count();
         // $rincian = Rincian::where('id_rincian', $NIS)->value('detail_rincian');
+
+        $count_rincian_all = Rincian::all()->count();
         
-        $id_rincian_all = PSB::where('NIS', $request->NIS)->where('id_rincian', 583010)->count();
+        $id_rincian_all = PSB::where('NIS', $request->NIS)->where('id_rincian', 583000+$count_rincian_all)->count();
         $id_rincian = PSB::where('NIS', $request->NIS)->where('id_rincian', $request->id_rincian)->count();
 
         $total_psb = PSB::where('NIS', $request->NIS)->count();
@@ -79,7 +82,7 @@ class PSBController extends Controller
             if ($id_rincian>0 || $total_psb==1 && $id_rincian_all==1 || $total_psb == $total_rincian-1) {
                 return redirect()->back()->with('alert danger', 'Pembayaran Sudah Dilakukan');
             }elseif($id_rincian==0){
-                if ($request->id_rincian!=583010 || $id_rincian <1) {
+                if ($request->id_rincian!= 583000+$count_rincian_all || $id_rincian <1) {
                     $psb = new PSB;
                     $psb->id_psb = uniqid();
                     $psb->NIS = $request->NIS;

@@ -110,7 +110,7 @@
                                 <ul class="list-group list-group-flush">
 
                                 @if(!empty(App\PSB::where('NIS', $siswa->NIS)->first()))
-                                @if(App\PSB::where('id_rincian', 583010)->where('NIS', $siswa->NIS)->where('status_pembayaran', 1)->count() > 0)
+                                @if(App\PSB::where('id_rincian', 583000+$count_rincian_all)->where('NIS', $siswa->NIS)->where('status_pembayaran', 1)->count() > 0)
                                 @for($i=0; $i<count($rincian)-1; $i++)
                                     <li class="list-group-item" disabled>
                                         <a > <i class="fa fa-check-square"></i> {{$rincian[$i]->detail_rincian}} <span class=" pull-right">Rp.{{$rincian[$i]->biaya}}</span></a>

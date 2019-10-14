@@ -148,7 +148,7 @@
                          </button>
 
                          @if(!empty(App\PSB::where('NIS', $siswa->NIS)->first()))
-                         @if(App\PSB::where('NIS', $siswa->NIS)->count() == $rincian->count()-1 || App\PSB::where('NIS', $siswa->NIS)->where('id_rincian', 583010)->count()>0 && (App\PSB::where('status_pembayaran', 1)->count() == $rincian->count()-1 || App\PSB::where('id_rincian', 583010)->where('status_pembayaran', 1)->count() == 1))
+                         @if(App\PSB::where('NIS', $siswa->NIS)->count() == $rincian->count()-1 || App\PSB::where('NIS', $siswa->NIS)->where('id_rincian', 583000+$count_rincian_all)->count()>0 && (App\PSB::where('status_pembayaran', 1)->count() == $rincian->count()-1 || App\PSB::where('id_rincian', 583000+$count_rincian_all)->where('status_pembayaran', 1)->count() == 1))
                          <a href="/psb/cetak/{{$siswa->NIS}}" class="btn btn-success mb-1" ><i class="fa fa-print"></i>
                             Cetak Bukti Tanda Lunas
                          </a>
@@ -178,7 +178,7 @@
                                 <ul class="list-group list-group-flush">
 
                                 @if(!empty(App\PSB::where('NIS', $siswa->NIS)->first()))
-                                @if(App\PSB::where('id_rincian', 583010)->where('NIS', $siswa->NIS)->where('status_pembayaran', 1)->count() > 0)
+                                @if(App\PSB::where('id_rincian', 583000+$count_rincian_all)->where('NIS', $siswa->NIS)->where('status_pembayaran', 1)->count() > 0)
                                 @for($i=0; $i<count($rincian)-1; $i++)
                                     <li class="list-group-item" disabled>
                                         <a > <i class="fa fa-check-square"></i> {{$rincian[$i]->detail_rincian}} <span class="badge badge-success pull-right">Lunas</span></a>
